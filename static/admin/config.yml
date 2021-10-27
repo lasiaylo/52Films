@@ -1,6 +1,6 @@
 backend:
-  name: github
-  repo: lasiaylo/52Films
+  name: git-gateway
+  branch: main
 
 media_folder: static/assets
 public_folder: /assets
