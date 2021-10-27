@@ -1,17 +1,55 @@
 backend:
-  name: git-gateway
-  branch: main
+  #  name: git-gateway
+  #  branch: main
+  name: test-repo
 
 media_folder: static/assets
 public_folder: /assets
 
 collections:
-  - name: blog
-    label: Blog
-    folder: blog
+  - label: Film
+    name: film
+    folder: content/films
     create: true
+    identifier_field: title
     fields:
-      - { name: path, label: Path }
-      - { name: date, label: Date, widget: datetime }
-      - { name: title, label: Title }
-      - { name: body, label: Body, widget: markdown }
+      - { label: Title,
+          name: title,
+          widget: string
+      }
+      - { label: Logline,
+          name: logline,
+          widget: string
+      }
+      - { label: Filmmaker,
+          name: filmmaker,
+          widget: relation,
+          collection: "filmmakers",
+          value_field: "name",
+          search_fields: [ "name" ],
+          required: false,
+      }
+      - { label: Date,
+          name: date,
+          widget: datetime
+      }
+      - { label: Preview,
+          name: preview,
+          widget: image,
+      }
+      - label: "Credits"
+        name: "credits"
+        widget: "object"
+        fields:
+          - { label: "Public", name: "public", widget: "boolean", default: true }
+          - { label: "Name", name: "name", widget: "string" }
+
+
+  - label: Filmmaker
+    name: filmmaker
+    folder: content/filmakers
+    create: true
+    identifier_field: name
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Bio, name: bio, widget: markdown, required: false }
