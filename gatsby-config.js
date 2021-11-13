@@ -1,12 +1,16 @@
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
     siteMetadata: {
         siteUrl: "https://www.yourdomain.tld",
         title: "film52",
     },
     plugins: [
-        "gatsby-plugin-netlify-cms",
         "gatsby-plugin-sass",
         "gatsby-plugin-image",
+        "gatsby-plugin-graphql-config",
         {
             resolve: "gatsby-plugin-google-analytics",
             options: {
@@ -32,5 +36,12 @@ module.exports = {
             },
             __key: "pages",
         },
-    ],
+        {
+            resolve: `gatsby-source-contentful`,
+            options: {
+                spaceId: process.env.CONTENTFUL_SPACE_ID,
+                accessToken: process.env.CONTENTFUL_DELIVERY_API,
+            },
+        }
+    ]
 };
