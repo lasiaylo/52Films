@@ -30,6 +30,7 @@
     "gatsby-source-filesystem": "^4.0.0",
     "gatsby-transformer-json": "^4.0.0",
     "gatsby-transformer-sharp": "^4.0.0",
+    "hls.js": "^1.1.1",
     "netlify-cms-app": "^2.15.55",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
