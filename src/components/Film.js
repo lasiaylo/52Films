@@ -4,13 +4,14 @@ class Film {
 
     constructor(film) {
         ({
-            title: this.title,
-            description: {description: this.logline},
             createdAt: this.createdAt,
             filmmaker: this.filmmaker,
             preview: {file: this.preview},
             video: {playbackId: this.playbackID},
         } = film)
+        // Replace with hyphen with non-breaking hyphen
+        this.title = film.title.replace('-', '‑')
+        this.description = film.description.description.replace('-', '‑')
         this.videoRef = Film.muxURL + film.video.playbackId + Film.muxSuffix
     }
 }

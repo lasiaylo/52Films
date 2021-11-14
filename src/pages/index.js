@@ -1,9 +1,10 @@
 import * as React from "react"
 import {graphql} from "gatsby"
-import {Router, Link} from '@reach/router';
-import HomeLink from "../components/HomeLink";
-import Film from "../components/Film";
-import Home from "../components/pages/home";
+import {Link, Router} from '@reach/router'
+import HomeLink from "../components/HomeLink"
+import Film from "../components/Film"
+import Home from "../components/pages/home"
+import "../styles/index.sass"
 
 const About = React.lazy(() => import ('../components/pages/about'))
 const Archive = React.lazy(() => import ('../components/pages/archive'))
