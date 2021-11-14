@@ -1,8 +1,9 @@
 import * as React from "react"
 import {graphql} from "gatsby"
-import VideoPlayer from "../components/player";
 import {Router, Link} from '@reach/router';
 import HomeLink from "../components/HomeLink";
+import Film from "../components/Film";
+import Home from "../components/pages/home";
 
 const About = React.lazy(() => import ('../components/pages/about'))
 const Archive = React.lazy(() => import ('../components/pages/archive'))
@@ -43,25 +44,14 @@ export const query = graphql`
     }
 `
 
-const Home = () => <h1>This is the home page</h1>
-
-const IndexPage = ({data}) => {
+export default function IndexPage({data}) {
     const film = data.allContentfulFilm.edges[0].node
-    const {title} = film
-    const {description} = film.description
-    const {url} = film.preview.file
+    const a = new Film(film)
+    console.log(a)
 
     return (
         <main>
             <title>Home Page</title>
-            <h1>{title}</h1>
-            <main>{description}</main>
-            <VideoPlayer></VideoPlayer>
-            <Router>
-                <Home path="/"/>
-                <LazyComponent Component={Archive} path="archive"/>
-                <LazyComponent Component={About} path="about"/>
-            </Router>
             <div>
                 <HomeLink slug="/">53 Films</HomeLink>
                 <br/>
@@ -70,8 +60,11 @@ const IndexPage = ({data}) => {
                 <Link to="/about">About Us</Link>
                 <br/>
             </div>
+            <Router>
+                <Home film={a} path="/"/>
+                <LazyComponent Component={Archive} path="archive"/>
+                <LazyComponent Component={About} path="about"/>
+            </Router>
         </main>
     )
 }
-
-export default IndexPage

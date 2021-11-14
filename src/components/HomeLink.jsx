@@ -5,7 +5,6 @@ import {Link} from "@reach/router";
 import slugify from "slugify";
 
 const HomeLink = ({children, slug}) => {
-    console.log(slug);
     slug = slug ?? "/" + slugify(children) + "/"
     return <Link to={slug}>{children}</Link>
 }
