@@ -48,24 +48,27 @@ export const query = graphql`
 export default function IndexPage({data}) {
     const film = data.allContentfulFilm.edges[0].node
     const a = new Film(film)
-    console.log(a)
 
     return (
-        <main>
-            <title>Home Page</title>
-            <div>
-                <HomeLink slug="/">53 Films</HomeLink>
-                <br/>
-                <Link to="/archive/">Archive</Link>
-                <br/>
-                <Link to="/about">About Us</Link>
-                <br/>
+        <div className={'frame'}>
+            <div className={'innerFrame'}>
+                <title>Home Page</title>
+                <div>
+                    <HomeLink slug="/">53 Films</HomeLink>
+                    <br/>
+                    <Link to="/archive/">Archive</Link>
+                    <br/>
+                    <Link to="/about">About Us</Link>
+                    <br/>
+                </div>
+                <div className={'router'}>
+                    <Router>
+                        <Home film={a} path="/"/>
+                        <LazyComponent Component={Archive} path="archive"/>
+                        <LazyComponent Component={About} path="about"/>
+                    </Router>
+                </div>
             </div>
-            <Router>
-                <Home film={a} path="/"/>
-                <LazyComponent Component={Archive} path="archive"/>
-                <LazyComponent Component={About} path="about"/>
-            </Router>
-        </main>
+        </div>
     )
 }

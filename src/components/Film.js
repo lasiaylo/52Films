@@ -11,7 +11,7 @@ class Film {
         } = film)
         // Replace with hyphen with non-breaking hyphen
         this.title = film.title.replace('-', '‑')
-        this.description = film.description.description.replace('-', '‑')
+        this.logline = film.description.description.replace('-', '‑')
         this.videoRef = Film.muxURL + film.video.playbackId + Film.muxSuffix
     }
 }

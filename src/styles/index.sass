@@ -1,17 +1,56 @@
 $primary-font: Helvetica, sans-serif
-$secondary-font: Inconsolata, sans-serif
 
 $primary-color: #ffffff
 $primary-background-color: black
+$padding: 30px
+
+html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
+  padding: 0
+  margin: 0
+  height: 100%
+  width: 100%
+  display: flex
+  flex-direction: column
+  flex: 1 1 auto
+
+#gatsby-announcer
+  height: 0px
 
 body
-  background: $primary-background-color
+  position: relative
+  background-color: $primary-background-color
+
 h1
   font: 100% $primary-font
   font-size: 96px
   color: $primary-color
+  margin: 0
 
 h2
-  font: 100% $secondary-font
-  font-size: 96px
+  font: 100% $primary-font
+  font-size: 24px
   color: $primary-color
+  margin: 0
+
+.frame
+  display: flex
+  flex-direction: column
+  padding: 30px
+  flex: 1 1 auto
+  align-items: stretch
+
+  .innerFrame
+    display: flex
+    flex-direction: column
+    padding: $padding
+    height: 100%
+    border: white solid
+
+    .router
+      display: flex
+      flex-direction: column
+      flex: 1 1 auto
+
+      div
+        flex: 1 1 auto
+

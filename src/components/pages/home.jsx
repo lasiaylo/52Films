@@ -1,15 +1,20 @@
 import * as React from "react"
-import Film from "../Film";
-import VideoPlayer from "../player";
-import PropTypes from "prop-types";
+import Film from "../Film"
+import VideoPlayer from "../player"
+import PropTypes from "prop-types"
+import "../../styles/home.sass"
 
 function Home({film}) {
-    // Replace with non-breaking hyphen
+    const {title, logline} = film
     return (
-        <div>
+        <div className={'home'}>
+            <div className={'video'}>
             <VideoPlayer/>
-            <h1>{this.title.toUpperCase()}</h1>
-            <h2>{film.logline}</h2>
+            </div>
+            <div className={'footer'}>
+                <h1>{title.toUpperCase()}</h1>
+                <h2>{logline}</h2>
+            </div>
         </div>
     )
 }
@@ -17,6 +22,5 @@ function Home({film}) {
 Home.propTypes = ({
     film: PropTypes.instanceOf(Film).isRequired
 })
-
 
 export default Home
