@@ -1,6 +1,6 @@
 import * as React from "react"
 import {graphql} from "gatsby"
-import {Link, Router} from '@reach/router'
+import {Router} from '@reach/router'
 import HomeLink from "../components/HomeLink"
 import Film from "../components/Film"
 import Home from "../components/pages/home"
@@ -15,6 +15,8 @@ const LazyComponent = ({Component, ...props}) => (
     </React.Suspense>
 )
 
+const box = document.getElementById('.frame')
+console.log(box);
 export const query = graphql`
     query HomePageQuery{
         allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
@@ -34,10 +36,9 @@ export const query = graphql`
                         playbackId
                     }
                     preview {
-                        gatsbyImageData
-                        file {
-                            url
-                        }
+                        gatsbyImageData(
+                            layout: CONSTRAINED,
+                        )
                     }
                 }
             }
@@ -53,13 +54,10 @@ export default function IndexPage({data}) {
         <div className={'frame'}>
             <div className={'innerFrame'}>
                 <title>Home Page</title>
-                <div>
-                    <HomeLink slug="/">53 Films</HomeLink>
-                    <br/>
-                    <Link to="/archive/">Archive</Link>
-                    <br/>
-                    <Link to="/about">About Us</Link>
-                    <br/>
+                <div className="menu">
+                    <HomeLink className="title" slug="/">53 Films</HomeLink>
+                    <HomeLink>Archive</HomeLink>
+                    <HomeLink>About Us</HomeLink>
                 </div>
                 <div className={'router'}>
                     <Router>

@@ -4,9 +4,13 @@ import {string} from "prop-types";
 import {Link} from "@reach/router";
 import slugify from "slugify";
 
-const HomeLink = ({children, slug}) => {
+const homeLinkClassname = "homeLink "
+
+const HomeLink = ({className, children, slug}) => {
+    className = className ?? "";
     slug = slug ?? "/" + slugify(children) + "/"
-    return <Link to={slug}>{children}</Link>
+    return <Link className={homeLinkClassname + className} to={slug}>{children}</Link>
+
 }
 
 HomeLink.propTypes = {

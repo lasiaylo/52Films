@@ -6,7 +6,7 @@ class Film {
         ({
             createdAt: this.createdAt,
             filmmaker: this.filmmaker,
-            preview: {file: this.preview},
+            preview: {gatsbyImageData: this.preview},
             video: {playbackId: this.playbackID},
         } = film)
         // Replace with hyphen with non-breaking hyphen

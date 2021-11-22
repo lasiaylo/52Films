@@ -1,19 +1,21 @@
 import * as React from "react"
 import Film from "../Film"
-import VideoPlayer from "../player"
 import PropTypes from "prop-types"
 import "../../styles/home.sass"
+import {GatsbyImage} from "gatsby-plugin-image";
 
 function Home({film}) {
-    const {title, logline} = film
+    const {title, logline, preview} = film
     return (
         <div className={'home'}>
-            <div className={'video'}>
-            <VideoPlayer/>
+            <div className={'imageContainer'}>
+                <div className={'imageBorder'}>
+                    <GatsbyImage className={'preview'} image={preview}/>
+                </div>
             </div>
             <div className={'footer'}>
                 <h1>{title.toUpperCase()}</h1>
-                <h2>{logline}</h2>
+                <h2>{logline.toUpperCase()}</h2>
             </div>
         </div>
     )
