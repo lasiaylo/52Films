@@ -47,9 +47,7 @@ function Box(props) {
             {...props}
             ref={ref}
             scale={clicked ? 1.5 : 1}
-            onClick={(event) => click(!clicked)}
-            onPointerOver={(event) => hover(true)}
-            onPointerOut={(event) => hover(false)}>
+            onClick={(event) => click(!clicked)}>
             <planeBufferGeometry attach="geometry" args={[8.5, 4.78125]}/>
             <meshBasicMaterial>
                 <videoTexture attach="map" args={[video]}/>

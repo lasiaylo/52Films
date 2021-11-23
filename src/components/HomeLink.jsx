@@ -3,14 +3,26 @@ import * as React from "react"
 import {string} from "prop-types";
 import {Link} from "@reach/router";
 import slugify from "slugify";
+import {useState} from "react";
+import useHover from "../util/useHover";
 
 const homeLinkClassname = "homeLink "
 
 const HomeLink = ({className, children, slug}) => {
-    className = className ?? "";
+    className = className ?? ""
+    className = homeLinkClassname + className
+    const [isHovered, setHover] = useState(false);
+    const finalClassName = isHovered ? className + " hovered" : className
     slug = slug ?? "/" + slugify(children) + "/"
-    return <Link className={homeLinkClassname + className} to={slug}>{children.toUpperCase()}</Link>
-
+    return (
+        <Link
+            className={finalClassName}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            to={slug}>
+            {children.toUpperCase()}
+        </Link>
+    )
 }
 
 HomeLink.propTypes = {
