@@ -6,12 +6,14 @@ class Film {
         ({
             createdAt: this.createdAt,
             filmmaker: this.filmmaker,
-            preview: {gatsbyImageData: this.preview},
             video: {playbackId: this.playbackID},
         } = film)
-        // Replace with hyphen with non-breaking hyphen
+        // Replace hyphen with non-breaking hyphen
         this.title = film.title.replace('-', '‑')
         this.logline = film.description.description.replace('-', '‑')
+        this.preview = film.preview.file.url
+        // Urls are suffixed by "//"
+        this.preview = "https:" + this.preview
         this.videoRef = Film.muxURL + film.video.playbackId + Film.muxSuffix
     }
 }

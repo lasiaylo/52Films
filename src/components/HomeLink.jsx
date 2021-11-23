@@ -9,7 +9,7 @@ const homeLinkClassname = "homeLink "
 const HomeLink = ({className, children, slug}) => {
     className = className ?? "";
     slug = slug ?? "/" + slugify(children) + "/"
-    return <Link className={homeLinkClassname + className} to={slug}>{children}</Link>
+    return <Link className={homeLinkClassname + className} to={slug}>{children.toUpperCase()}</Link>
 
 }
 

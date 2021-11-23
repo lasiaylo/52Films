@@ -2,7 +2,7 @@ import * as React from "react"
 import Film from "../Film"
 import PropTypes from "prop-types"
 import "../../styles/home.sass"
-import {GatsbyImage} from "gatsby-plugin-image";
+import Preview from "../preview";
 
 function Home({film}) {
     const {title, logline, preview} = film
@@ -10,7 +10,7 @@ function Home({film}) {
         <div className={'home'}>
             <div className={'imageContainer'}>
                 <div className={'imageBorder'}>
-                    <GatsbyImage className={'preview'} image={preview}/>
+                    <Preview image={preview}/>
                 </div>
             </div>
             <div className={'footer'}>

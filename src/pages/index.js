@@ -15,8 +15,6 @@ const LazyComponent = ({Component, ...props}) => (
     </React.Suspense>
 )
 
-const box = document.getElementById('.frame')
-console.log(box);
 export const query = graphql`
     query HomePageQuery{
         allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
@@ -36,9 +34,9 @@ export const query = graphql`
                         playbackId
                     }
                     preview {
-                        gatsbyImageData(
-                            layout: CONSTRAINED,
-                        )
+                        file {
+                            url
+                        }
                     }
                 }
             }
@@ -47,7 +45,7 @@ export const query = graphql`
 `
 
 export default function IndexPage({data}) {
-    const film = data.allContentfulFilm.edges[0].node
+    const film = data.allContentfulFilm.edges[2].node
     const a = new Film(film)
 
     return (

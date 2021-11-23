@@ -319,11 +319,15 @@ type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
     castMembers: [String]
     "Returns the first child node of type contentfulFilmDescriptionTextNode or null if there are no children of given type on this node"
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNode
+    "Returns the first child node of type contentfulFilmSpecialThanksmessageTextNode or null if there are no children of given type on this node"
+    childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNode
     "Returns the first child node of type contentfulFilmVideoJsonNode or null if there are no children of given type on this node"
     childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNode
     children: [Node!]!
     "Returns all children nodes filtered by type contentfulFilmDescriptionTextNode"
     childrenContentfulFilmDescriptionTextNode: [contentfulFilmDescriptionTextNode]
+    "Returns all children nodes filtered by type contentfulFilmSpecialThanksmessageTextNode"
+    childrenContentfulFilmSpecialThanksmessageTextNode: [contentfulFilmSpecialThanksmessageTextNode]
     "Returns all children nodes filtered by type contentfulFilmVideoJsonNode"
     childrenContentfulFilmVideoJsonNode: [contentfulFilmVideoJsonNode]
     contentful_id: String!
@@ -346,6 +350,7 @@ type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
     parent: Node
     preview: ContentfulAsset
     spaceId: String
+    specialThanksmessage: contentfulFilmSpecialThanksmessageTextNode
     sys: ContentfulFilmSys
     title: String
     updatedAt(
@@ -1208,6 +1213,7 @@ type Query {
     allContentfulEntry(filter: ContentfulEntryFilterInput, limit: Int, skip: Int, sort: ContentfulEntrySortInput): ContentfulEntryConnection!
     allContentfulFilm(filter: ContentfulFilmFilterInput, limit: Int, skip: Int, sort: ContentfulFilmSortInput): ContentfulFilmConnection!
     allContentfulFilmDescriptionTextNode(filter: contentfulFilmDescriptionTextNodeFilterInput, limit: Int, skip: Int, sort: contentfulFilmDescriptionTextNodeSortInput): contentfulFilmDescriptionTextNodeConnection!
+    allContentfulFilmSpecialThanksmessageTextNode(filter: contentfulFilmSpecialThanksmessageTextNodeFilterInput, limit: Int, skip: Int, sort: contentfulFilmSpecialThanksmessageTextNodeSortInput): contentfulFilmSpecialThanksmessageTextNodeConnection!
     allContentfulFilmVideoJsonNode(filter: contentfulFilmVideoJsonNodeFilterInput, limit: Int, skip: Int, sort: contentfulFilmVideoJsonNodeSortInput): contentfulFilmVideoJsonNodeConnection!
     allContentfulLink(filter: ContentfulLinkFilterInput, limit: Int, skip: Int, sort: ContentfulLinkSortInput): ContentfulLinkConnection!
     allContentfulPage(filter: ContentfulPageFilterInput, limit: Int, skip: Int, sort: ContentfulPageSortInput): ContentfulPageConnection!
@@ -1225,8 +1231,9 @@ type Query {
     contentfulAsset(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, file: ContentfulAssetFileFilterInput, fixed: ContentfulFixedFilterInput, fluid: ContentfulFluidFilterInput, gatsbyImageData: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, resize: ContentfulResizeFilterInput, spaceId: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput): ContentfulAsset
     contentfulContentType(children: NodeFilterListInput, description: StringQueryOperatorInput, displayField: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, parent: NodeFilterInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
     contentfulEntry(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulEntry
-    contentfulFilm(castMembers: StringQueryOperatorInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, crewMembers: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, preview: ContentfulAssetFilterInput, spaceId: StringQueryOperatorInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, video: contentfulFilmVideoJsonNodeFilterInput): ContentfulFilm
+    contentfulFilm(castMembers: StringQueryOperatorInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput, childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, childrenContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterListInput, childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, crewMembers: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, preview: ContentfulAssetFilterInput, spaceId: StringQueryOperatorInput, specialThanksmessage: contentfulFilmSpecialThanksmessageTextNodeFilterInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, video: contentfulFilmVideoJsonNodeFilterInput): ContentfulFilm
     contentfulFilmDescriptionTextNode(childMdx: MdxFilterInput, children: NodeFilterListInput, childrenMdx: MdxFilterListInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, sys: contentfulFilmDescriptionTextNodeSysFilterInput): contentfulFilmDescriptionTextNode
+    contentfulFilmSpecialThanksmessageTextNode(childMdx: MdxFilterInput, children: NodeFilterListInput, childrenMdx: MdxFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, specialThanksmessage: StringQueryOperatorInput, sys: contentfulFilmSpecialThanksmessageTextNodeSysFilterInput): contentfulFilmSpecialThanksmessageTextNode
     contentfulFilmVideoJsonNode(assetId: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, playbackId: StringQueryOperatorInput, ratio: StringQueryOperatorInput, ready: BooleanQueryOperatorInput, sys: contentfulFilmVideoJsonNodeSysFilterInput, uploadId: StringQueryOperatorInput): contentfulFilmVideoJsonNode
     contentfulLink(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulLink
     contentfulPage(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulPage
@@ -1236,7 +1243,7 @@ type Query {
     file(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, childImageSharp: ImageSharpFilterInput, children: NodeFilterListInput, childrenImageSharp: ImageSharpFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): File
     imageSharp(children: NodeFilterListInput, fixed: ImageSharpFixedFilterInput, fluid: ImageSharpFluidFilterInput, gatsbyImageData: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, original: ImageSharpOriginalFilterInput, parent: NodeFilterInput, resize: ImageSharpResizeFilterInput): ImageSharp
     mdx(body: StringQueryOperatorInput, children: NodeFilterListInput, excerpt: StringQueryOperatorInput, fileAbsolutePath: StringQueryOperatorInput, frontmatter: MdxFrontmatterFilterInput, headings: MdxHeadingMdxFilterListInput, html: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, mdxAST: JSONQueryOperatorInput, parent: NodeFilterInput, rawBody: StringQueryOperatorInput, slug: StringQueryOperatorInput, tableOfContents: JSONQueryOperatorInput, timeToRead: IntQueryOperatorInput, wordCount: MdxWordCountFilterInput): Mdx
-    site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, port: IntQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput): Site
+    site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, jsxRuntime: StringQueryOperatorInput, parent: NodeFilterInput, pathPrefix: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, port: IntQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput): Site
     siteBuildMetadata(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput): SiteBuildMetadata
     siteFunction(absoluteCompiledFilePath: StringQueryOperatorInput, children: NodeFilterListInput, functionRoute: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, matchPath: StringQueryOperatorInput, originalAbsoluteFilePath: StringQueryOperatorInput, originalRelativeFilePath: StringQueryOperatorInput, parent: NodeFilterInput, pluginName: StringQueryOperatorInput, relativeCompiledFilePath: StringQueryOperatorInput): SiteFunction
     sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, matchPath: StringQueryOperatorInput, pageContext: JSONQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput): SitePage
@@ -1258,7 +1265,10 @@ type Site implements Node {
     host: String
     id: ID!
     internal: Internal!
+    jsxRuntime: String
     parent: Node
+    pathPrefix: String
+    polyfill: Boolean
     port: Int
     siteMetadata: SiteSiteMetadata
 }
@@ -1536,6 +1546,55 @@ type contentfulFilmDescriptionTextNodeGroupConnection {
 }
 
 type contentfulFilmDescriptionTextNodeSys {
+    type: String
+}
+
+type contentfulFilmSpecialThanksmessageTextNode implements Node {
+    "Returns the first child node of type Mdx or null if there are no children of given type on this node"
+    childMdx: Mdx
+    children: [Node!]!
+    "Returns all children nodes filtered by type Mdx"
+    childrenMdx: [Mdx]
+    id: ID!
+    internal: Internal!
+    parent: Node
+    specialThanksmessage: String
+    sys: contentfulFilmSpecialThanksmessageTextNodeSys
+}
+
+type contentfulFilmSpecialThanksmessageTextNodeConnection {
+    distinct(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): [String!]!
+    edges: [contentfulFilmSpecialThanksmessageTextNodeEdge!]!
+    group(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!, limit: Int, skip: Int): [contentfulFilmSpecialThanksmessageTextNodeGroupConnection!]!
+    max(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): Float
+    min(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): Float
+    nodes: [contentfulFilmSpecialThanksmessageTextNode!]!
+    pageInfo: PageInfo!
+    sum(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type contentfulFilmSpecialThanksmessageTextNodeEdge {
+    next: contentfulFilmSpecialThanksmessageTextNode
+    node: contentfulFilmSpecialThanksmessageTextNode!
+    previous: contentfulFilmSpecialThanksmessageTextNode
+}
+
+type contentfulFilmSpecialThanksmessageTextNodeGroupConnection {
+    distinct(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): [String!]!
+    edges: [contentfulFilmSpecialThanksmessageTextNodeEdge!]!
+    field: String!
+    fieldValue: String
+    group(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!, limit: Int, skip: Int): [contentfulFilmSpecialThanksmessageTextNodeGroupConnection!]!
+    max(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): Float
+    min(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): Float
+    nodes: [contentfulFilmSpecialThanksmessageTextNode!]!
+    pageInfo: PageInfo!
+    sum(field: contentfulFilmSpecialThanksmessageTextNodeFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type contentfulFilmSpecialThanksmessageTextNodeSys {
     type: String
 }
 
@@ -2003,6 +2062,107 @@ enum ContentfulFilmFieldsEnum {
     childContentfulFilmDescriptionTextNode___parent___parent___children
     childContentfulFilmDescriptionTextNode___parent___parent___id
     childContentfulFilmDescriptionTextNode___sys___type
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___body
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___fileAbsolutePath
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___frontmatter___title
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___rawBody
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___slug
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___children
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___body
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___fileAbsolutePath
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___frontmatter___title
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___rawBody
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___slug
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childContentfulFilmSpecialThanksmessageTextNode___children___children
+    childContentfulFilmSpecialThanksmessageTextNode___children___children___children
+    childContentfulFilmSpecialThanksmessageTextNode___children___children___id
+    childContentfulFilmSpecialThanksmessageTextNode___children___id
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___content
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___contentDigest
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___description
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___fieldOwners
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___ignoreType
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___mediaType
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___owner
+    childContentfulFilmSpecialThanksmessageTextNode___children___internal___type
+    childContentfulFilmSpecialThanksmessageTextNode___children___parent___children
+    childContentfulFilmSpecialThanksmessageTextNode___children___parent___id
+    childContentfulFilmSpecialThanksmessageTextNode___id
+    childContentfulFilmSpecialThanksmessageTextNode___internal___content
+    childContentfulFilmSpecialThanksmessageTextNode___internal___contentDigest
+    childContentfulFilmSpecialThanksmessageTextNode___internal___description
+    childContentfulFilmSpecialThanksmessageTextNode___internal___fieldOwners
+    childContentfulFilmSpecialThanksmessageTextNode___internal___ignoreType
+    childContentfulFilmSpecialThanksmessageTextNode___internal___mediaType
+    childContentfulFilmSpecialThanksmessageTextNode___internal___owner
+    childContentfulFilmSpecialThanksmessageTextNode___internal___type
+    childContentfulFilmSpecialThanksmessageTextNode___parent___children
+    childContentfulFilmSpecialThanksmessageTextNode___parent___children___children
+    childContentfulFilmSpecialThanksmessageTextNode___parent___children___id
+    childContentfulFilmSpecialThanksmessageTextNode___parent___id
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___content
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___contentDigest
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___description
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___fieldOwners
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___ignoreType
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___mediaType
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___owner
+    childContentfulFilmSpecialThanksmessageTextNode___parent___internal___type
+    childContentfulFilmSpecialThanksmessageTextNode___parent___parent___children
+    childContentfulFilmSpecialThanksmessageTextNode___parent___parent___id
+    childContentfulFilmSpecialThanksmessageTextNode___specialThanksmessage
+    childContentfulFilmSpecialThanksmessageTextNode___sys___type
     childContentfulFilmVideoJsonNode___assetId
     childContentfulFilmVideoJsonNode___children
     childContentfulFilmVideoJsonNode___children___children
@@ -2150,6 +2310,108 @@ enum ContentfulFilmFieldsEnum {
     childrenContentfulFilmDescriptionTextNode___parent___parent___children
     childrenContentfulFilmDescriptionTextNode___parent___parent___id
     childrenContentfulFilmDescriptionTextNode___sys___type
+    childrenContentfulFilmSpecialThanksmessageTextNode
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___body
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___fileAbsolutePath
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___frontmatter___title
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___rawBody
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___slug
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___children
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___body
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___fileAbsolutePath
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___frontmatter___title
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___rawBody
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___slug
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___children
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___children___children
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___children___id
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___id
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___content
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___contentDigest
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___description
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___fieldOwners
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___ignoreType
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___mediaType
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___owner
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___internal___type
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___parent___children
+    childrenContentfulFilmSpecialThanksmessageTextNode___children___parent___id
+    childrenContentfulFilmSpecialThanksmessageTextNode___id
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___content
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___contentDigest
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___description
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___fieldOwners
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___ignoreType
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___mediaType
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___owner
+    childrenContentfulFilmSpecialThanksmessageTextNode___internal___type
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___children
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___children___children
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___children___id
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___id
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___content
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___contentDigest
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___description
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___fieldOwners
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___ignoreType
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___mediaType
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___owner
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___internal___type
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___parent___children
+    childrenContentfulFilmSpecialThanksmessageTextNode___parent___parent___id
+    childrenContentfulFilmSpecialThanksmessageTextNode___specialThanksmessage
+    childrenContentfulFilmSpecialThanksmessageTextNode___sys___type
     childrenContentfulFilmVideoJsonNode
     childrenContentfulFilmVideoJsonNode___assetId
     childrenContentfulFilmVideoJsonNode___children
@@ -2361,6 +2623,10 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___childContentfulFilmDescriptionTextNode___childrenMdx
     filmmaker___film___childContentfulFilmDescriptionTextNode___description
     filmmaker___film___childContentfulFilmDescriptionTextNode___id
+    filmmaker___film___childContentfulFilmSpecialThanksmessageTextNode___children
+    filmmaker___film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx
+    filmmaker___film___childContentfulFilmSpecialThanksmessageTextNode___id
+    filmmaker___film___childContentfulFilmSpecialThanksmessageTextNode___specialThanksmessage
     filmmaker___film___childContentfulFilmVideoJsonNode___assetId
     filmmaker___film___childContentfulFilmVideoJsonNode___children
     filmmaker___film___childContentfulFilmVideoJsonNode___id
@@ -2374,6 +2640,11 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___childrenContentfulFilmDescriptionTextNode___childrenMdx
     filmmaker___film___childrenContentfulFilmDescriptionTextNode___description
     filmmaker___film___childrenContentfulFilmDescriptionTextNode___id
+    filmmaker___film___childrenContentfulFilmSpecialThanksmessageTextNode
+    filmmaker___film___childrenContentfulFilmSpecialThanksmessageTextNode___children
+    filmmaker___film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx
+    filmmaker___film___childrenContentfulFilmSpecialThanksmessageTextNode___id
+    filmmaker___film___childrenContentfulFilmSpecialThanksmessageTextNode___specialThanksmessage
     filmmaker___film___childrenContentfulFilmVideoJsonNode
     filmmaker___film___childrenContentfulFilmVideoJsonNode___assetId
     filmmaker___film___childrenContentfulFilmVideoJsonNode___children
@@ -2425,6 +2696,10 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___preview___title
     filmmaker___film___preview___updatedAt
     filmmaker___film___spaceId
+    filmmaker___film___specialThanksmessage___children
+    filmmaker___film___specialThanksmessage___childrenMdx
+    filmmaker___film___specialThanksmessage___id
+    filmmaker___film___specialThanksmessage___specialThanksmessage
     filmmaker___film___sys___revision
     filmmaker___film___sys___type
     filmmaker___film___title
@@ -2590,6 +2865,107 @@ enum ContentfulFilmFieldsEnum {
     preview___title
     preview___updatedAt
     spaceId
+    specialThanksmessage___childMdx___body
+    specialThanksmessage___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___fileAbsolutePath
+    specialThanksmessage___childMdx___frontmatter___title
+    specialThanksmessage___childMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___rawBody
+    specialThanksmessage___childMdx___slug
+    specialThanksmessage___childMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___children
+    specialThanksmessage___childrenMdx
+    specialThanksmessage___childrenMdx___body
+    specialThanksmessage___childrenMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___fileAbsolutePath
+    specialThanksmessage___childrenMdx___frontmatter___title
+    specialThanksmessage___childrenMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___rawBody
+    specialThanksmessage___childrenMdx___slug
+    specialThanksmessage___childrenMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___childrenMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    specialThanksmessage___children___children
+    specialThanksmessage___children___children___children
+    specialThanksmessage___children___children___id
+    specialThanksmessage___children___id
+    specialThanksmessage___children___internal___content
+    specialThanksmessage___children___internal___contentDigest
+    specialThanksmessage___children___internal___description
+    specialThanksmessage___children___internal___fieldOwners
+    specialThanksmessage___children___internal___ignoreType
+    specialThanksmessage___children___internal___mediaType
+    specialThanksmessage___children___internal___owner
+    specialThanksmessage___children___internal___type
+    specialThanksmessage___children___parent___children
+    specialThanksmessage___children___parent___id
+    specialThanksmessage___id
+    specialThanksmessage___internal___content
+    specialThanksmessage___internal___contentDigest
+    specialThanksmessage___internal___description
+    specialThanksmessage___internal___fieldOwners
+    specialThanksmessage___internal___ignoreType
+    specialThanksmessage___internal___mediaType
+    specialThanksmessage___internal___owner
+    specialThanksmessage___internal___type
+    specialThanksmessage___parent___children
+    specialThanksmessage___parent___children___children
+    specialThanksmessage___parent___children___id
+    specialThanksmessage___parent___id
+    specialThanksmessage___parent___internal___content
+    specialThanksmessage___parent___internal___contentDigest
+    specialThanksmessage___parent___internal___description
+    specialThanksmessage___parent___internal___fieldOwners
+    specialThanksmessage___parent___internal___ignoreType
+    specialThanksmessage___parent___internal___mediaType
+    specialThanksmessage___parent___internal___owner
+    specialThanksmessage___parent___internal___type
+    specialThanksmessage___parent___parent___children
+    specialThanksmessage___parent___parent___id
+    specialThanksmessage___specialThanksmessage
+    specialThanksmessage___sys___type
     sys___contentType___sys___id
     sys___contentType___sys___linkType
     sys___contentType___sys___type
@@ -2945,6 +3321,47 @@ enum ContentfulPersonFieldsEnum {
     film___childContentfulFilmDescriptionTextNode___parent___children
     film___childContentfulFilmDescriptionTextNode___parent___id
     film___childContentfulFilmDescriptionTextNode___sys___type
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___body
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___fileAbsolutePath
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___rawBody
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___slug
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___children
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___body
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___fileAbsolutePath
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___rawBody
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___slug
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___childrenMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childContentfulFilmSpecialThanksmessageTextNode___children___children
+    film___childContentfulFilmSpecialThanksmessageTextNode___children___id
+    film___childContentfulFilmSpecialThanksmessageTextNode___id
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___content
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___contentDigest
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___description
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___fieldOwners
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___ignoreType
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___mediaType
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___owner
+    film___childContentfulFilmSpecialThanksmessageTextNode___internal___type
+    film___childContentfulFilmSpecialThanksmessageTextNode___parent___children
+    film___childContentfulFilmSpecialThanksmessageTextNode___parent___id
+    film___childContentfulFilmSpecialThanksmessageTextNode___specialThanksmessage
+    film___childContentfulFilmSpecialThanksmessageTextNode___sys___type
     film___childContentfulFilmVideoJsonNode___assetId
     film___childContentfulFilmVideoJsonNode___children
     film___childContentfulFilmVideoJsonNode___children___children
@@ -3008,6 +3425,48 @@ enum ContentfulPersonFieldsEnum {
     film___childrenContentfulFilmDescriptionTextNode___parent___children
     film___childrenContentfulFilmDescriptionTextNode___parent___id
     film___childrenContentfulFilmDescriptionTextNode___sys___type
+    film___childrenContentfulFilmSpecialThanksmessageTextNode
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___body
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___fileAbsolutePath
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___rawBody
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___slug
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___children
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___body
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___fileAbsolutePath
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___rawBody
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___slug
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___childrenMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___children___children
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___children___id
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___id
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___content
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___contentDigest
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___description
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___fieldOwners
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___ignoreType
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___mediaType
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___owner
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___internal___type
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___parent___children
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___parent___id
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___specialThanksmessage
+    film___childrenContentfulFilmSpecialThanksmessageTextNode___sys___type
     film___childrenContentfulFilmVideoJsonNode
     film___childrenContentfulFilmVideoJsonNode___assetId
     film___childrenContentfulFilmVideoJsonNode___children
@@ -3097,6 +3556,7 @@ enum ContentfulPersonFieldsEnum {
     film___filmmaker___film___castMembers
     film___filmmaker___film___children
     film___filmmaker___film___childrenContentfulFilmDescriptionTextNode
+    film___filmmaker___film___childrenContentfulFilmSpecialThanksmessageTextNode
     film___filmmaker___film___childrenContentfulFilmVideoJsonNode
     film___filmmaker___film___contentful_id
     film___filmmaker___film___createdAt
@@ -3200,6 +3660,47 @@ enum ContentfulPersonFieldsEnum {
     film___preview___title
     film___preview___updatedAt
     film___spaceId
+    film___specialThanksmessage___childMdx___body
+    film___specialThanksmessage___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childMdx___fileAbsolutePath
+    film___specialThanksmessage___childMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childMdx___rawBody
+    film___specialThanksmessage___childMdx___slug
+    film___specialThanksmessage___childMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___children
+    film___specialThanksmessage___childrenMdx
+    film___specialThanksmessage___childrenMdx___body
+    film___specialThanksmessage___childrenMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childrenMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childrenMdx___fileAbsolutePath
+    film___specialThanksmessage___childrenMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childrenMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childrenMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childrenMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childrenMdx___rawBody
+    film___specialThanksmessage___childrenMdx___slug
+    film___specialThanksmessage___childrenMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___childrenMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___specialThanksmessage___children___children
+    film___specialThanksmessage___children___id
+    film___specialThanksmessage___id
+    film___specialThanksmessage___internal___content
+    film___specialThanksmessage___internal___contentDigest
+    film___specialThanksmessage___internal___description
+    film___specialThanksmessage___internal___fieldOwners
+    film___specialThanksmessage___internal___ignoreType
+    film___specialThanksmessage___internal___mediaType
+    film___specialThanksmessage___internal___owner
+    film___specialThanksmessage___internal___type
+    film___specialThanksmessage___parent___children
+    film___specialThanksmessage___parent___id
+    film___specialThanksmessage___specialThanksmessage
+    film___specialThanksmessage___sys___type
     film___sys___revision
     film___sys___type
     film___title
@@ -4223,6 +4724,7 @@ enum SiteFieldsEnum {
     internal___mediaType
     internal___owner
     internal___type
+    jsxRuntime
     parent___children
     parent___children___children
     parent___children___children___children
@@ -4261,6 +4763,8 @@ enum SiteFieldsEnum {
     parent___parent___internal___type
     parent___parent___parent___children
     parent___parent___parent___id
+    pathPrefix
+    polyfill
     port
     siteMetadata___description
     siteMetadata___siteUrl
@@ -4808,6 +5312,206 @@ enum contentfulFilmDescriptionTextNodeFieldsEnum {
     sys___type
 }
 
+enum contentfulFilmSpecialThanksmessageTextNodeFieldsEnum {
+    childMdx___body
+    childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___children___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___fileAbsolutePath
+    childMdx___frontmatter___title
+    childMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___parent___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___rawBody
+    childMdx___slug
+    childMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    children
+    childrenMdx
+    childrenMdx___body
+    childrenMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___children___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___fileAbsolutePath
+    childrenMdx___frontmatter___title
+    childrenMdx___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___html @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___mdxAST @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___parent___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___rawBody
+    childrenMdx___slug
+    childrenMdx___tableOfContents @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___timeToRead @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___wordCount___paragraphs @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___wordCount___sentences @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childrenMdx___wordCount___words @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    children___children
+    children___children___children
+    children___children___children___children
+    children___children___children___id
+    children___children___id
+    children___children___internal___content
+    children___children___internal___contentDigest
+    children___children___internal___description
+    children___children___internal___fieldOwners
+    children___children___internal___ignoreType
+    children___children___internal___mediaType
+    children___children___internal___owner
+    children___children___internal___type
+    children___children___parent___children
+    children___children___parent___id
+    children___id
+    children___internal___content
+    children___internal___contentDigest
+    children___internal___description
+    children___internal___fieldOwners
+    children___internal___ignoreType
+    children___internal___mediaType
+    children___internal___owner
+    children___internal___type
+    children___parent___children
+    children___parent___children___children
+    children___parent___children___id
+    children___parent___id
+    children___parent___internal___content
+    children___parent___internal___contentDigest
+    children___parent___internal___description
+    children___parent___internal___fieldOwners
+    children___parent___internal___ignoreType
+    children___parent___internal___mediaType
+    children___parent___internal___owner
+    children___parent___internal___type
+    children___parent___parent___children
+    children___parent___parent___id
+    id
+    internal___content
+    internal___contentDigest
+    internal___description
+    internal___fieldOwners
+    internal___ignoreType
+    internal___mediaType
+    internal___owner
+    internal___type
+    parent___children
+    parent___children___children
+    parent___children___children___children
+    parent___children___children___id
+    parent___children___id
+    parent___children___internal___content
+    parent___children___internal___contentDigest
+    parent___children___internal___description
+    parent___children___internal___fieldOwners
+    parent___children___internal___ignoreType
+    parent___children___internal___mediaType
+    parent___children___internal___owner
+    parent___children___internal___type
+    parent___children___parent___children
+    parent___children___parent___id
+    parent___id
+    parent___internal___content
+    parent___internal___contentDigest
+    parent___internal___description
+    parent___internal___fieldOwners
+    parent___internal___ignoreType
+    parent___internal___mediaType
+    parent___internal___owner
+    parent___internal___type
+    parent___parent___children
+    parent___parent___children___children
+    parent___parent___children___id
+    parent___parent___id
+    parent___parent___internal___content
+    parent___parent___internal___contentDigest
+    parent___parent___internal___description
+    parent___parent___internal___fieldOwners
+    parent___parent___internal___ignoreType
+    parent___parent___internal___mediaType
+    parent___parent___internal___owner
+    parent___parent___internal___type
+    parent___parent___parent___children
+    parent___parent___parent___id
+    specialThanksmessage
+    sys___type
+}
+
 enum contentfulFilmVideoJsonNodeFieldsEnum {
     assetId
     children
@@ -5007,9 +5711,11 @@ input ContentfulEntrySortInput {
 input ContentfulFilmFilterInput {
     castMembers: StringQueryOperatorInput
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput
+    childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput
     childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput
     children: NodeFilterListInput
     childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput
+    childrenContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterListInput
     childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput
     contentful_id: StringQueryOperatorInput
     createdAt: DateQueryOperatorInput
@@ -5022,6 +5728,7 @@ input ContentfulFilmFilterInput {
     parent: NodeFilterInput
     preview: ContentfulAssetFilterInput
     spaceId: StringQueryOperatorInput
+    specialThanksmessage: contentfulFilmSpecialThanksmessageTextNodeFilterInput
     sys: ContentfulFilmSysFilterInput
     title: StringQueryOperatorInput
     updatedAt: DateQueryOperatorInput
@@ -5481,7 +6188,10 @@ input SiteFilterInput {
     host: StringQueryOperatorInput
     id: StringQueryOperatorInput
     internal: InternalFilterInput
+    jsxRuntime: StringQueryOperatorInput
     parent: NodeFilterInput
+    pathPrefix: StringQueryOperatorInput
+    polyfill: BooleanQueryOperatorInput
     port: IntQueryOperatorInput
     siteMetadata: SiteSiteMetadataFilterInput
 }
@@ -5599,6 +6309,30 @@ input contentfulFilmDescriptionTextNodeSortInput {
 }
 
 input contentfulFilmDescriptionTextNodeSysFilterInput {
+    type: StringQueryOperatorInput
+}
+
+input contentfulFilmSpecialThanksmessageTextNodeFilterInput {
+    childMdx: MdxFilterInput
+    children: NodeFilterListInput
+    childrenMdx: MdxFilterListInput
+    id: StringQueryOperatorInput
+    internal: InternalFilterInput
+    parent: NodeFilterInput
+    specialThanksmessage: StringQueryOperatorInput
+    sys: contentfulFilmSpecialThanksmessageTextNodeSysFilterInput
+}
+
+input contentfulFilmSpecialThanksmessageTextNodeFilterListInput {
+    elemMatch: contentfulFilmSpecialThanksmessageTextNodeFilterInput
+}
+
+input contentfulFilmSpecialThanksmessageTextNodeSortInput {
+    fields: [contentfulFilmSpecialThanksmessageTextNodeFieldsEnum]
+    order: [SortOrderEnum] = [ASC]
+}
+
+input contentfulFilmSpecialThanksmessageTextNodeSysFilterInput {
     type: StringQueryOperatorInput
 }
 
