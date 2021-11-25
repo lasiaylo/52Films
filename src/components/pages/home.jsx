@@ -5,12 +5,12 @@ import "../../styles/home.sass"
 import Preview from "../preview";
 
 function Home({film}) {
-    const {title, logline, preview} = film
+    const {title, logline, animPreview} = film
     return (
         <div className={'home'}>
             <div className={'imageContainer'}>
                 <div className={'imageBorder'}>
-                    <Preview image={preview}/>
+                    <Preview image={animPreview}/>
                 </div>
             </div>
             <div className={'footer'}>

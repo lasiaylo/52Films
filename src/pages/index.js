@@ -16,7 +16,7 @@ const LazyComponent = ({Component, ...props}) => (
 )
 
 export const query = graphql`
-    query HomePageQuery{
+    query PageQuery{
         allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
             edges {
                 node {
@@ -33,10 +33,13 @@ export const query = graphql`
                     {
                         playbackId
                     }
-                    preview {
+                    animPreview {
                         file {
                             url
                         }
+                    }
+                    stillPreview {
+                        gatsbyImageData
                     }
                 }
             }

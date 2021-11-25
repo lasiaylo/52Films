@@ -9,11 +9,13 @@ class Film {
             video: {playbackId: this.playbackID},
         } = film)
         // Replace hyphen with non-breaking hyphen
+        console.log(film)
         this.title = film.title.replace('-', '‑')
         this.logline = film.description.description.replace('-', '‑')
-        this.preview = film.preview.file.url
+        this.animPreview = film.animPreview.file.url
         // Urls are suffixed by "//"
-        this.preview = "https:" + this.preview
+        this.animPreview = "https:" + this.animPreview
+        this.stillPreview = film.stillPreview.gatsbyImageData
         this.videoRef = Film.muxURL + film.video.playbackId + Film.muxSuffix
     }
 }

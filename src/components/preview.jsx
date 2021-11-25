@@ -1,11 +1,11 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
-import {Canvas, useFrame, useLoader} from '@react-three/fiber'
+import {Canvas, useFrame} from '@react-three/fiber'
 
 
 const previewX = 0.7
 const previewY = .75
 
-function Box(props) {
+function Card(props) {
     // This reference gives us direct access to the THREE.Mesh object
     const ref = useRef()
 
@@ -34,7 +34,7 @@ function Box(props) {
     }, [video]);
 
     useFrame((state, delta) => {
-        //TODO: Interp to smooth animation
+        // TODO: Interp to smooth animation
         // Consider Anime.js
 
         // noinspection JSSuspiciousNameCombination
@@ -60,7 +60,7 @@ export default function Preview({image}) {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <Canvas className={"canvas"}>
-                <Box position={[previewX, previewY, 0]} image={image}/>
+                <Card position={[previewX, previewY, 0]} image={image}/>
             </Canvas>
         </Suspense>
     )
