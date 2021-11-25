@@ -53,17 +53,18 @@ export default function IndexPage({data}) {
             <div className={'innerFrame'}>
                 <title>Home Page</title>
                 <div className="menu">
-                    <HomeLink className="title" slug="/">53 Films</HomeLink>
+                    <HomeLink className="title" slug="/">52 Films</HomeLink>
                     <HomeLink>Archive</HomeLink>
-                    <HomeLink>About Us</HomeLink>
+                    <HomeLink>About</HomeLink>
                 </div>
                 <div className={'router'}>
                     <Router>
                         <Home film={a} path="/"/>
-                        <LazyComponent Component={Archive} path="archive"/>
+                        <LazyComponent Component={Archive} film={a} path="archive"/>
                         <LazyComponent Component={About} path="about"/>
                     </Router>
                 </div>
+                {/*<LazyComponent Component={Archive} film={film} path="archive"/>*/}
             </div>
         </div>
     )
