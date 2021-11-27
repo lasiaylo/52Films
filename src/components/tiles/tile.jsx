@@ -26,11 +26,9 @@ export default function Tile({film, ...props}) {
     console.log(size.width)
     const bind = useDrag(({offset: [ox, oy], down}) => {
         console.log(ox)
-        const [x, y, z] = position
+        const [x, y] = position
         if (down) {
-            // ox = clampRange(ox / aspect, viewport.width)
             ox = ox/aspect
-            // oy = clampRange(-oy / aspect, viewport.height)
             oy = -oy/aspect
             setPosition([ox, oy, 1])
             setRotation([0, 0, 0])
@@ -48,7 +46,8 @@ export default function Tile({film, ...props}) {
             bottom: viewport.height * aspect / 3,
             // bottom: -100,
         }
-    });
+    })
+
     return (
         <group
             {...props}
@@ -57,16 +56,14 @@ export default function Tile({film, ...props}) {
             rotation={rotation}
             {...bind()}>
             <text
-                position-z={.0001}
                 position-x={-.45 * TileSize}
                 position-y={.45 * TileSize}
+                position-z={0.001}
                 fontSize={.5}
                 text={number}
                 textAlign="left"
                 anchorX="left"
                 anchorY="top"
-                // font= "Helvetica"
-                // fontWeight="thin"
             >
                 <meshBasicMaterial attach="material" color="red"/>
             </text>

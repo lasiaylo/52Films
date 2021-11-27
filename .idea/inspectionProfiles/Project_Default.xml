@@ -5,7 +5,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="8">
+          <list size="11">
             <item index="0" class="java.lang.String" itemvalue="text" />
             <item index="1" class="java.lang.String" itemvalue="position-z" />
             <item index="2" class="java.lang.String" itemvalue="position-x" />
@@ -14,6 +14,9 @@
             <item index="5" class="java.lang.String" itemvalue="anchory" />
             <item index="6" class="java.lang.String" itemvalue="position-y" />
             <item index="7" class="java.lang.String" itemvalue="textalign" />
+            <item index="8" class="java.lang.String" itemvalue="depthoffset" />
+            <item index="9" class="java.lang.String" itemvalue="outlinewidth" />
+            <item index="10" class="java.lang.String" itemvalue="outlinecolor" />
           </list>
         </value>
       </option>

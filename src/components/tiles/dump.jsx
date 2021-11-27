@@ -39,11 +39,11 @@ const Outline = ({children}) => {
                     args={[aspect, scene, camera]}
                     selectedObjects={hovered}
                     visibleEdgeColor="white"
-                    edgeStrength={20}
-                    edgeThickness={0.5}
+                    edgeStrength={10}
+                    edgeThickness={0.1}
                 />
-                <shaderPass attachArray="passes" args={[FXAAShader]}
-                            uniforms-resolution-value={[1 / size.width, 1 / size.height]}/>
+                {/*<shaderPass attachArray="passes" args={[FXAAShader]}*/}
+                {/*            uniforms-resolution-value={[1 / size.width, 1 / size.height]}/>*/}
             </effectComposer>
         </context.Provider>
     )
@@ -57,6 +57,10 @@ export function getTileZRotation() {
     return RandomInNegativeRange(0.5)
 }
 
+function closestFilter(intersections) {
+    return intersections?.length ? [intersections[0]] : intersections
+}
+
 export default function Dump({films}) {
     const zIndices = Array.from(new UniqueRandomArray(films.length).set)
     console.log(zIndices)
@@ -66,7 +70,7 @@ export default function Dump({films}) {
             key={i}
             position-x={RandomInNegativeRange(4)}
             position-y={RandomInNegativeRange(2.5)}
-            position-z={zIndices[i]}
+            position-z={zIndices[i] - 1}
             rotation-x={getTileXRotation()}
             rotation-z={getTileZRotation(.7)}
         />)
@@ -74,6 +78,7 @@ export default function Dump({films}) {
     return (
         <Canvas
             pixelRatio={window.devicePixelRatio}
+            raycaster={{filter: closestFilter}}
         >
             <ambientLight intensity={2}/>
             <Outline>
