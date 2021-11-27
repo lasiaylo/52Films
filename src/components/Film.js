@@ -9,7 +9,6 @@ class Film {
             video: {playbackId: this.playbackID},
         } = film)
         // Replace hyphen with non-breaking hyphen
-        console.log(film)
         this.title = film.title.replace('-', '‑')
         this.logline = film.description.description.replace('-', '‑')
         this.animPreview = film.animPreview.file.url

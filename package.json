@@ -43,7 +43,8 @@
     "sass": "^1.43.3",
     "slugify": "^1.6.2",
     "three": "^0.134.0",
-    "three-plain-animator": "^1.0.6"
+    "three-plain-animator": "^1.0.6",
+    "troika-three-text": "^0.44.0"
   },
   "devDependencies": {
     "prettier": "2.4.1",

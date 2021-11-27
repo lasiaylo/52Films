@@ -1,11 +1,75 @@
 import Tile from "./tile";
-import {Canvas} from "@react-three/fiber";
-import React from "react"
+import {Canvas, extend, useFrame, useThree} from "@react-three/fiber";
+import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
+import {Vector2} from "three";
+import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader"
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
+import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
+import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass";
+import {RandomInNegativeRange, UniqueRandomArray} from "../../util/MathUtils";
 
-export default function Dump(film) {
+extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
+
+
+const context = React.createContext()
+
+export function useHover() {
+    const ref = useRef()
+    const setHovered = useContext(context)
+    const onPointerOver = useCallback(() => setHovered(state => [...state, ref.current]), [])
+    const onPointerOut = useCallback(() => setHovered(state => state.filter(mesh => mesh !== ref.current)), [])
+    return {ref, onPointerOver, onPointerOut}
+}
+
+const Outline = ({children}) => {
+    const {gl, scene, camera, size} = useThree()
+    const composer = useRef()
+    const [hovered, set] = useState([])
+    const aspect = useMemo(() => new Vector2(size.width, size.height), [size])
+    useEffect(() => composer.current.setSize(size.width, size.height), [size])
+    useFrame(() => composer.current.render(), 1)
     return (
-        <Canvas className={"dump"}>
-            <Tile film={film}/>
+        <context.Provider value={set}>
+            {children}
+            <effectComposer ref={composer} args={[gl]}>
+                <renderPass attachArray="passes" args={[scene, camera]}/>
+                <outlinePass
+                    attachArray="passes"
+                    args={[aspect, scene, camera]}
+                    selectedObjects={hovered}
+                    visibleEdgeColor="white"
+                    edgeStrength={20}
+                    edgeThickness={0.2}
+                />
+                <shaderPass attachArray="passes" args={[FXAAShader]}
+                            uniforms-resolution-value={[1 / size.width, 1 / size.height]}/>
+            </effectComposer>
+        </context.Provider>
+    )
+}
+
+export default function Dump({films}) {
+    const zIndices = new UniqueRandomArray(films.length)
+    const tiles = films.map((film, i) =>
+        <Tile
+            film={film}
+            key={i}
+            position-x={RandomInNegativeRange(4)}
+            position-y={RandomInNegativeRange(2.5)}
+            js set position-z={zIndices.set[i]}
+            rotation-x={-.1}
+            rotation-z={RandomInNegativeRange(.5)}
+        />)
+
+    return (
+        <Canvas
+            pixelRatio={window.devicePixelRatio}
+        >
+            <ambientLight intensity={2}/>
+            <Outline>
+                {tiles}
+            </Outline>
         </Canvas>
     )
 }

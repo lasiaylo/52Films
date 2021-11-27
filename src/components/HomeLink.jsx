@@ -13,7 +13,6 @@ const HomeLink = ({className, children, slug}) => {
     const [isHovered, setHover] = useState(false);
     const finalClassName = isHovered ? className + " hovered" : className
     slug = slug ?? "/" + slugify(children, {lower: true}) + "/"
-    console.log(slugify(children))
     return (
         <Link
             className={finalClassName}
