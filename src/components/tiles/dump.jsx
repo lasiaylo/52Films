@@ -40,7 +40,7 @@ const Outline = ({children}) => {
                     selectedObjects={hovered}
                     visibleEdgeColor="white"
                     edgeStrength={20}
-                    edgeThickness={0.2}
+                    edgeThickness={0.5}
                 />
                 <shaderPass attachArray="passes" args={[FXAAShader]}
                             uniforms-resolution-value={[1 / size.width, 1 / size.height]}/>
@@ -49,17 +49,26 @@ const Outline = ({children}) => {
     )
 }
 
+export function getTileXRotation() {
+    return -0.3
+}
+
+export function getTileZRotation() {
+    return RandomInNegativeRange(0.5)
+}
+
 export default function Dump({films}) {
-    const zIndices = new UniqueRandomArray(films.length)
+    const zIndices = Array.from(new UniqueRandomArray(films.length).set)
+    console.log(zIndices)
     const tiles = films.map((film, i) =>
         <Tile
             film={film}
             key={i}
             position-x={RandomInNegativeRange(4)}
             position-y={RandomInNegativeRange(2.5)}
-            js set position-z={zIndices.set[i]}
-            rotation-x={-.1}
-            rotation-z={RandomInNegativeRange(.5)}
+            position-z={zIndices[i]}
+            rotation-x={getTileXRotation()}
+            rotation-z={getTileZRotation(.7)}
         />)
 
     return (

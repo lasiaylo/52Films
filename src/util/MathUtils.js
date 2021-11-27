@@ -26,7 +26,7 @@ export class UniqueRandomArray {
         }
         const set = new Set()
         while (set.size !== size) {
-            set.add(Math.floor(Math.random() * 100) + 1)
+            set.add(Math.random())
         }
         this.set = set
     }

@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import {extend, Canvas, useFrame, useLoader, useThree} from '@react-three/fiber'
 import React, {useState} from "react"
 import {Text} from "troika-three-text"
-import {useHover} from "./dump"
+import {getTileXRotation, getTileZRotation, useHover} from "./dump"
 import {useDrag} from "@use-gesture/react";
 import {clamp, clampRange} from "../../util/MathUtils";
 import {useSpring} from "@react-spring/three";
@@ -17,25 +17,49 @@ export default function Tile({film, ...props}) {
     const [, , largeSrc] = getSources(stillPreview)
     const texture = useLoader(THREE.TextureLoader, largeSrc)
     const number = "23"
-    const [position, setPosition] = useState([props['position-x'], props['position-y'], 0]);
+    const [position, setPosition] = useState([props['position-x'], props['position-y'], 0])
+    const [rotation, setRotation] = useState([props['rotation-x'], 0, props['rotation-z']])
     // const [position, setPosition] = useState([0, 0, 0]);
 
     const {size, viewport} = useThree();
     const aspect = size.width / viewport.width;
-    const bind = useDrag(({offset: [x, y]}) => {
-        const [, , z] = position
-        x = clampRange(x / aspect, viewport.width)
-        y = clampRange(-y / aspect, viewport.height)
-        setPosition([x, y, z])
-    }, {pointerEvents: true, from: () => [position[0] * aspect, -position[1] * aspect]});
+    console.log(size.width)
+    const bind = useDrag(({offset: [ox, oy], down}) => {
+        console.log(ox)
+        const [x, y, z] = position
+        if (down) {
+            // ox = clampRange(ox / aspect, viewport.width)
+            ox = ox/aspect
+            // oy = clampRange(-oy / aspect, viewport.height)
+            oy = -oy/aspect
+            setPosition([ox, oy, 1])
+            setRotation([0, 0, 0])
+        } else {
+            setPosition([x, y, props['position-z']])
+            setRotation([getTileXRotation(), 0, getTileZRotation()])
+        }
+    }, {
+        pointerEvents: true,
+        from: () => [position[0] * aspect, -position[1] * aspect],
+        bounds: {
+            left: -viewport.width * aspect / 3,
+            right: viewport.width * aspect / 3,
+            top: -viewport.height * aspect / 3,
+            bottom: viewport.height * aspect / 3,
+            // bottom: -100,
+        }
+    });
     return (
         <group
             {...props}
             position={position}
+            position-z={props['position-z']}
+            rotation={rotation}
             {...bind()}>
             <text
-                position-x={0 * TileSize}
-                position-y={0 * TileSize}
+                position-z={.0001}
+                position-x={-.45 * TileSize}
+                position-y={.45 * TileSize}
                 fontSize={.5}
                 text={number}
                 textAlign="left"
