@@ -48,7 +48,7 @@ export default function Tile({film, ...props}) {
             delay: props.delay * 50
         }
     )
-    const {position, rotation} = spring
+    const {position} = spring
 
     console.log(position.get())
 
@@ -56,8 +56,11 @@ export default function Tile({film, ...props}) {
     const {size, viewport} = useThree()
     const aspect = size.width / viewport.width;
     const bind = useDrag(({offset: [ox, oy], down, tap}) => {
-        const [x, y] = position.get()
-        const pos = down ? [ox, oy, 1] : [x, y, props['position-z']]
+        if (tap) {
+            return
+        }
+        const [x, y] = position.animation.to
+        const pos = down ? [ox, oy, 2] : [x, y, props['position-z']]
         const rot = down ? [0, 0, 0] : [getTileXRotation(), 0, getTileZRotation()]
         setSpring(
             {
