@@ -2,24 +2,32 @@ import Tile from "./tile";
 import {Canvas, extend, useFrame, useThree} from "@react-three/fiber";
 import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
 import {Vector2} from "three";
-import {FXAAShader} from "three/examples/jsm/shaders/FXAAShader"
-import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
-import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
-import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
-import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass";
-import {RandomInNegativeRange, UniqueRandomArray} from "../../util/MathUtils";
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
+import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass"
+import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass"
+import {RandomInNegativeRange, UniqueRandomArray} from "../../util/MathUtils"
 
 extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
 
 
-const context = React.createContext()
+const hoverContext = React.createContext()
+const focusContext = React.createContext()
 
 export function useHover() {
     const ref = useRef()
-    const setHovered = useContext(context)
+    const setHovered = useContext(hoverContext)
     const onPointerOver = useCallback(() => setHovered(state => [...state, ref.current]), [])
     const onPointerOut = useCallback(() => setHovered(state => state.filter(mesh => mesh !== ref.current)), [])
     return {ref, onPointerOver, onPointerOut}
+}
+
+export function useFocus() {
+    const ref = useRef()
+    const setFocused = useContext(focusContext)
+    console.log(ref)
+    console.log("asldkasjdklsjdas")
+    // setFocused(state => [...state, ref.current])
 }
 
 const Outline = ({children}) => {
@@ -30,7 +38,7 @@ const Outline = ({children}) => {
     useEffect(() => composer.current.setSize(size.width, size.height), [size])
     useFrame(() => composer.current.render(), 1)
     return (
-        <context.Provider value={set}>
+        <hoverContext.Provider value={set}>
             {children}
             <effectComposer ref={composer} args={[gl]}>
                 <renderPass attachArray="passes" args={[scene, camera]}/>
@@ -45,7 +53,7 @@ const Outline = ({children}) => {
                 {/*<shaderPass attachArray="passes" args={[FXAAShader]}*/}
                 {/*            uniforms-resolution-value={[1 / size.width, 1 / size.height]}/>*/}
             </effectComposer>
-        </context.Provider>
+        </hoverContext.Provider>
     )
 }
 
@@ -62,15 +70,14 @@ function closestFilter(intersections) {
 }
 
 export default function Dump({films}) {
-    const zIndices = Array.from(new UniqueRandomArray(films.length).set)
-    console.log(zIndices)
     const tiles = films.map((film, i) =>
         <Tile
             film={film}
             key={i}
             position-x={RandomInNegativeRange(4)}
             position-y={RandomInNegativeRange(2.5)}
-            position-z={zIndices[i] - 1}
+            position-z={(i * .01) - 1}
+            delay={i * .35}
             rotation-x={getTileXRotation()}
             rotation-z={getTileZRotation(.7)}
         />)

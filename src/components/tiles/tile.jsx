@@ -1,59 +1,88 @@
 import "../../styles/tile.sass"
 import * as THREE from 'three'
 import {extend, Canvas, useFrame, useLoader, useThree} from '@react-three/fiber'
-import React, {useState} from "react"
+import React, {createContext, useState} from "react"
 import {Text} from "troika-three-text"
-import {getTileXRotation, getTileZRotation, useHover} from "./dump"
+import {getTileXRotation, getTileZRotation, useFocus, useHover} from "./dump"
 import {useDrag} from "@use-gesture/react";
 import {clamp, clampRange} from "../../util/MathUtils";
-import {useSpring} from "@react-spring/three";
+import {useSpring, animated} from "@react-spring/three";
 
 extend({Text})
 
 const TileSize = 2
+const context = React.createContext()
+
+export function focus() {
+    console.log("Tap!")
+}
 
 export default function Tile({film, ...props}) {
     const {title, logline, stillPreview} = film
     const [, , largeSrc] = getSources(stillPreview)
     const texture = useLoader(THREE.TextureLoader, largeSrc)
     const number = "23"
-    const [position, setPosition] = useState([props['position-x'], props['position-y'], 0])
-    const [rotation, setRotation] = useState([props['rotation-x'], 0, props['rotation-z']])
-    // const [position, setPosition] = useState([0, 0, 0]);
 
-    const {size, viewport} = useThree();
-    const aspect = size.width / viewport.width;
-    console.log(size.width)
-    const bind = useDrag(({offset: [ox, oy], down}) => {
-        console.log(ox)
-        const [x, y] = position
-        if (down) {
-            ox = ox/aspect
-            oy = -oy/aspect
-            setPosition([ox, oy, 1])
-            setRotation([0, 0, 0])
-        } else {
-            setPosition([x, y, props['position-z']])
-            setRotation([getTileXRotation(), 0, getTileZRotation()])
+    const [spring, setSpring] = useSpring(() =>
+        ({
+            position: [
+                props['position-x'],
+                props['position-y'],
+                50,
+            ],
+            rotation: [
+                getTileXRotation(),
+                0,
+                getTileZRotation(),
+            ],
+        })
+    )
+
+    setSpring(
+        {
+            position: [
+                props['position-x'],
+                props['position-y'],
+                props['position-z'],
+            ],
+            delay: props.delay * 50
         }
+    )
+    const {position, rotation} = spring
+
+    console.log(position.get())
+
+
+    const {size, viewport} = useThree()
+    const aspect = size.width / viewport.width;
+    const bind = useDrag(({offset: [ox, oy], down, tap}) => {
+        const [x, y] = position.get()
+        const pos = down ? [ox, oy, 1] : [x, y, props['position-z']]
+        const rot = down ? [0, 0, 0] : [getTileXRotation(), 0, getTileZRotation()]
+        setSpring(
+            {
+                position: pos,
+                rotation: rot
+            }
+        )
     }, {
         pointerEvents: true,
-        from: () => [position[0] * aspect, -position[1] * aspect],
+        from: () => [position.get()[0], position.get()[1]],
         bounds: {
-            left: -viewport.width * aspect / 3,
-            right: viewport.width * aspect / 3,
-            top: -viewport.height * aspect / 3,
-            bottom: viewport.height * aspect / 3,
-            // bottom: -100,
-        }
+            left: -viewport.width / 3,
+            right: viewport.width / 3,
+            top: -viewport.height / 3,
+            bottom: viewport.height / 3,
+        },
+        transform: (([x, y]) => [x / aspect, -y / aspect]),
+        filterTaps: true
     })
 
     return (
-        <group
+        <animated.group
             {...props}
-            position={position}
+            {...spring}
             position-z={props['position-z']}
-            rotation={rotation}
             {...bind()}>
             <text
                 position-x={-.45 * TileSize}
@@ -67,11 +96,11 @@ export default function Tile({film, ...props}) {
             >
                 <meshBasicMaterial attach="material" color="red"/>
             </text>
-            <mesh {...useHover()}>
+            <animated.mesh {...useHover()}>
                 <planeBufferGeometry attach="geometry" args={[TileSize, TileSize]}/>
                 <meshStandardMaterial attach="material" map={texture}/>
-            </mesh>
-        </group>
+            </animated.mesh>
+        </animated.group>
     )
 }
 
