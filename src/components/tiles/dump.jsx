@@ -62,7 +62,7 @@ export function getTileXRotation() {
 }
 
 export function getTileZRotation() {
-    return RandomInNegativeRange(0.5)
+    return RandomInNegativeRange(.7)
 }
 
 function closestFilter(intersections) {
@@ -74,12 +74,12 @@ export default function Dump({films}) {
         <Tile
             film={film}
             key={i}
-            position-x={RandomInNegativeRange(4)}
+            position-x={RandomInNegativeRange(5)}
             position-y={RandomInNegativeRange(2.5)}
-            position-z={(i * .01) - 1}
+            position-z={(i * .01) - 0.5}
             delay={i * .35}
             rotation-x={getTileXRotation()}
-            rotation-z={getTileZRotation(.7)}
+            rotation-z={getTileZRotation()}
         />)
 
     return (
