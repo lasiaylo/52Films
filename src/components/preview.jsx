@@ -22,10 +22,10 @@ function Card(props) {
             return vid
         }
     })
-    video.play()
+    video?.play()
 
     useEffect(() => {
-        const playPromise = video.play();
+        const playPromise = video?.play();
         if (playPromise !== undefined) {
             playPromise.then(function () {
                 // Automatic playback started!
@@ -61,10 +61,8 @@ function Card(props) {
 
 export default function Preview({image}) {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <Canvas className={"canvas"}>
-                <Card position={[previewX, previewY, 0]} image={image}/>
-            </Canvas>
-        </Suspense>
+        <Canvas className={"canvas"}>
+            <Card position={[previewX, previewY, 0]} image={image}/>
+        </Canvas>
     )
 }

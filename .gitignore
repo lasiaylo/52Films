@@ -3,6 +3,7 @@ node_modules/
 public
 
 .env.development
+.env.production
 
 .DS_STORE
 
