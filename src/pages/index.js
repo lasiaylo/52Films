@@ -2,7 +2,7 @@ import * as React from "react"
 import {graphql} from "gatsby"
 import {Router} from '@reach/router'
 import HomeLink from "../components/HomeLink"
-import Film from "../components/Film"
+import Film from "../components/data/Film"
 import Home from "../components/pages/home"
 import "../styles/index.sass"
 

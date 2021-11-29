@@ -1,11 +1,46 @@
-import React from 'react';
-import Preview from "../preview";
-import Dump from "../tiles/dump";
+import React, {useState} from 'react'
+import Dump, {getTileXRotation, getTileZRotation} from "../archive/dump"
+import {RandomInNegativeRange} from "../../util/MathUtils";
 
 export default function Archive({film}) {
     const {title, logline, preview} = film
     const films = new Array(52).fill(film)
+
+    const [filmList, setFilmList] = useState(
+        films.map(
+            (film, i) => {
+                return {
+                    ...film,
+                    index: i,
+                    hidden: false,
+                    focused: false,
+                }
+            }
+        )
+    )
+
+    const setHiddenFilms = (films) => {
+        const hiddenFilmSet = new Set(films.map(film => film.index))
+        setFilmList(
+            filmList.map(
+                (film, i) => {
+                    return {...film, hidden: hiddenFilmSet.has(i)}
+                }
+            )
+        )
+    }
+
+    const setFocusedFilm = (focusedFilm) => {
+        setFilmList(
+            filmList.map(
+                (film, i) => {
+                    return {...film, focused: i === focusedFilm.index}
+                }
+            )
+        )
+    }
+
     return (
-            <Dump films={films}/>
+        <Dump films={filmList} setFocusedFilms={setFocusedFilm}/>
     )
 }

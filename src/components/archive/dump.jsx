@@ -6,7 +6,7 @@ import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass"
 import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass"
-import {RandomInNegativeRange, UniqueRandomArray} from "../../util/MathUtils"
+import {RandomInNegativeRange} from "../../util/MathUtils"
 
 extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
 
@@ -58,7 +58,7 @@ const Outline = ({children}) => {
 }
 
 export function getTileXRotation() {
-    return -0.3
+    return -0.2
 }
 
 export function getTileZRotation() {
@@ -69,17 +69,14 @@ function closestFilter(intersections) {
     return intersections?.length ? [intersections[0]] : intersections
 }
 
-export default function Dump({films}) {
+export default function Dump({films, setFocusedFilms}) {
+
     const tiles = films.map((film, i) =>
         <Tile
             film={film}
             key={i}
-            position-x={RandomInNegativeRange(5)}
-            position-y={RandomInNegativeRange(2.5)}
-            position-z={(i * .01) - 0.5}
             delay={i * .35}
-            rotation-x={getTileXRotation()}
-            rotation-z={getTileZRotation()}
+            setFocusedFilms={setFocusedFilms}
         />)
 
     return (

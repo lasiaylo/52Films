@@ -1,5 +1,5 @@
 import * as React from "react"
-import Film from "../Film"
+import Film from "../data/Film"
 import PropTypes from "prop-types"
 import "../../styles/home.sass"
 import Preview from "../preview";
