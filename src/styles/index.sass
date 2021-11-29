@@ -51,7 +51,7 @@ h2
   font-weight: lighter
   font-size: 18px
   text-decoration: none
-  font-style: oblique
+  font-style: italic
   margin-top: 20px
   &.title
     font-weight: bold
@@ -67,19 +67,14 @@ h2
   padding: $padding
   flex: 1 1 auto
   align-items: stretch
-  overflow: hidden
-
   .innerFrame
     display: flex
     flex-direction: column
     height: 100%
     border: white solid
-    overflow: hidden
-
-    .router
+    .routerContainer
       display: flex
       flex-direction: column
       flex: 1 1 auto
-      div
+      .router
         flex: 1 1 auto
-
