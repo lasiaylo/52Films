@@ -11,13 +11,16 @@ function Card(props) {
 
     const [hovered, hover] = useState(false)
     const [clicked, click] = useState(false)
+    const isBrowser = typeof document !== "undefined"
     const [video] = useState(() => {
-        const vid = document.createElement("video")
-        vid.src = props.image
-        vid.crossOrigin = 'anonymous'
-        vid.loop = true
-        vid.muted = true
-        return vid
+        if (isBrowser) {
+            const vid = document.createElement("video")
+            vid.src = props.image
+            vid.crossOrigin = 'anonymous'
+            vid.loop = true
+            vid.muted = true
+            return vid
+        }
     })
     video.play()
 

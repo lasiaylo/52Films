@@ -57,14 +57,14 @@ export default function IndexPage({data}) {
                 <title>Home Page</title>
                 <div className="menu">
                     <HomeLink className="title" slug="/">52 Films</HomeLink>
-                    <HomeLink>Archive</HomeLink>
-                    <HomeLink>About</HomeLink>
+                {/*    <HomeLink>Archive</HomeLink>*/}
+                {/*    <HomeLink>About</HomeLink>*/}
                 </div>
                 <div className={'routerContainer'}>
                     <Router className={'router'}>
                         <Home film={a} path="/"/>
-                        <LazyComponent Component={Archive} film={a} path="archive"/>
-                        <LazyComponent Component={About} path="about"/>
+                {/*        <LazyComponent Component={Archive} film={a} path="archive"/>*/}
+                {/*        <LazyComponent Component={About} path="about"/>*/}
                     </Router>
                 </div>
             </div>
