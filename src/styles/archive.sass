@@ -49,26 +49,36 @@ ul
   flex: 1 1 auto
   justify-content: space-between
   overflow-y: hidden
-  align-items: center
   border-bottom: solid white
   height: 20%
   padding-left: $padding
   padding-right: $padding
+  align-items: center
+
   .listInfo
     display: flex
     flex-direction: column
-    .listTitle
-      @include font-style
-      font-size: 24px
-      margin: 0
-    .listFilmmaker
-      @include font-style
-      font-size: 12px
-      font-weight: lighter
-      font-style: italic
-      margin: 0
-  .number
-    @include font-style
-    padding-top: 35%
-    font-size: 96px
-    font-weight: lighter
+
+.listTitle
+  @include font-style
+  font-size: 24px
+  margin: 0
+  &.hovered
+    color: red
+
+.listFilmmaker
+  @include font-style
+  font-size: 12px
+  font-weight: lighter
+  font-style: italic
+  margin: 0
+  &.hovered
+    color: red
+
+.listNumber
+  @include font-style
+  padding-top: 35%
+  font-size: 96px
+  font-weight: lighter
+  &.hovered
+    color: red

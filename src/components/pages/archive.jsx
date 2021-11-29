@@ -43,7 +43,7 @@ export default function Archive({film}) {
 
     return (
         <div className={"archive"}>
-            <Directory films={filmList}/>
+            <Directory films={filmList} setFocusedFilm={setFocusedFilm}/>
             <Dump films={filmList} setFocusedFilms={setFocusedFilm}/>
         </div>
     )
