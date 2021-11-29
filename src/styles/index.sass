@@ -1,0 +1,80 @@
+$primary-font: "Helvetica Neue LT Pro"
+
+$primary-color: #ffffff
+$primary-background-color: black
+$padding: 20px
+
+@mixin font-style
+  font-family: "Helvetica Neue LT Pro"
+  font-weight: bold
+  color: $primary-color
+
+
+html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
+  padding: 0
+  margin: 0
+  height: 100%
+  width: 100%
+  display: flex
+  flex-direction: column
+  flex: 1 1 auto
+
+#gatsby-announcer
+  height: 0px
+
+body
+  position: relative
+  background-color: $primary-background-color
+
+h1
+  @include font-style
+  font-size: 96px
+  margin: 0
+
+h2
+  @include font-style
+  font-weight: lighter
+  font-size: 24px
+  margin: 0
+
+
+.menu
+  display: flex
+  flex-direction: column
+  width: fit-content
+  position: absolute
+  z-index: 2
+  padding: $padding
+
+.homeLink
+  @include font-style
+  font-weight: lighter
+  font-size: 18px
+  text-decoration: none
+  font-style: italic
+  margin-top: 20px
+  &.title
+    font-weight: bold
+    font-size: 36px
+    font-style: normal
+    margin-top: 0px
+  &.hovered
+    color: red
+
+.frame
+  display: flex
+  flex-direction: column
+  padding: $padding
+  flex: 1 1 auto
+  align-items: stretch
+  .innerFrame
+    display: flex
+    flex-direction: column
+    height: 100%
+    border: white solid
+    .routerContainer
+      display: flex
+      flex-direction: column
+      flex: 1 1 auto
+      .router
+        flex: 1 1 auto

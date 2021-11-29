@@ -1,12 +1,22 @@
 import * as React from "react"
 import {graphql} from "gatsby"
-import {GatsbyImage} from "gatsby-plugin-image";
-import Hls from 'hls.js';
-import VideoPlayer from "../components/player";
+import {Router} from '@reach/router'
+import HomeLink from "../components/HomeLink"
+import Film from "../components/data/Film"
+import Home from "../components/pages/home"
+import "../styles/index.sass"
 
+const About = React.lazy(() => import ('../components/pages/about'))
+const Archive = React.lazy(() => import ('../components/pages/archive'))
+
+const LazyComponent = ({Component, ...props}) => (
+    <React.Suspense fallback={'<p>Loading...</p>'}>
+        <Component {...props} />
+    </React.Suspense>
+)
 
 export const query = graphql`
-    query HomePageQuery{
+    query PageQuery{
         allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
             edges {
                 node {
@@ -23,11 +33,13 @@ export const query = graphql`
                     {
                         playbackId
                     }
-                    preview {
-                        gatsbyImageData
+                    animPreview {
                         file {
                             url
                         }
+                    }
+                    stillPreview {
+                        gatsbyImageData
                     }
                 }
             }
@@ -35,23 +47,27 @@ export const query = graphql`
     }
 `
 
-// markup
-const IndexPage = ({ data }) => {
-    const film = data.allContentfulFilm.edges[0].node
-    const {title} = film
-    const {description} = film.description
-    const {url} = film.preview.file
-    console.log(url)
-
+export default function IndexPage({data}) {
+    const film = data.allContentfulFilm.edges[2].node
+    const a = new Film(film)
 
     return (
-        <main >
-            <title>Home Page</title>
-            <h1>{title}</h1>
-            <main>{description}</main>
-            <VideoPlayer></VideoPlayer>
-        </main>
+        <div className={'frame'}>
+            <div className={'innerFrame'}>
+                <title>Home Page</title>
+                <div className="menu">
+                    <HomeLink className="title" slug="/">52 Films</HomeLink>
+                    <HomeLink>Archive</HomeLink>
+                    <HomeLink>About</HomeLink>
+                </div>
+                <div className={'routerContainer'}>
+                    <Router className={'router'}>
+                        <Home film={a} path="/"/>
+                        <LazyComponent Component={Archive} film={a} path="archive"/>
+                        <LazyComponent Component={About} path="about"/>
+                    </Router>
+                </div>
+            </div>
+        </div>
     )
 }
-
-export default IndexPage

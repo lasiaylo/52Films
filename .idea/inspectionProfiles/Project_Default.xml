@@ -2,5 +2,25 @@
   <profile version="1.0">
     <option name="myName" value="Project Default" />
     <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="11">
+            <item index="0" class="java.lang.String" itemvalue="text" />
+            <item index="1" class="java.lang.String" itemvalue="position-z" />
+            <item index="2" class="java.lang.String" itemvalue="position-x" />
+            <item index="3" class="java.lang.String" itemvalue="font" />
+            <item index="4" class="java.lang.String" itemvalue="anchorx" />
+            <item index="5" class="java.lang.String" itemvalue="anchory" />
+            <item index="6" class="java.lang.String" itemvalue="position-y" />
+            <item index="7" class="java.lang.String" itemvalue="textalign" />
+            <item index="8" class="java.lang.String" itemvalue="depthoffset" />
+            <item index="9" class="java.lang.String" itemvalue="outlinewidth" />
+            <item index="10" class="java.lang.String" itemvalue="outlinecolor" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
   </profile>
 </component>
