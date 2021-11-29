@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import Dump, {getTileXRotation, getTileZRotation} from "../archive/dump"
-import {RandomInNegativeRange} from "../../util/MathUtils";
+import Dump from "../archive/dump"
+import Directory from "../archive/directory"
+import "../../styles/archive.sass"
 
 export default function Archive({film}) {
     const {title, logline, preview} = film
@@ -41,6 +42,9 @@ export default function Archive({film}) {
     }
 
     return (
-        <Dump films={filmList} setFocusedFilms={setFocusedFilm}/>
+        <div className={"archive"}>
+            <Directory films={filmList}/>
+            <Dump films={filmList} setFocusedFilms={setFocusedFilm}/>
+        </div>
     )
 }

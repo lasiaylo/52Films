@@ -22,14 +22,6 @@ export function useHover() {
     return {ref, onPointerOver, onPointerOut}
 }
 
-export function useFocus() {
-    const ref = useRef()
-    const setFocused = useContext(focusContext)
-    console.log(ref)
-    console.log("asldkasjdklsjdas")
-    // setFocused(state => [...state, ref.current])
-}
-
 const Outline = ({children}) => {
     const {gl, scene, camera, size} = useThree()
     const composer = useRef()
@@ -70,7 +62,6 @@ function closestFilter(intersections) {
 }
 
 export default function Dump({films, setFocusedFilms}) {
-
     const tiles = films.map((film, i) =>
         <Tile
             film={film}

@@ -2,7 +2,7 @@ $primary-font: "Helvetica Neue LT Pro"
 
 $primary-color: #ffffff
 $primary-background-color: black
-$padding: 30px
+$padding: 20px
 
 @mixin font-style
   font-family: "Helvetica Neue LT Pro"
@@ -44,6 +44,7 @@ h2
   width: fit-content
   position: absolute
   z-index: 2
+  padding: $padding
 
 .homeLink
   @include font-style
@@ -63,16 +64,17 @@ h2
 .frame
   display: flex
   flex-direction: column
-  padding: 30px
+  padding: $padding
   flex: 1 1 auto
   align-items: stretch
+  overflow: hidden
 
   .innerFrame
     display: flex
     flex-direction: column
-    padding: $padding
     height: 100%
     border: white solid
+    overflow: hidden
 
     .router
       display: flex

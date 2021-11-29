@@ -30,45 +30,41 @@ export default function Tile({film, ...props}) {
                 40,
             ],
             rotation: [
-                2,
+                10,
                 0,
                 getTileZRotation(),
             ],
         })
     )
 
-    const setOriginalPos = () =>
-        setSpring(
-            {
-                position: [
-                    posX,
-                    posY,
-                    (film.index * .01) - 0.5
-                ],
-                rotation: [
-                    getTileXRotation(),
-                    0,
-                    getTileZRotation(),
-                ],
-                delay: props.delay * 50,
-            }
-        )
-
     useEffect(() => {
             if (film.focused) {
                 setSpring(
                     {
-                        position: [0, 0, 2],
+                        position: [0, 0, 3],
                         rotation: [0, 0, 0,],
                     }
                 )
             } else {
-                setOriginalPos()
+                setSpring(
+                    {
+                        position: [
+                            posX,
+                            posY,
+                            (film.index * .01) - 0.5
+                        ],
+                        rotation: [
+                            getTileXRotation(),
+                            0,
+                            getTileZRotation(),
+                        ],
+                    }
+                )
             }
 
         }, [film.focused]
     )
-    useEffect(setOriginalPos, [])
+    // useEffect(setOriginalPos, [])
 
     const {position} = spring
     const aspect = size.width / viewport.width;
@@ -129,5 +125,5 @@ function getSources(gatsbyImage) {
 }
 
 function getBounds(dimension) {
-    return dimension / 3
+    return dimension / 2.5
 }
