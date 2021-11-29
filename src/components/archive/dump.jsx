@@ -12,7 +12,6 @@ extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
 
 
 const hoverContext = React.createContext()
-const focusContext = React.createContext()
 
 export function useHover() {
     const ref = useRef()
@@ -72,7 +71,6 @@ export default function Dump({films, setFocusedFilms}) {
 
     return (
         <Canvas
-            pixelRatio={window.devicePixelRatio}
             raycaster={{filter: closestFilter}}
         >
             <ambientLight intensity={2}/>
