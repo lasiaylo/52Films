@@ -54,7 +54,7 @@ export default function IndexPage({data}) {
     return (
         <div className={'frame'}>
             <div className={'innerFrame'}>
-                <title>Home Page</title>
+                <title>52 Films</title>
                 <div className="menu">
                     <HomeLink className="title" slug="/">52 Films</HomeLink>
                     <HomeLink>Archive</HomeLink>
