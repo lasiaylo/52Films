@@ -60,13 +60,15 @@ function closestFilter(intersections) {
     return intersections?.length ? [intersections[0]] : intersections
 }
 
-export default function Dump({films, setFocusedFilms}) {
+export default function Dump(props) {
+    const {films, selectedIndex} = props
     const tiles = films.map((film, i) =>
         <Tile
+            {...props}
             film={film}
             key={i}
             delay={i * .35}
-            setFocusedFilms={setFocusedFilms}
+            isSelected={selectedIndex === i}
         />)
 
     return (

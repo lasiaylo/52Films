@@ -12,7 +12,7 @@ extend({Text})
 
 const TileSize = 1.5
 
-export default function Tile({film, ...props}) {
+export default function Tile({film, setSelected, isSelected, ...props}) {
     const {logline, stillPreview} = film
     const {size, viewport} = useThree()
 
@@ -38,7 +38,7 @@ export default function Tile({film, ...props}) {
     )
 
     useEffect(() => {
-            if (film.focused) {
+            if (isSelected) {
                 setSpring(
                     {
                         position: [0, 0, 3],
@@ -62,7 +62,7 @@ export default function Tile({film, ...props}) {
                 )
             }
 
-        }, [film.focused]
+        }, [isSelected]
     )
     // useEffect(setOriginalPos, [])
 
@@ -77,7 +77,8 @@ export default function Tile({film, ...props}) {
             tap
         }) => {
         if (tap) {
-            props.setFocusedFilms(film)
+            console.log(film.index)
+            setSelected(film)
             return
         }
         const [x, y] = position.animation.to
@@ -87,6 +88,9 @@ export default function Tile({film, ...props}) {
                 rotation: down ? [-clampRange(vy * dy * 40, 0.5), clampRange(vx * dx * 40, 0.5), 0] : [getTileXRotation(), 0, getTileZRotation()]
             }
         )
+        if (isSelected) {
+            setSelected()
+        }
 
     }, {
         pointerEvents: true,

@@ -4,28 +4,31 @@ const getFilmmaker = ({filmmaker}) => filmmaker[0].firstName + " " + filmmaker[0
 
 const getHoveredClassName = (className, isHovered) => isHovered ? className + " hovered" : className
 
-function ListElement({film, setFocusedFilm}) {
+function ListElement({film, isSelected, selectedIndex, setSelected}) {
     const [isHovered, setHover] = useState(false)
     useEffect(() => {
-        setFocusedFilm(film)
+        if (isHovered) {
+            setSelected(film)
+        }
     }, [isHovered])
+
     return (
         <div
-            className={getHoveredClassName("listRow", isHovered)}
+            className={getHoveredClassName("listRow", isSelected)}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
             <div className={"listInfo"}>
-                <span className={getHoveredClassName("listTitle", isHovered)}>{film.title.toUpperCase()}</span>
+                <span className={getHoveredClassName("listTitle", isSelected)}>{film.title.toUpperCase()}</span>
                 <span
-                    className={getHoveredClassName("listFilmmaker", isHovered)}>{getFilmmaker(film).toUpperCase()}</span>
+                    className={getHoveredClassName("listFilmmaker", isSelected)}>{getFilmmaker(film).toUpperCase()}</span>
             </div>
-            <div className={getHoveredClassName("listNumber", isHovered)}>{film.index + 1}</div>
+            <div className={getHoveredClassName("listNumber", isSelected)}>{film.index + 1}</div>
         </div>
     )
 }
 
-export default function Directory({films, setFocusedFilm}) {
+export default function Directory({films, ...props}) {
     return (
         <div className={"directory"}>
             <div className={"filler"}/>
@@ -35,7 +38,8 @@ export default function Directory({films, setFocusedFilm}) {
                     <ListElement
                         key={i}
                         film={film}
-                        setFocusedFilm={setFocusedFilm}
+                        isSelected={props.selectedIndex === i}
+                        {...props}
                     />
                 )}
             </ul>
