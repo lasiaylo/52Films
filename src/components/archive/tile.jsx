@@ -12,6 +12,8 @@ extend({Text})
 
 const TileSize = 1.5
 
+export const selectedPos = [-1, 0.1, 3]
+
 export default function Tile({film, setSelected, isSelected, ...props}) {
     const {logline, stillPreview} = film
     const {size, viewport} = useThree()
@@ -41,7 +43,7 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
             if (isSelected) {
                 setSpring(
                     {
-                        position: [0, 0, 3],
+                        position: selectedPos,
                         rotation: [0, 0, 0,],
                     }
                 )

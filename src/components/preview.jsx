@@ -1,5 +1,6 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
 import {Canvas, useFrame} from '@react-three/fiber'
+import VideoPlayer from "./player";
 
 
 const previewX = 0.7
@@ -10,7 +11,6 @@ function Card(props) {
     const ref = useRef()
 
     const [hovered, hover] = useState(false)
-    const [clicked, click] = useState(false)
     const isBrowser = typeof document !== "undefined"
     const [video] = useState(() => {
         if (isBrowser) {
@@ -49,8 +49,8 @@ function Card(props) {
         <mesh
             {...props}
             ref={ref}
-            scale={clicked ? 1.5 : 1}
-            onClick={(event) => click(!clicked)}>
+            onClick={() => props.setShowFilm(true)}
+        >
             <planeBufferGeometry attach="geometry" args={[8.5, 4.78125]}/>
             <meshBasicMaterial>
                 <videoTexture attach="map" args={[video]}/>
@@ -59,10 +59,15 @@ function Card(props) {
     )
 }
 
-export default function Preview({image}) {
+export default function Preview({image, videoSrc}) {
+    const [showFilm, setShowFilm] = useState(false)
+
+    if (showFilm) {
+        return <VideoPlayer src={videoSrc}/>
+    }
     return (
         <Canvas className={"canvas"}>
-            <Card position={[previewX, previewY, 0]} image={image}/>
+            <Card position={[previewX, previewY, 0]} image={image} setShowFilm={setShowFilm}/>
         </Canvas>
     )
 }

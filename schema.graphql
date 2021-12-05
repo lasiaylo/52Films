@@ -316,6 +316,7 @@ type ContentfulEntryGroupConnection {
 }
 
 type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
+    animPreview: ContentfulAsset
     castMembers: [String]
     "Returns the first child node of type contentfulFilmDescriptionTextNode or null if there are no children of given type on this node"
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNode
@@ -348,9 +349,9 @@ type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
     internal: Internal!
     node_locale: String!
     parent: Node
-    preview: ContentfulAsset
     spaceId: String
     specialThanksmessage: contentfulFilmSpecialThanksmessageTextNode
+    stillPreview: ContentfulAsset
     sys: ContentfulFilmSys
     title: String
     updatedAt(
@@ -1231,7 +1232,7 @@ type Query {
     contentfulAsset(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, file: ContentfulAssetFileFilterInput, fixed: ContentfulFixedFilterInput, fluid: ContentfulFluidFilterInput, gatsbyImageData: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, resize: ContentfulResizeFilterInput, spaceId: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput): ContentfulAsset
     contentfulContentType(children: NodeFilterListInput, description: StringQueryOperatorInput, displayField: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, parent: NodeFilterInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
     contentfulEntry(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulEntry
-    contentfulFilm(castMembers: StringQueryOperatorInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput, childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, childrenContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterListInput, childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, crewMembers: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, preview: ContentfulAssetFilterInput, spaceId: StringQueryOperatorInput, specialThanksmessage: contentfulFilmSpecialThanksmessageTextNodeFilterInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, video: contentfulFilmVideoJsonNodeFilterInput): ContentfulFilm
+    contentfulFilm(animPreview: ContentfulAssetFilterInput, castMembers: StringQueryOperatorInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput, childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, childrenContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterListInput, childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, crewMembers: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, spaceId: StringQueryOperatorInput, specialThanksmessage: contentfulFilmSpecialThanksmessageTextNodeFilterInput, stillPreview: ContentfulAssetFilterInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, video: contentfulFilmVideoJsonNodeFilterInput): ContentfulFilm
     contentfulFilmDescriptionTextNode(childMdx: MdxFilterInput, children: NodeFilterListInput, childrenMdx: MdxFilterListInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, sys: contentfulFilmDescriptionTextNodeSysFilterInput): contentfulFilmDescriptionTextNode
     contentfulFilmSpecialThanksmessageTextNode(childMdx: MdxFilterInput, children: NodeFilterListInput, childrenMdx: MdxFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, specialThanksmessage: StringQueryOperatorInput, sys: contentfulFilmSpecialThanksmessageTextNodeSysFilterInput): contentfulFilmSpecialThanksmessageTextNode
     contentfulFilmVideoJsonNode(assetId: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, playbackId: StringQueryOperatorInput, ratio: StringQueryOperatorInput, ready: BooleanQueryOperatorInput, sys: contentfulFilmVideoJsonNodeSysFilterInput, uploadId: StringQueryOperatorInput): contentfulFilmVideoJsonNode
@@ -1960,6 +1961,81 @@ enum ContentfulEntryFieldsEnum {
 }
 
 enum ContentfulFilmFieldsEnum {
+    animPreview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___children___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___contentful_id
+    animPreview___createdAt
+    animPreview___description
+    animPreview___file___contentType
+    animPreview___file___details___size
+    animPreview___file___fileName
+    animPreview___file___url
+    animPreview___fixed___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fixed___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___sizes @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___fluid___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___id
+    animPreview___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___node_locale
+    animPreview___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___parent___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___resize___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___resize___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___resize___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___resize___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___resize___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___resize___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    animPreview___spaceId
+    animPreview___sys___revision
+    animPreview___sys___type
+    animPreview___title
+    animPreview___updatedAt
     castMembers
     childContentfulFilmDescriptionTextNode___childMdx___body
     childContentfulFilmDescriptionTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -2618,6 +2694,16 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___contentful_id
     filmmaker___createdAt
     filmmaker___film
+    filmmaker___film___animPreview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    filmmaker___film___animPreview___contentful_id
+    filmmaker___film___animPreview___createdAt
+    filmmaker___film___animPreview___description
+    filmmaker___film___animPreview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    filmmaker___film___animPreview___id
+    filmmaker___film___animPreview___node_locale
+    filmmaker___film___animPreview___spaceId
+    filmmaker___film___animPreview___title
+    filmmaker___film___animPreview___updatedAt
     filmmaker___film___castMembers
     filmmaker___film___childContentfulFilmDescriptionTextNode___children
     filmmaker___film___childContentfulFilmDescriptionTextNode___childrenMdx
@@ -2685,21 +2771,21 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___node_locale
     filmmaker___film___parent___children
     filmmaker___film___parent___id
-    filmmaker___film___preview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    filmmaker___film___preview___contentful_id
-    filmmaker___film___preview___createdAt
-    filmmaker___film___preview___description
-    filmmaker___film___preview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    filmmaker___film___preview___id
-    filmmaker___film___preview___node_locale
-    filmmaker___film___preview___spaceId
-    filmmaker___film___preview___title
-    filmmaker___film___preview___updatedAt
     filmmaker___film___spaceId
     filmmaker___film___specialThanksmessage___children
     filmmaker___film___specialThanksmessage___childrenMdx
     filmmaker___film___specialThanksmessage___id
     filmmaker___film___specialThanksmessage___specialThanksmessage
+    filmmaker___film___stillPreview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    filmmaker___film___stillPreview___contentful_id
+    filmmaker___film___stillPreview___createdAt
+    filmmaker___film___stillPreview___description
+    filmmaker___film___stillPreview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    filmmaker___film___stillPreview___id
+    filmmaker___film___stillPreview___node_locale
+    filmmaker___film___stillPreview___spaceId
+    filmmaker___film___stillPreview___title
+    filmmaker___film___stillPreview___updatedAt
     filmmaker___film___sys___revision
     filmmaker___film___sys___type
     filmmaker___film___title
@@ -2789,81 +2875,6 @@ enum ContentfulFilmFieldsEnum {
     parent___parent___internal___type
     parent___parent___parent___children
     parent___parent___parent___id
-    preview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___children___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___contentful_id
-    preview___createdAt
-    preview___description
-    preview___file___contentType
-    preview___file___details___size
-    preview___file___fileName
-    preview___file___url
-    preview___fixed___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fixed___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___sizes @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___fluid___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___id
-    preview___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___node_locale
-    preview___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___parent___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___resize___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___resize___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___resize___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___resize___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___resize___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___resize___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    preview___spaceId
-    preview___sys___revision
-    preview___sys___type
-    preview___title
-    preview___updatedAt
     spaceId
     specialThanksmessage___childMdx___body
     specialThanksmessage___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -2966,6 +2977,81 @@ enum ContentfulFilmFieldsEnum {
     specialThanksmessage___parent___parent___id
     specialThanksmessage___specialThanksmessage
     specialThanksmessage___sys___type
+    stillPreview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___children___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___contentful_id
+    stillPreview___createdAt
+    stillPreview___description
+    stillPreview___file___contentType
+    stillPreview___file___details___size
+    stillPreview___file___fileName
+    stillPreview___file___url
+    stillPreview___fixed___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fixed___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___sizes @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___fluid___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___id
+    stillPreview___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___node_locale
+    stillPreview___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___parent___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___resize___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___resize___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___resize___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___resize___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___resize___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___resize___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    stillPreview___spaceId
+    stillPreview___sys___revision
+    stillPreview___sys___type
+    stillPreview___title
+    stillPreview___updatedAt
     sys___contentType___sys___id
     sys___contentType___sys___linkType
     sys___contentType___sys___type
@@ -3279,6 +3365,56 @@ enum ContentfulPersonFieldsEnum {
     contentful_id
     createdAt
     film
+    film___animPreview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___contentful_id
+    film___animPreview___createdAt
+    film___animPreview___description
+    film___animPreview___file___contentType
+    film___animPreview___file___fileName
+    film___animPreview___file___url
+    film___animPreview___fixed___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fixed___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___sizes @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___fluid___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___id
+    film___animPreview___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___node_locale
+    film___animPreview___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___resize___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___resize___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___resize___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___resize___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___resize___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___resize___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___animPreview___spaceId
+    film___animPreview___sys___revision
+    film___animPreview___sys___type
+    film___animPreview___title
+    film___animPreview___updatedAt
     film___castMembers
     film___childContentfulFilmDescriptionTextNode___childMdx___body
     film___childContentfulFilmDescriptionTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -3609,56 +3745,6 @@ enum ContentfulPersonFieldsEnum {
     film___parent___internal___type
     film___parent___parent___children
     film___parent___parent___id
-    film___preview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___contentful_id
-    film___preview___createdAt
-    film___preview___description
-    film___preview___file___contentType
-    film___preview___file___fileName
-    film___preview___file___url
-    film___preview___fixed___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fixed___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___sizes @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___fluid___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___id
-    film___preview___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___node_locale
-    film___preview___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___resize___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___resize___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___resize___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___resize___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___resize___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___resize___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
-    film___preview___spaceId
-    film___preview___sys___revision
-    film___preview___sys___type
-    film___preview___title
-    film___preview___updatedAt
     film___spaceId
     film___specialThanksmessage___childMdx___body
     film___specialThanksmessage___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -3701,6 +3787,56 @@ enum ContentfulPersonFieldsEnum {
     film___specialThanksmessage___parent___id
     film___specialThanksmessage___specialThanksmessage
     film___specialThanksmessage___sys___type
+    film___stillPreview___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___children___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___contentful_id
+    film___stillPreview___createdAt
+    film___stillPreview___description
+    film___stillPreview___file___contentType
+    film___stillPreview___file___fileName
+    film___stillPreview___file___url
+    film___stillPreview___fixed___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fixed___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___sizes @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___srcSet @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___srcSetWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___srcWebp @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___fluid___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___gatsbyImageData @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___id
+    film___stillPreview___internal___content @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___internal___contentDigest @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___internal___description @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___internal___fieldOwners @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___internal___ignoreType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___internal___mediaType @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___internal___owner @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___internal___type @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___node_locale
+    film___stillPreview___parent___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___resize___aspectRatio @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___resize___base64 @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___resize___height @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___resize___src @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___resize___tracedSVG @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___resize___width @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    film___stillPreview___spaceId
+    film___stillPreview___sys___revision
+    film___stillPreview___sys___type
+    film___stillPreview___title
+    film___stillPreview___updatedAt
     film___sys___revision
     film___sys___type
     film___title
@@ -5709,6 +5845,7 @@ input ContentfulEntrySortInput {
 }
 
 input ContentfulFilmFilterInput {
+    animPreview: ContentfulAssetFilterInput
     castMembers: StringQueryOperatorInput
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput
     childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput
@@ -5726,9 +5863,9 @@ input ContentfulFilmFilterInput {
     internal: InternalFilterInput
     node_locale: StringQueryOperatorInput
     parent: NodeFilterInput
-    preview: ContentfulAssetFilterInput
     spaceId: StringQueryOperatorInput
     specialThanksmessage: contentfulFilmSpecialThanksmessageTextNodeFilterInput
+    stillPreview: ContentfulAssetFilterInput
     sys: ContentfulFilmSysFilterInput
     title: StringQueryOperatorInput
     updatedAt: DateQueryOperatorInput
