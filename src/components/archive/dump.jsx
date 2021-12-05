@@ -7,6 +7,7 @@ import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass"
 import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass"
 import {RandomInNegativeRange} from "../../util/MathUtils"
+import {useSpring, animated} from "@react-spring/three";
 
 extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
 
@@ -21,7 +22,7 @@ export function useHover() {
     return {ref, onPointerOver, onPointerOut}
 }
 
-const Outline = ({children}) => {
+const Outline = ({children, enable}) => {
     const {gl, scene, camera, size} = useThree()
     const composer = useRef()
     const [hovered, set] = useState([])
@@ -39,10 +40,8 @@ const Outline = ({children}) => {
                     selectedObjects={hovered}
                     visibleEdgeColor="white"
                     edgeStrength={10}
-                    edgeThickness={0.1}
+                    edgeThickness={enable ? 0.1 : 0}
                 />
-                {/*<shaderPass attachArray="passes" args={[FXAAShader]}*/}
-                {/*            uniforms-resolution-value={[1 / size.width, 1 / size.height]}/>*/}
             </effectComposer>
         </hoverContext.Provider>
     )
@@ -57,16 +56,41 @@ export function getTileZRotation() {
 }
 
 function closestFilter(intersections) {
+    console.log(intersections)
     return intersections?.length ? [intersections[0]] : intersections
 }
 
-export default function Dump({films, setFocusedFilms}) {
+const Blur = ({isSelected}) => {
+    const {viewport} = useThree()
+    const [spring, setSpring] = useSpring(() => ({opacity: 0}))
+    useEffect(() => {
+        if (isSelected) {
+            setSpring({opacity: 1})
+        } else {
+            setSpring({opacity: 0})
+        }
+    }, [isSelected])
+    return (
+        <animated.mesh
+            opacity={0.5}
+            position={[0, 0, 0.8]}>
+            <planeBufferGeometry attach="geometry"
+                                 args={[viewport.width, viewport.height]}/>
+            <animated.meshStandardMaterial attach="material" color="black" transparent={true} {...spring}/>
+        </animated.mesh>
+    )
+}
+
+export default function Dump(props) {
+    const {films, selectedIndex} = props
+    const isSelected = selectedIndex !== -1
     const tiles = films.map((film, i) =>
         <Tile
+            {...props}
             film={film}
             key={i}
             delay={i * .35}
-            setFocusedFilms={setFocusedFilms}
+            isSelected={selectedIndex === i}
         />)
 
     return (
@@ -74,8 +98,11 @@ export default function Dump({films, setFocusedFilms}) {
             raycaster={{filter: closestFilter}}
         >
             <ambientLight intensity={2}/>
-            <Outline>
+            <Outline
+                enable={!isSelected}
+            >
                 {tiles}
+                <Blur isSelected={isSelected}/>
             </Outline>
         </Canvas>
     )

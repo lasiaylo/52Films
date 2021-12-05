@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import Hls from 'hls.js';
 
-export default function VideoPlayer() {
+export default function VideoPlayer({src}) {
     const videoRef = useRef(null);
-    const src = "https://stream.mux.com/P4KeSxoU6zbxuMFn7rDyMTL3bf00qpdzIstdp1GPmG01E.m3u8";
 
     useEffect(() => {
         let hls;

@@ -15,7 +15,7 @@ class Film {
         // Urls are suffixed by "//"
         this.animPreview = "https:" + this.animPreview
         this.stillPreview = film.stillPreview.gatsbyImageData
-        this.videoRef = Film.muxURL + film.video.playbackId + Film.muxSuffix
+        this.videoSrc = Film.muxURL + film.video.playbackId + Film.muxSuffix
     }
 }
 
