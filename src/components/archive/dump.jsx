@@ -17,6 +17,7 @@ const hoverContext = React.createContext()
 export function useHover() {
     const ref = useRef()
     const setHovered = useContext(hoverContext)
+    console.log(setHovered)
     const onPointerOver = useCallback(() => setHovered(state => [...state, ref.current]), [])
     const onPointerOut = useCallback(() => setHovered(state => state.filter(mesh => mesh !== ref.current)), [])
     return {ref, onPointerOver, onPointerOut}
@@ -62,10 +63,12 @@ function closestFilter(intersections) {
 
 const Blur = ({isSelected}) => {
     const {viewport} = useThree()
+    // const dimensions = [viewport.width, viewport.height]
+    const dimensions = [1, 1]
     const [spring, setSpring] = useSpring(() => ({opacity: 0}))
     useEffect(() => {
         if (isSelected) {
-            setSpring({opacity: 1})
+            setSpring({opacity: 0.8})
         } else {
             setSpring({opacity: 0})
         }
@@ -73,10 +76,12 @@ const Blur = ({isSelected}) => {
     return (
         <animated.mesh
             opacity={0.5}
-            position={[0, 0, 0.8]}>
+            position={[0, 0, 0.8]}
+            {...useHover()}
+        >
             <planeBufferGeometry attach="geometry"
-                                 args={[viewport.width, viewport.height]}/>
-            <animated.meshStandardMaterial attach="material" color="black" transparent={true} {...spring}/>
+                                 args={dimensions}/>
+            <animated.meshStandardMaterial attach="material" color="red" transparent={true} {...spring}/>
         </animated.mesh>
     )
 }
@@ -98,12 +103,12 @@ export default function Dump(props) {
             raycaster={{filter: closestFilter}}
         >
             <ambientLight intensity={2}/>
-            <Outline
-                enable={!isSelected}
-            >
-                {tiles}
-                <Blur isSelected={isSelected}/>
-            </Outline>
+            {/*<Outline*/}
+            {/*    enable={!isSelected}*/}
+            {/*>*/}
+            {/*    {tiles}*/}
+            <Blur isSelected={isSelected}/>
+            {/*</Outline>*/}
         </Canvas>
     )
 }

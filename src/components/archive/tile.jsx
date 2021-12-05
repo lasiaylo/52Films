@@ -79,7 +79,6 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
             tap
         }) => {
         if (tap) {
-            console.log(film.index)
             setSelected(film)
             return
         }
