@@ -30,10 +30,25 @@ export default function Archive({film}) {
         }
     }
 
+    const Credits = ({film}) => {
+        const cast = film.cast.map((member, i) => {
+            return (
+                <span key={i}>{member}</span>
+            )
+        })
+        return <div className={"credits"}>
+            <span className={"column"}>Cast:</span>
+            {cast}
+        </div>
+    }
+
+    const credits = selectedIndex !== -1 ? <Credits film={films[selectedIndex]}/> : undefined
+
     return (
             <div className={"archive"}>
                 <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
                 <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+                {credits}
             </div>
     )
 }

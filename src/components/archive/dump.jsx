@@ -62,7 +62,6 @@ function closestFilter(intersections) {
 export default function Dump(props) {
     const {films, selectedIndex} = props
     const isSelected = selectedIndex !== -1
-    console.log(selectedIndex)
     const tiles = films.map((film, i) =>
         <Tile
             {...props}
@@ -72,10 +71,12 @@ export default function Dump(props) {
             isSelected={selectedIndex === i}
         />)
 
+    const logline = isSelected ?
+        <div className={"logline"}>{[films[selectedIndex].logline]}</div>
+        : undefined
+
     return (
         <div className={"dump"}>
-            {/*<div className={"overlay"}>*/}
-            {/*</div>*/}
             <div className={"canvas"}>
                 <Canvas
                     raycaster={{filter: closestFilter}}
@@ -89,6 +90,7 @@ export default function Dump(props) {
                     </Outline>
                 </Canvas>
             </div>
+            {logline}
         </div>
     )
 }

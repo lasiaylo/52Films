@@ -15,14 +15,19 @@ const TileSize = 1.5
 export const selectedPos = [-1, 0.1, 3]
 
 export default function Tile({film, setSelected, isSelected, ...props}) {
-    const {logline, stillPreview} = film
+    const {stillPreview} = film
     const {size, viewport} = useThree()
+    const aspect = size.width / viewport.width
+    console.log(viewport)
 
     const [, , largeSrc] = getSources(stillPreview)
     const texture = useLoader(THREE.TextureLoader, largeSrc)
 
     const posX = RandomInNegativeRange(getBounds(viewport.width))
     const posY = RandomInNegativeRange(getBounds(viewport.height))
+    const margin = 20 / (aspect)
+    const selectedPos = [((-viewport.width/2.74) + (TileSize * 1.5 /2.74)) + margin/.74, 0.1, 1]
+    const selectScale = [1.5, 1.5, 1.5]
 
     const [spring, setSpring] = useSpring(() =>
         ({
@@ -44,7 +49,8 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
                 setSpring(
                     {
                         position: selectedPos,
-                        rotation: [0, 0, 0,],
+                        rotation: [0, 0, 0],
+                        scale: selectScale
                     }
                 )
             } else {
@@ -60,6 +66,7 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
                             0,
                             getTileZRotation(),
                         ],
+                        scale: [1, 1, 1]
                     }
                 )
             }
@@ -69,7 +76,6 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
     // useEffect(setOriginalPos, [])
 
     const {position} = spring
-    const aspect = size.width / viewport.width;
     const bind = useDrag((
         {
             offset: [ox, oy],

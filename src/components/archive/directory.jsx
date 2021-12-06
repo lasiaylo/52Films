@@ -28,10 +28,6 @@ function ListElement({film, isSelected, selectedIndex, setSelected}) {
     )
 }
 
-// function Filter({films, setHidden}) {
-//     const
-// }
-
 export default function Directory({films, ...props}) {
     return (
         <div className={"directoryContainer"}>
