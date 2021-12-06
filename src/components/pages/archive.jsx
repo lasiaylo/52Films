@@ -20,21 +20,9 @@ export default function Archive({film}) {
         )
     )
 
-    const [selectedIndex, setSelectedIndex] = useState()
+    const [selectedIndex, setSelectedIndex] = useState(-1)
 
-    const setHiddenFilms = (films) => {
-        const hiddenFilmSet = new Set(films.map(film => film.index))
-        setFilmList(
-            filmList.map(
-                (film, i) => {
-                    return {...film, hidden: hiddenFilmSet.has(i)}
-                }
-            )
-        )
-    }
-
-    const setSelected = (film) =>
-    {
+    const setSelected = (film) => {
         if (typeof film !== 'undefined') {
             setSelectedIndex(film.index)
         } else {
@@ -43,9 +31,9 @@ export default function Archive({film}) {
     }
 
     return (
-        <div className={"archive"}>
-            <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
-            <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
-        </div>
+            <div className={"archive"}>
+                <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+                <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+            </div>
     )
 }

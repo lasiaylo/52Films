@@ -7,7 +7,7 @@ import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass"
 import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass"
 import {RandomInNegativeRange} from "../../util/MathUtils"
-import {useSpring, animated} from "@react-spring/three";
+import Blur from "./blur";
 
 extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
 
@@ -17,7 +17,6 @@ const hoverContext = React.createContext()
 export function useHover() {
     const ref = useRef()
     const setHovered = useContext(hoverContext)
-    console.log(setHovered)
     const onPointerOver = useCallback(() => setHovered(state => [...state, ref.current]), [])
     const onPointerOut = useCallback(() => setHovered(state => state.filter(mesh => mesh !== ref.current)), [])
     return {ref, onPointerOver, onPointerOut}
@@ -57,38 +56,13 @@ export function getTileZRotation() {
 }
 
 function closestFilter(intersections) {
-    console.log(intersections)
     return intersections?.length ? [intersections[0]] : intersections
-}
-
-const Blur = ({isSelected}) => {
-    const {viewport} = useThree()
-    // const dimensions = [viewport.width, viewport.height]
-    const dimensions = [1, 1]
-    const [spring, setSpring] = useSpring(() => ({opacity: 0}))
-    useEffect(() => {
-        if (isSelected) {
-            setSpring({opacity: 0.8})
-        } else {
-            setSpring({opacity: 0})
-        }
-    }, [isSelected])
-    return (
-        <animated.mesh
-            opacity={0.5}
-            position={[0, 0, 0.8]}
-            {...useHover()}
-        >
-            <planeBufferGeometry attach="geometry"
-                                 args={dimensions}/>
-            <animated.meshStandardMaterial attach="material" color="red" transparent={true} {...spring}/>
-        </animated.mesh>
-    )
 }
 
 export default function Dump(props) {
     const {films, selectedIndex} = props
     const isSelected = selectedIndex !== -1
+    console.log(selectedIndex)
     const tiles = films.map((film, i) =>
         <Tile
             {...props}
@@ -99,16 +73,22 @@ export default function Dump(props) {
         />)
 
     return (
-        <Canvas
-            raycaster={{filter: closestFilter}}
-        >
-            <ambientLight intensity={2}/>
-            {/*<Outline*/}
-            {/*    enable={!isSelected}*/}
-            {/*>*/}
-            {/*    {tiles}*/}
-            <Blur isSelected={isSelected}/>
-            {/*</Outline>*/}
-        </Canvas>
+        <div className={"dump"}>
+            {/*<div className={"overlay"}>*/}
+            {/*</div>*/}
+            <div className={"canvas"}>
+                <Canvas
+                    raycaster={{filter: closestFilter}}
+                >
+                    <ambientLight intensity={2}/>
+                    <Outline
+                        enable={!isSelected}
+                    >
+                        {tiles}
+                        <Blur {...props} isSelected={isSelected}/>
+                    </Outline>
+                </Canvas>
+            </div>
+        </div>
     )
 }

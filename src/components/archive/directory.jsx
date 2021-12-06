@@ -34,19 +34,21 @@ function ListElement({film, isSelected, selectedIndex, setSelected}) {
 
 export default function Directory({films, ...props}) {
     return (
-        <div className={"directory"}>
-            <div className={"filler"}/>
-            <div className={"filter"}>Filter</div>
-            <ul className={"list"}>
-                {films.map((film, i) =>
-                    <ListElement
-                        key={i}
-                        film={film}
-                        isSelected={props.selectedIndex === i}
-                        {...props}
-                    />
-                )}
-            </ul>
+        <div className={"directoryContainer"}>
+            <div className={"directory"}>
+                <div className={"filler"}/>
+                <div className={"filter"}/>
+                <ul className={"list"}>
+                    {films.map((film, i) =>
+                        <ListElement
+                            key={i}
+                            film={film}
+                            isSelected={props.selectedIndex === i}
+                            {...props}
+                        />
+                    )}
+                </ul>
+            </div>
         </div>
 
     )
