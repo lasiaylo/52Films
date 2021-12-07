@@ -18,7 +18,6 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
     const {stillPreview} = film
     const {size, viewport} = useThree()
     const aspect = size.width / viewport.width
-    console.log(viewport)
 
     const [, , largeSrc] = getSources(stillPreview)
     const texture = useLoader(THREE.TextureLoader, largeSrc)

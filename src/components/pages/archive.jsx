@@ -31,24 +31,33 @@ export default function Archive({film}) {
     }
 
     const Credits = ({film}) => {
-        const cast = film.cast.map((member, i) => {
+        const aa = new Array(1).fill("Allamaprabhu Prattanashetty, Director")
+        const cast = aa.map((line, i) => {
+            let [role, member] = line.split(',')
+            role = role.trim()
+            member = `${member.trim()}: `
+
             return (
-                <span key={i}>{member}</span>
+                <div>
+                    <span key={i} className={"name"}>{member}</span>
+                    <span key={i}>{role}</span>
+                </div>
             )
         })
         return <div className={"credits"}>
-            <span className={"column"}>Cast:</span>
-            {cast}
+            <div className={"roles"}>
+                {cast}
+            </div>
         </div>
     }
 
     const credits = selectedIndex !== -1 ? <Credits film={films[selectedIndex]}/> : undefined
 
     return (
-            <div className={"archive"}>
-                <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
-                <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
-                {credits}
-            </div>
+        <div className={"archive"}>
+            <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+            <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+            {credits}
+        </div>
     )
 }

@@ -80,9 +80,9 @@ ul
 
 .listFilmmaker
   @include font-style
-  font-size: 12px
+  font-size: 14px
   font-weight: lighter
-  font-style: italic
+  //font-style: italic
   margin: 0
 
   &.hovered
@@ -100,7 +100,7 @@ ul
 .dump
   @include font-style
   font-size: 18px
-  font-weight: normal
+  font-weight: lighter
 
   display: grid
   grid-template-columns: repeat(4, 1fr)
@@ -117,7 +117,7 @@ ul
 
 .logline
   display: flex
-  margin-right: 20px
+  margin-right: $padding
   grid-column: 3 / 5
   grid-row: 1
   z-index: 3
@@ -125,17 +125,33 @@ ul
 
 .credits
   @include font-style
-  font-weight: normal
-
-  display: flex
-  flex-direction: column
-  justify-content: flex-end
-  margin: 20px
-  grid-column: 3 / 5
-  grid-row: 5 / 7
+  font-weight: lighter
+  font-size: 18px
+  max-height: 300px
+  justify-content: start
+  //margin: $padding
+  margin-top: $padding
+  grid-column: 3 / 8
+  grid-row: 5 / 9
   z-index: 3
-  .column
+
+  .title
+    @include font-style
+    margin-left: $padding
     font-weight: bold
-    font-size: 18px
+    font-size: 24px
+
+  .roles
+    @include font-style
+    font-weight: lighter
+    display: flex
+    justify-content: flex-end
+    height: 100%
+    flex-flow: column wrap
+    overflow-x: scroll
+    .name
+      font-weight: normal
+      margin-left: $padding
+
 
 
