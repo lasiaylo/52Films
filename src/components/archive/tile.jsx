@@ -85,7 +85,7 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
         }) => {
         if (tap) {
             console.log(film.index)
-            setSelected(film)
+            setSelected(film, true)
             return
         }
         const [x, y] = position.animation.to

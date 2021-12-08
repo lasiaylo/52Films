@@ -5,10 +5,7 @@ import React, {useEffect} from "react";
 export default function Blur({isSelected, setSelected}) {
     const {viewport} = useThree()
     const dimensions = [viewport.width, viewport.height]
-    const [spring, setSpring] = useSpring(() => ({opacity: 1}))
-    const onClick = {
-        onClick: isSelected ? () => setSelected() : undefined
-    }
+    const [spring, setSpring] = useSpring(() => ({opacity: 0}))
     useEffect(() => {
         if (isSelected) {
             setSpring({opacity: 0.9})

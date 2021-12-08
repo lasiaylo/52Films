@@ -14,6 +14,7 @@ function ListElement({film, isSelected, selectedIndex, setSelected}) {
 
     return (
         <div
+            id={`film${film.index}`}
             className={getHoveredClassName("listRow", isSelected)}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -37,7 +38,7 @@ export default function Directory({films, ...props}) {
                 <ul className={"list"}>
                     {films.map((film, i) =>
                         <ListElement
-                            key={i}
+                            key={`film${i}`}
                             film={film}
                             isSelected={props.selectedIndex === i}
                             {...props}

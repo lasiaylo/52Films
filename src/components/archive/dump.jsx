@@ -66,7 +66,7 @@ export default function Dump(props) {
         <Tile
             {...props}
             film={film}
-            key={i}
+            key={`tile${i}`}
             delay={i * 20} //TODO: Reimplement delay
             isSelected={selectedIndex === i}
         />)
