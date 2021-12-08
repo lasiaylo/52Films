@@ -1,6 +1,6 @@
 import {useThree} from "@react-three/fiber";
 import {animated, useSpring} from "@react-spring/three";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 export default function Blur({isSelected, setSelected}) {
     const {viewport} = useThree()
@@ -9,15 +9,14 @@ export default function Blur({isSelected, setSelected}) {
     useEffect(() => {
         if (isSelected) {
             setSpring({opacity: 0.9})
-
         } else {
             setSpring({opacity: 0})
         }
     }, [isSelected])
+
     return (
         <animated.mesh
-            position={[0, 0, 0.8]}
-            onClick={isSelected ? () => setSelected() : undefined}
+            position={[0,0,0.8]}
         >
             <planeBufferGeometry attach="geometry"
                                  args={dimensions}/>

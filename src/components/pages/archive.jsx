@@ -51,6 +51,7 @@ export default function Archive({film}) {
             }
         } else {
             setSelectedIndex(-1)
+            navigate(`/archive`)
         }
     }
 

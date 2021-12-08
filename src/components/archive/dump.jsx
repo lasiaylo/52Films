@@ -69,6 +69,7 @@ export default function Dump(props) {
             key={`tile${i}`}
             delay={i * 20} //TODO: Reimplement delay
             isSelected={selectedIndex === i}
+            selectedIndex={selectedIndex}
         />)
 
     const logline = isSelected ?
@@ -80,6 +81,7 @@ export default function Dump(props) {
             <div className={"canvas"}>
                 <Canvas
                     raycaster={{filter: closestFilter}}
+                    onPointerMissed={() => setSelected()}
                 >
                     <ambientLight intensity={2}/>
                     <Outline
