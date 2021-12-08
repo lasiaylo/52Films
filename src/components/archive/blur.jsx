@@ -5,11 +5,14 @@ import React, {useEffect} from "react";
 export default function Blur({isSelected, setSelected}) {
     const {viewport} = useThree()
     const dimensions = [viewport.width, viewport.height]
-    // const dimensions = [1, 1]
-    const [spring, setSpring] = useSpring(() => ({opacity: 0}))
+    const [spring, setSpring] = useSpring(() => ({opacity: 1}))
+    const onClick = {
+        onClick: isSelected ? () => setSelected() : undefined
+    }
     useEffect(() => {
         if (isSelected) {
             setSpring({opacity: 0.9})
+
         } else {
             setSpring({opacity: 0})
         }
@@ -17,7 +20,7 @@ export default function Blur({isSelected, setSelected}) {
     return (
         <animated.mesh
             position={[0, 0, 0.8]}
-            onClick={()=>{}}
+            onClick={isSelected ? () => setSelected() : undefined}
         >
             <planeBufferGeometry attach="geometry"
                                  args={dimensions}/>

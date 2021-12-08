@@ -60,19 +60,19 @@ function closestFilter(intersections) {
 }
 
 export default function Dump(props) {
-    const {films, selectedIndex} = props
+    const {films, selectedIndex, setSelected} = props
     const isSelected = selectedIndex !== -1
     const tiles = films.map((film, i) =>
         <Tile
             {...props}
             film={film}
             key={i}
-            delay={i * .35}
+            delay={i * 20} //TODO: Reimplement delay
             isSelected={selectedIndex === i}
         />)
 
     const logline = isSelected ?
-        <div className={"logline"}>{[films[selectedIndex].logline]}</div>
+        <div className={"logline"} onClick={() => setSelected()}>{[films[selectedIndex].logline]}</div>
         : undefined
 
     return (
