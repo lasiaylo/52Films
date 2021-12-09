@@ -55,7 +55,7 @@ export default function Archive({film}) {
         }
     }
 
-    const Credits = ({film}) => {
+    const Credits = ({film, setSelected}) => {
         const aa = new Array(1).fill("Allamaprabhu Prattanashetty, Director")
         const cast = aa.map((line, i) => {
             let [role, member] = line.split(',')
@@ -69,7 +69,7 @@ export default function Archive({film}) {
                 </div>
             )
         })
-        return <div className={"credits"}>
+        return <div className={"credits"} onClick={()=>setSelected()}>
             <div className={"roles"}>
                 {cast}
             </div>
@@ -77,7 +77,7 @@ export default function Archive({film}) {
     }
 
     const credits = selectedIndex !== -1 ?
-        <Credits film={films[selectedIndex]} setSelectedIndex={setSelectedIndex}/> : undefined
+        <Credits film={films[selectedIndex]} setSelected={setSelected}/> : undefined
 
     return (
         <div className={"archive"}>
