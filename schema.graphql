@@ -317,7 +317,7 @@ type ContentfulEntryGroupConnection {
 
 type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
     animPreview: ContentfulAsset
-    castMembers: [String]
+    cast: [String]
     "Returns the first child node of type contentfulFilmDescriptionTextNode or null if there are no children of given type on this node"
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNode
     "Returns the first child node of type contentfulFilmSpecialThanksmessageTextNode or null if there are no children of given type on this node"
@@ -342,7 +342,7 @@ type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
         "Configures the locale Moment.js will use to format the date."
         locale: String
     ): Date
-    crewMembers: [String]
+    crew: [String]
     description: contentfulFilmDescriptionTextNode
     filmmaker: [ContentfulPerson]
     id: ID!
@@ -1232,7 +1232,7 @@ type Query {
     contentfulAsset(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, file: ContentfulAssetFileFilterInput, fixed: ContentfulFixedFilterInput, fluid: ContentfulFluidFilterInput, gatsbyImageData: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, resize: ContentfulResizeFilterInput, spaceId: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput): ContentfulAsset
     contentfulContentType(children: NodeFilterListInput, description: StringQueryOperatorInput, displayField: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, parent: NodeFilterInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
     contentfulEntry(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulEntry
-    contentfulFilm(animPreview: ContentfulAssetFilterInput, castMembers: StringQueryOperatorInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput, childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, childrenContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterListInput, childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, crewMembers: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, spaceId: StringQueryOperatorInput, specialThanksmessage: contentfulFilmSpecialThanksmessageTextNodeFilterInput, stillPreview: ContentfulAssetFilterInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, video: contentfulFilmVideoJsonNodeFilterInput): ContentfulFilm
+    contentfulFilm(animPreview: ContentfulAssetFilterInput, cast: StringQueryOperatorInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput, childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, childrenContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterListInput, childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, crew: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, spaceId: StringQueryOperatorInput, specialThanksmessage: contentfulFilmSpecialThanksmessageTextNodeFilterInput, stillPreview: ContentfulAssetFilterInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, video: contentfulFilmVideoJsonNodeFilterInput): ContentfulFilm
     contentfulFilmDescriptionTextNode(childMdx: MdxFilterInput, children: NodeFilterListInput, childrenMdx: MdxFilterListInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, sys: contentfulFilmDescriptionTextNodeSysFilterInput): contentfulFilmDescriptionTextNode
     contentfulFilmSpecialThanksmessageTextNode(childMdx: MdxFilterInput, children: NodeFilterListInput, childrenMdx: MdxFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, specialThanksmessage: StringQueryOperatorInput, sys: contentfulFilmSpecialThanksmessageTextNodeSysFilterInput): contentfulFilmSpecialThanksmessageTextNode
     contentfulFilmVideoJsonNode(assetId: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, playbackId: StringQueryOperatorInput, ratio: StringQueryOperatorInput, ready: BooleanQueryOperatorInput, sys: contentfulFilmVideoJsonNodeSysFilterInput, uploadId: StringQueryOperatorInput): contentfulFilmVideoJsonNode
@@ -2036,7 +2036,7 @@ enum ContentfulFilmFieldsEnum {
     animPreview___sys___type
     animPreview___title
     animPreview___updatedAt
-    castMembers
+    cast
     childContentfulFilmDescriptionTextNode___childMdx___body
     childContentfulFilmDescriptionTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childContentfulFilmDescriptionTextNode___childMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -2573,7 +2573,7 @@ enum ContentfulFilmFieldsEnum {
     children___parent___parent___id
     contentful_id
     createdAt
-    crewMembers
+    crew
     description___childMdx___body
     description___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     description___childMdx___children___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -2704,7 +2704,7 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___animPreview___spaceId
     filmmaker___film___animPreview___title
     filmmaker___film___animPreview___updatedAt
-    filmmaker___film___castMembers
+    filmmaker___film___cast
     filmmaker___film___childContentfulFilmDescriptionTextNode___children
     filmmaker___film___childContentfulFilmDescriptionTextNode___childrenMdx
     filmmaker___film___childContentfulFilmDescriptionTextNode___description
@@ -2743,7 +2743,7 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___children___id
     filmmaker___film___contentful_id
     filmmaker___film___createdAt
-    filmmaker___film___crewMembers
+    filmmaker___film___crew
     filmmaker___film___description___children
     filmmaker___film___description___childrenMdx
     filmmaker___film___description___description
@@ -3415,7 +3415,7 @@ enum ContentfulPersonFieldsEnum {
     film___animPreview___sys___type
     film___animPreview___title
     film___animPreview___updatedAt
-    film___castMembers
+    film___cast
     film___childContentfulFilmDescriptionTextNode___childMdx___body
     film___childContentfulFilmDescriptionTextNode___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     film___childContentfulFilmDescriptionTextNode___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -3640,7 +3640,7 @@ enum ContentfulPersonFieldsEnum {
     film___children___parent___id
     film___contentful_id
     film___createdAt
-    film___crewMembers
+    film___crew
     film___description___childMdx___body
     film___description___childMdx___children @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     film___description___childMdx___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -3689,14 +3689,14 @@ enum ContentfulPersonFieldsEnum {
     film___filmmaker___contentful_id
     film___filmmaker___createdAt
     film___filmmaker___film
-    film___filmmaker___film___castMembers
+    film___filmmaker___film___cast
     film___filmmaker___film___children
     film___filmmaker___film___childrenContentfulFilmDescriptionTextNode
     film___filmmaker___film___childrenContentfulFilmSpecialThanksmessageTextNode
     film___filmmaker___film___childrenContentfulFilmVideoJsonNode
     film___filmmaker___film___contentful_id
     film___filmmaker___film___createdAt
-    film___filmmaker___film___crewMembers
+    film___filmmaker___film___crew
     film___filmmaker___film___filmmaker
     film___filmmaker___film___id
     film___filmmaker___film___node_locale
@@ -5846,7 +5846,7 @@ input ContentfulEntrySortInput {
 
 input ContentfulFilmFilterInput {
     animPreview: ContentfulAssetFilterInput
-    castMembers: StringQueryOperatorInput
+    cast: StringQueryOperatorInput
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput
     childContentfulFilmSpecialThanksmessageTextNode: contentfulFilmSpecialThanksmessageTextNodeFilterInput
     childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput
@@ -5856,7 +5856,7 @@ input ContentfulFilmFilterInput {
     childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput
     contentful_id: StringQueryOperatorInput
     createdAt: DateQueryOperatorInput
-    crewMembers: StringQueryOperatorInput
+    crew: StringQueryOperatorInput
     description: contentfulFilmDescriptionTextNodeFilterInput
     filmmaker: ContentfulPersonFilterListInput
     id: StringQueryOperatorInput

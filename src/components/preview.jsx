@@ -25,7 +25,7 @@ function Card(props) {
     video?.play()
 
     useEffect(() => {
-        const playPromise = video?.play();
+        const playPromise = video?.play()
         if (playPromise !== undefined) {
             playPromise.then(function () {
                 // Automatic playback started!

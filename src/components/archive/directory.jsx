@@ -14,6 +14,7 @@ function ListElement({film, isSelected, selectedIndex, setSelected}) {
 
     return (
         <div
+            id={`film${film.index}`}
             className={getHoveredClassName("listRow", isSelected)}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -28,25 +29,23 @@ function ListElement({film, isSelected, selectedIndex, setSelected}) {
     )
 }
 
-// function Filter({films, setHidden}) {
-//     const
-// }
-
 export default function Directory({films, ...props}) {
     return (
-        <div className={"directory"}>
-            <div className={"filler"}/>
-            <div className={"filter"}>Filter</div>
-            <ul className={"list"}>
-                {films.map((film, i) =>
-                    <ListElement
-                        key={i}
-                        film={film}
-                        isSelected={props.selectedIndex === i}
-                        {...props}
-                    />
-                )}
-            </ul>
+        <div className={"directoryContainer"}>
+            <div className={"directory"}>
+                <div className={"filler"}/>
+                <div className={"filter"}/>
+                <ul className={"list"}>
+                    {films.map((film, i) =>
+                        <ListElement
+                            key={`film${i}`}
+                            film={film}
+                            isSelected={props.selectedIndex === i}
+                            {...props}
+                        />
+                    )}
+                </ul>
+            </div>
         </div>
 
     )

@@ -16,7 +16,7 @@ function Home({film}) {
             </div>
             <div className={'footer'}>
                 <h1>{title.toUpperCase()}</h1>
-                <h2>{logline.toUpperCase()}</h2>
+                <h2>{logline}</h2>
             </div>
         </div>
     )

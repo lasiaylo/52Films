@@ -16,6 +16,8 @@ class Film {
         this.animPreview = "https:" + this.animPreview
         this.stillPreview = film.stillPreview.gatsbyImageData
         this.videoSrc = Film.muxURL + film.video.playbackId + Film.muxSuffix
+        this.cast = film.cast
+        this.crew = film.crew
     }
 }
 
