@@ -41,8 +41,7 @@ export const query = graphql`
                     stillPreview {
                         gatsbyImageData
                     }
-                    cast
-                    crew
+                    credits
                 }
             }
         }
