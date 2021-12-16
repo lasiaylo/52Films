@@ -5,8 +5,8 @@ import "../../styles/home.sass"
 import Preview from "../preview";
 
 function Home({film}) {
-
     const {title, logline, animPreview, videoSrc} = film
+
     return (
         <div className={'home'}>
             <div className={'imageContainer'}>

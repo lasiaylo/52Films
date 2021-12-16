@@ -25,13 +25,10 @@ export const query = graphql`
                         description
                     }
                     createdAt
+                    videoSrc
                     filmmaker {
                         firstName
                         lastName
-                    }
-                    video
-                    {
-                        playbackId
                     }
                     animPreview {
                         file {
@@ -49,7 +46,7 @@ export const query = graphql`
 `
 
 export default function IndexPage({data}) {
-    const film = data.allContentfulFilm.edges[2].node
+    const film = data.allContentfulFilm.edges[0].node
     const a = new Film(film)
 
     return (

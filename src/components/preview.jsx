@@ -1,6 +1,8 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
 import {Canvas, useFrame} from '@react-three/fiber'
-import VideoPlayer from "./player";
+import "../styles/playerOverlayContainer.sass"
+import PlayerOverlay from "./PlayerOverlay";
+
 
 
 const previewX = 0.7
@@ -43,7 +45,6 @@ function Card(props) {
         // noinspection JSSuspiciousNameCombination
         ref.current.rotation.y = (state.mouse.x - previewX) * .05
         ref.current.rotation.x = (-state.mouse.y + previewY) * .05
-        //TODO: Consider scrubbing based off mouse x
     })
     return (
         <mesh
@@ -63,7 +64,11 @@ export default function Preview({image, videoSrc}) {
     const [showFilm, setShowFilm] = useState(false)
 
     if (showFilm) {
-        return <VideoPlayer src={videoSrc}/>
+        return (
+            <div className={"playerOverlayContainer"}>
+                <PlayerOverlay src={videoSrc} setShowFilm={setShowFilm}/>
+            </div>
+        )
     }
     return (
         <Canvas className={"canvas"}>
