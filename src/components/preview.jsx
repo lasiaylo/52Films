@@ -2,8 +2,7 @@ import React, {useRef, useState, Suspense, useEffect} from 'react'
 import {Canvas, useFrame} from '@react-three/fiber'
 import "../styles/playerOverlayContainer.sass"
 import PlayerOverlay from "./PlayerOverlay";
-
-
+import {useSpring, animated} from "@react-spring/three";
 
 const previewX = 0.7
 const previewY = .75
@@ -11,6 +10,21 @@ const previewY = .75
 function Card(props) {
     // This reference gives us direct access to the THREE.Mesh object
     const ref = useRef()
+
+    // TODO: Shape Canvas properly with CSS and position card in center
+
+    const [spring, setSpring] = useSpring(() => ({
+        position: [
+            previewX,
+            previewY,
+            40
+        ],
+        rotation: [
+            0,
+            0,
+            0
+        ]
+    }))
 
     const [hovered, hover] = useState(false)
     const isBrowser = typeof document !== "undefined"
@@ -31,7 +45,20 @@ function Card(props) {
         if (playPromise !== undefined) {
             playPromise.then(function () {
                 // Automatic playback started!
+                setSpring({
+                    position: [
+                        previewX,
+                        previewY,
+                        0
+                    ],
+                    rotation: [
+                        0,
+                        0,
+                        0
+                    ]
+                })
             }).catch(function (error) {
+
                 // Automatic playback failed.
                 // Show a UI element to let the user manually start playback.
             });
@@ -41,14 +68,26 @@ function Card(props) {
     useFrame((state, delta) => {
         // TODO: Interp to smooth animation
         // Consider Anime.js
+        // ref.current.position.z = Math.sin(Date.now() / 800) / 40
 
         // noinspection JSSuspiciousNameCombination
-        ref.current.rotation.y = (state.mouse.x - previewX) * .05
-        ref.current.rotation.x = (-state.mouse.y + previewY) * .05
+        setSpring({
+            position: [
+                previewX + (state.mouse.x / 8),
+                previewY + (state.mouse.y / 8),
+                Math.sin(Date.now()/ 500) / 40
+            ],
+            rotation: [
+                (-state.mouse.y + previewY) * .05,
+                (state.mouse.x - previewX) * .05,
+                0
+            ]
+        })
     })
     return (
-        <mesh
+        <animated.mesh
             {...props}
+            {...spring}
             ref={ref}
             onClick={() => props.setShowFilm(true)}
         >
@@ -56,7 +95,7 @@ function Card(props) {
             <meshBasicMaterial>
                 <videoTexture attach="map" args={[video]}/>
             </meshBasicMaterial>
-        </mesh>
+        </animated.mesh>
     )
 }
 
