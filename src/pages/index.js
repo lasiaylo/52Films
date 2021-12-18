@@ -38,7 +38,9 @@ export const query = graphql`
                     stillPreview {
                         gatsbyImageData
                     }
-                    credits
+                    credits {
+                        credits
+                    }
                 }
             }
         }
