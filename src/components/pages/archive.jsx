@@ -56,22 +56,21 @@ export default function Archive({film}) {
     }
 
     const Credits = ({film, setSelected}) => {
-        const aa = new Array(1).fill("Allamaprabhu Prattanashetty, Director")
-        const cast = aa.map((line, i) => {
-            let [role, member] = line.split(',')
-            role = role.trim()
-            member = `${member.trim()}: `
-
+        const credits = film.credits
+        const text = credits.map((line, i) => {
+            let [role, member] = line.split(':')
+            role = `${role.trim()}: `
+            member = member.trim()
             return (
                 <div key={`credit pair ${i}`}>
-                    <span key={`member${i}`} className={"name"}>{member}</span>
                     <span key={`role${i}`}>{role}</span>
+                    <span key={`member${i}`} className={"name"}>{member}</span>
                 </div>
             )
         })
         return <div className={"credits"} onClick={()=>setSelected()}>
             <div className={"roles"}>
-                {cast}
+                {text}
             </div>
         </div>
     }
