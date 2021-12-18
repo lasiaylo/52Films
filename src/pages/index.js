@@ -17,7 +17,7 @@ const LazyComponent = ({Component, ...props}) => (
 
 export const query = graphql`
     query PageQuery{
-        allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
+        allContentfulFilm(sort: { fields: [createdAt], order: DESC}) {
             edges {
                 node {
                     title
