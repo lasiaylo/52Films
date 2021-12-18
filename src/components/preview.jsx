@@ -3,6 +3,7 @@ import {Canvas, useFrame, useThree} from '@react-three/fiber'
 import "../styles/playerOverlayContainer.sass"
 import PlayerOverlay from "./PlayerOverlay";
 import {useSpring, animated} from "@react-spring/three";
+import {useDrag} from "@use-gesture/react";
 
 
 function Card(props) {
@@ -29,6 +30,7 @@ function Card(props) {
     }))
 
     const [hover, setHover] = useState(false)
+    const [clicked, setClicked] = useState(props.showFilm)
     const isBrowser = typeof document !== "undefined"
     const [video] = useState(() => {
         if (isBrowser) {
@@ -41,6 +43,15 @@ function Card(props) {
         }
     })
     video?.play()
+
+    useEffect(() => {
+        if (!clicked) {
+            const scale = hover ? [1.02, 1.02, 1.02] : [1, 1, 1]
+            setSpring({
+                scale: scale
+            })
+        }
+    }, [hover])
 
     useEffect(() => {
         const playPromise = video?.play()
@@ -69,46 +80,69 @@ function Card(props) {
         }
     }, [video])
 
-    useEffect(() => {
-        const scale = hover ? [1.02, 1.02, 1.02] : [1, 1, 1]
-        setSpring({
-            scale: scale
-        })
-    }, [hover])
     useFrame((state, delta) => {
         // TODO: Interp to smooth animation
         // Consider Anime.js
         // ref.current.position.z = Math.sin(Date.now() / 800) / 40
 
         // noinspection JSSuspiciousNameCombination
-        const now = Date.now()
-        const zRotate = hover ?
-            (Math.sin((now + 40) / 12)) * .2
-            : (Math.sin((now + 40) / 1600)) * .02
-        setSpring({
-            position: [
-                cardX + ((state.mouse.x - (cardX / 2)) * .05),
-                cardY + ((state.mouse.y + (cardY / 2)) * .05),
-                // cardX,cardY, 0
-                (Math.sin(now / 500) * 0.025)
-            ],
-            rotation: [
-                (-state.mouse.y + (cardY / 2)) * .05,
-                (Math.sin((now + 900) / 1400)) * .015 +
-                (state.mouse.x - (cardX / 2)) * .02,
-                zRotate
-            ],
-            config: {
-                mass: 1
-            }
-        })
+        if (!clicked) {
+            const now = Date.now()
+            const zRotate = (Math.sin((now + 40) / 1600)) * .02
+            setSpring({
+                position: [
+                    cardX + (Math.sin(now + 500 / 500) * 0.025),
+                    cardY + (Math.sin(now + 900 / 500) * 0.025),
+                    (Math.sin(now / 500) * 0.025)
+                ],
+                rotation: [
+                    (Math.sin((now + 1800) / 1400)) * .015 +
+                    (-state.mouse.y + (cardY / 6)) * .04,
+                    (Math.sin((now + 900) / 1400)) * .005 +
+                    (state.mouse.x - (cardX / 6)) * .025,
+                    zRotate
+                ],
+                config: {
+                    mass: 1
+                }
+            })
+        }
     })
+
+    const bind = useDrag((
+        {down}
+    ) => {
+        if (down) {
+            setSpring({
+                scale: [0.95, 0.95, 1],
+                config: {
+                    mass: 1
+                },
+            })
+        } else {
+            setClicked(true)
+            setSpring({
+                position: [cardX, cardY, 0],
+                rotation: [0, 0, 0],
+                scale: [1, 1, 1],
+                config: {
+                    mass: 1,
+                    tension: 400
+                },
+                onRest: () => {
+                    props.setShowFilm(true)
+                    setClicked(false)
+                }
+            })
+        }
+    })
+
     return (
         <animated.mesh
             {...props}
             {...spring}
             ref={ref}
-            onClick={() => props.setShowFilm(true)}
+            {...bind()}
             onPointerOver={() => setHover(true)}
             onPointerLeave={() => setHover(false)}
         >
@@ -132,7 +166,7 @@ export default function Preview({image, videoSrc}) {
     }
     return (
         <Canvas className={"canvas"}>
-            <Card image={image} setShowFilm={setShowFilm}/>
+            <Card image={image} showFilm={showFilm} setShowFilm={setShowFilm}/>
         </Canvas>
     )
 }
