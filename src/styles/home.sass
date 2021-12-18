@@ -18,7 +18,7 @@ canvas
   display: flex
   flex: 1 1 auto
 
-$card-width: 58vw
+$card-width: 58.5vw
 
 .cardBorder
   @include tertiary-font-style
@@ -27,12 +27,12 @@ $card-width: 58vw
   top: 39.9%
   transform: translateY(-50%)
   width: $card-width
-  height: calc(#{$card-width} / (16/9) * 1.01)
+  height: calc(#{$card-width} / (16/9))
   border: dashed white 1px
   z-index: -5
   margin: 0 auto
   .cardCTA
-    position: absolute
+    position: absolute 
     right: 0
     top: 100%
     justify-self: center
@@ -42,7 +42,7 @@ $card-width: 58vw
     left: 100%
     transform: rotate(90deg)
     transform-origin: top left
-    margin-left: 20px
+    margin-left: 24px
 
 .footer
   position: absolute

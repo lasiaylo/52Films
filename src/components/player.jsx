@@ -10,7 +10,7 @@ export default function VideoPlayer({src}) {
         }
 
         const player = new Vimeo(ref.current, options)
-        // player.play()
+        player.play()
     })
 
     return (

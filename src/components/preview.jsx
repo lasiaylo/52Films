@@ -5,13 +5,12 @@ import PlayerOverlay from "./PlayerOverlay";
 import {useSpring, animated} from "@react-spring/three";
 
 
-
 function Card(props) {
     const ref = useRef()
 
     const {viewport} = useThree()
     const cardWidth = viewport.width * .6
-    const cardHeight = cardWidth / (16/9)
+    const cardHeight = cardWidth / (16 / 9)
     const cardX = (viewport.width / 10)
     const cardY = viewport.height / 10
 
@@ -25,10 +24,11 @@ function Card(props) {
             0,
             0,
             0
-        ]
+        ],
+        scale: [1, 1, 1],
     }))
 
-    const [hovered, hover] = useState(false)
+    const [hover, setHover] = useState(false)
     const isBrowser = typeof document !== "undefined"
     const [video] = useState(() => {
         if (isBrowser) {
@@ -67,8 +67,14 @@ function Card(props) {
                 // Show a UI element to let the user manually start playback.
             });
         }
-    }, [video]);
+    }, [video])
 
+    useEffect(() => {
+        const scale = hover ? [1.02, 1.02, 1.02] : [1, 1, 1]
+        setSpring({
+            scale: scale
+        })
+    }, [hover])
     useFrame((state, delta) => {
         // TODO: Interp to smooth animation
         // Consider Anime.js
@@ -76,17 +82,21 @@ function Card(props) {
 
         // noinspection JSSuspiciousNameCombination
         const now = Date.now()
-        const hoverOffset = hovered ? 1 : 0
+        const zRotate = hover ?
+            (Math.sin((now + 40) / 12)) * .2
+            : (Math.sin((now + 40) / 1600)) * .02
         setSpring({
             position: [
-                cardX + ((state.mouse.x - (cardX/2))* .05),
-                cardY + ((state.mouse.y + (cardY/2)) * .05),
-                (Math.sin(now / 500) * 0.025) + hoverOffset
+                cardX + ((state.mouse.x - (cardX / 2)) * .05),
+                cardY + ((state.mouse.y + (cardY / 2)) * .05),
+                // cardX,cardY, 0
+                (Math.sin(now / 500) * 0.025)
             ],
             rotation: [
-                (-state.mouse.y + (cardY/2)) * .05,
-                (Math.sin((now + 900)/ 1200)) * .015 + (state.mouse.x - (cardX/2)) * .05,
-                (Math.sin((now + 40)/ 1200)) * .02
+                (-state.mouse.y + (cardY / 2)) * .05,
+                (Math.sin((now + 900) / 1400)) * .015 +
+                (state.mouse.x - (cardX / 2)) * .02,
+                zRotate
             ],
             config: {
                 mass: 1
@@ -99,6 +109,8 @@ function Card(props) {
             {...spring}
             ref={ref}
             onClick={() => props.setShowFilm(true)}
+            onPointerOver={() => setHover(true)}
+            onPointerLeave={() => setHover(false)}
         >
             <planeBufferGeometry attach="geometry" args={[cardWidth, cardHeight]}/>
             <meshBasicMaterial>
