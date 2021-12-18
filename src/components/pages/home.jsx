@@ -5,14 +5,16 @@ import "../../styles/home.sass"
 import Preview from "../preview";
 
 function Home({film}) {
-
     const {title, logline, animPreview, videoSrc} = film
+
     return (
         <div className={'home'}>
-            <div className={'imageContainer'}>
-                <div className={'imageBorder'}>
-                    <Preview image={animPreview} videoSrc={videoSrc}/>
-                </div>
+            <div className={'cardContainer'}>
+                <Preview image={animPreview} videoSrc={videoSrc}/>
+            </div>
+            <div className={'cardBorder'}>
+                <span className={"cardCTA"}>CLICK TO WATCH</span>
+                <span className={"cardNumber"}>34 / 52</span>
             </div>
             <div className={'footer'}>
                 <h1>{title.toUpperCase()}</h1>

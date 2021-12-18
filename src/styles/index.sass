@@ -5,13 +5,18 @@ $primary-background-color: black
 $padding: 20px
 
 @mixin font-style
-  font-family: "Helvetica Neue LT Pro"
+  font-family: "Helvetica Neue LT Pro", sans-serif
   font-weight: bold
   color: $primary-color
 
 @mixin secondary-font-style
-  font-family: "SF Pro Display"
+  font-family: "SF Pro Display", serif
   font-weight: normal
+  color: $primary-color
+
+@mixin tertiary-font-style
+  font-family: "Inconsolata", sans-serif
+  font-weight: lighter
   color: $primary-color
 
 html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
@@ -82,7 +87,3 @@ h2
       flex: 1 1 auto
       .router
         flex: 1 1 auto
-
-.player
-    position: absolute
-    left: 400px

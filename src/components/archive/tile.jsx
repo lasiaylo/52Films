@@ -72,7 +72,6 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
 
         }, [isSelected]
     )
-    // useEffect(setOriginalPos, [])
 
     const {position} = spring
     const bind = useDrag((

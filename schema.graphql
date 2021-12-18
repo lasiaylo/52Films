@@ -319,13 +319,9 @@ type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
     animPreview: ContentfulAsset
     "Returns the first child node of type contentfulFilmDescriptionTextNode or null if there are no children of given type on this node"
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNode
-    "Returns the first child node of type contentfulFilmVideoJsonNode or null if there are no children of given type on this node"
-    childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNode
     children: [Node!]!
     "Returns all children nodes filtered by type contentfulFilmDescriptionTextNode"
     childrenContentfulFilmDescriptionTextNode: [contentfulFilmDescriptionTextNode]
-    "Returns all children nodes filtered by type contentfulFilmVideoJsonNode"
-    childrenContentfulFilmVideoJsonNode: [contentfulFilmVideoJsonNode]
     contentful_id: String!
     createdAt(
         "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
@@ -358,7 +354,7 @@ type ContentfulFilm implements ContentfulEntry & ContentfulReference & Node {
         "Configures the locale Moment.js will use to format the date."
         locale: String
     ): Date
-    video: contentfulFilmVideoJsonNode
+    videoSrc: String
 }
 
 type ContentfulFilmConnection {
@@ -1208,7 +1204,6 @@ type Query {
     allContentfulEntry(filter: ContentfulEntryFilterInput, limit: Int, skip: Int, sort: ContentfulEntrySortInput): ContentfulEntryConnection!
     allContentfulFilm(filter: ContentfulFilmFilterInput, limit: Int, skip: Int, sort: ContentfulFilmSortInput): ContentfulFilmConnection!
     allContentfulFilmDescriptionTextNode(filter: contentfulFilmDescriptionTextNodeFilterInput, limit: Int, skip: Int, sort: contentfulFilmDescriptionTextNodeSortInput): contentfulFilmDescriptionTextNodeConnection!
-    allContentfulFilmVideoJsonNode(filter: contentfulFilmVideoJsonNodeFilterInput, limit: Int, skip: Int, sort: contentfulFilmVideoJsonNodeSortInput): contentfulFilmVideoJsonNodeConnection!
     allContentfulLink(filter: ContentfulLinkFilterInput, limit: Int, skip: Int, sort: ContentfulLinkSortInput): ContentfulLinkConnection!
     allContentfulPage(filter: ContentfulPageFilterInput, limit: Int, skip: Int, sort: ContentfulPageSortInput): ContentfulPageConnection!
     allContentfulPerson(filter: ContentfulPersonFilterInput, limit: Int, skip: Int, sort: ContentfulPersonSortInput): ContentfulPersonConnection!
@@ -1225,9 +1220,8 @@ type Query {
     contentfulAsset(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, file: ContentfulAssetFileFilterInput, fixed: ContentfulFixedFilterInput, fluid: ContentfulFluidFilterInput, gatsbyImageData: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, resize: ContentfulResizeFilterInput, spaceId: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput): ContentfulAsset
     contentfulContentType(children: NodeFilterListInput, description: StringQueryOperatorInput, displayField: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, parent: NodeFilterInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
     contentfulEntry(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulEntry
-    contentfulFilm(animPreview: ContentfulAssetFilterInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, credits: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, spaceId: StringQueryOperatorInput, stillPreview: ContentfulAssetFilterInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, video: contentfulFilmVideoJsonNodeFilterInput): ContentfulFilm
+    contentfulFilm(animPreview: ContentfulAssetFilterInput, childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput, children: NodeFilterListInput, childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, credits: StringQueryOperatorInput, description: contentfulFilmDescriptionTextNodeFilterInput, filmmaker: ContentfulPersonFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, spaceId: StringQueryOperatorInput, stillPreview: ContentfulAssetFilterInput, sys: ContentfulFilmSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, videoSrc: StringQueryOperatorInput): ContentfulFilm
     contentfulFilmDescriptionTextNode(childMdx: MdxFilterInput, children: NodeFilterListInput, childrenMdx: MdxFilterListInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, sys: contentfulFilmDescriptionTextNodeSysFilterInput): contentfulFilmDescriptionTextNode
-    contentfulFilmVideoJsonNode(assetId: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, playbackId: StringQueryOperatorInput, ratio: StringQueryOperatorInput, ready: BooleanQueryOperatorInput, sys: contentfulFilmVideoJsonNodeSysFilterInput, uploadId: StringQueryOperatorInput): contentfulFilmVideoJsonNode
     contentfulLink(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulLink
     contentfulPage(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulPage
     contentfulPerson(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, film: ContentfulFilmFilterListInput, firstName: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, lastName: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, spaceId: StringQueryOperatorInput, sys: ContentfulPersonSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulPerson
@@ -1539,55 +1533,6 @@ type contentfulFilmDescriptionTextNodeGroupConnection {
 }
 
 type contentfulFilmDescriptionTextNodeSys {
-    type: String
-}
-
-type contentfulFilmVideoJsonNode implements Node {
-    assetId: String
-    children: [Node!]!
-    id: ID!
-    internal: Internal!
-    parent: Node
-    playbackId: String
-    ratio: String
-    ready: Boolean
-    sys: contentfulFilmVideoJsonNodeSys
-    uploadId: String
-}
-
-type contentfulFilmVideoJsonNodeConnection {
-    distinct(field: contentfulFilmVideoJsonNodeFieldsEnum!): [String!]!
-    edges: [contentfulFilmVideoJsonNodeEdge!]!
-    group(field: contentfulFilmVideoJsonNodeFieldsEnum!, limit: Int, skip: Int): [contentfulFilmVideoJsonNodeGroupConnection!]!
-    max(field: contentfulFilmVideoJsonNodeFieldsEnum!): Float
-    min(field: contentfulFilmVideoJsonNodeFieldsEnum!): Float
-    nodes: [contentfulFilmVideoJsonNode!]!
-    pageInfo: PageInfo!
-    sum(field: contentfulFilmVideoJsonNodeFieldsEnum!): Float
-    totalCount: Int!
-}
-
-type contentfulFilmVideoJsonNodeEdge {
-    next: contentfulFilmVideoJsonNode
-    node: contentfulFilmVideoJsonNode!
-    previous: contentfulFilmVideoJsonNode
-}
-
-type contentfulFilmVideoJsonNodeGroupConnection {
-    distinct(field: contentfulFilmVideoJsonNodeFieldsEnum!): [String!]!
-    edges: [contentfulFilmVideoJsonNodeEdge!]!
-    field: String!
-    fieldValue: String
-    group(field: contentfulFilmVideoJsonNodeFieldsEnum!, limit: Int, skip: Int): [contentfulFilmVideoJsonNodeGroupConnection!]!
-    max(field: contentfulFilmVideoJsonNodeFieldsEnum!): Float
-    min(field: contentfulFilmVideoJsonNodeFieldsEnum!): Float
-    nodes: [contentfulFilmVideoJsonNode!]!
-    pageInfo: PageInfo!
-    sum(field: contentfulFilmVideoJsonNodeFieldsEnum!): Float
-    totalCount: Int!
-}
-
-type contentfulFilmVideoJsonNodeSys {
     type: String
 }
 
@@ -2080,50 +2025,6 @@ enum ContentfulFilmFieldsEnum {
     childContentfulFilmDescriptionTextNode___parent___parent___children
     childContentfulFilmDescriptionTextNode___parent___parent___id
     childContentfulFilmDescriptionTextNode___sys___type
-    childContentfulFilmVideoJsonNode___assetId
-    childContentfulFilmVideoJsonNode___children
-    childContentfulFilmVideoJsonNode___children___children
-    childContentfulFilmVideoJsonNode___children___children___children
-    childContentfulFilmVideoJsonNode___children___children___id
-    childContentfulFilmVideoJsonNode___children___id
-    childContentfulFilmVideoJsonNode___children___internal___content
-    childContentfulFilmVideoJsonNode___children___internal___contentDigest
-    childContentfulFilmVideoJsonNode___children___internal___description
-    childContentfulFilmVideoJsonNode___children___internal___fieldOwners
-    childContentfulFilmVideoJsonNode___children___internal___ignoreType
-    childContentfulFilmVideoJsonNode___children___internal___mediaType
-    childContentfulFilmVideoJsonNode___children___internal___owner
-    childContentfulFilmVideoJsonNode___children___internal___type
-    childContentfulFilmVideoJsonNode___children___parent___children
-    childContentfulFilmVideoJsonNode___children___parent___id
-    childContentfulFilmVideoJsonNode___id
-    childContentfulFilmVideoJsonNode___internal___content
-    childContentfulFilmVideoJsonNode___internal___contentDigest
-    childContentfulFilmVideoJsonNode___internal___description
-    childContentfulFilmVideoJsonNode___internal___fieldOwners
-    childContentfulFilmVideoJsonNode___internal___ignoreType
-    childContentfulFilmVideoJsonNode___internal___mediaType
-    childContentfulFilmVideoJsonNode___internal___owner
-    childContentfulFilmVideoJsonNode___internal___type
-    childContentfulFilmVideoJsonNode___parent___children
-    childContentfulFilmVideoJsonNode___parent___children___children
-    childContentfulFilmVideoJsonNode___parent___children___id
-    childContentfulFilmVideoJsonNode___parent___id
-    childContentfulFilmVideoJsonNode___parent___internal___content
-    childContentfulFilmVideoJsonNode___parent___internal___contentDigest
-    childContentfulFilmVideoJsonNode___parent___internal___description
-    childContentfulFilmVideoJsonNode___parent___internal___fieldOwners
-    childContentfulFilmVideoJsonNode___parent___internal___ignoreType
-    childContentfulFilmVideoJsonNode___parent___internal___mediaType
-    childContentfulFilmVideoJsonNode___parent___internal___owner
-    childContentfulFilmVideoJsonNode___parent___internal___type
-    childContentfulFilmVideoJsonNode___parent___parent___children
-    childContentfulFilmVideoJsonNode___parent___parent___id
-    childContentfulFilmVideoJsonNode___playbackId
-    childContentfulFilmVideoJsonNode___ratio
-    childContentfulFilmVideoJsonNode___ready
-    childContentfulFilmVideoJsonNode___sys___type
-    childContentfulFilmVideoJsonNode___uploadId
     children
     childrenContentfulFilmDescriptionTextNode
     childrenContentfulFilmDescriptionTextNode___childMdx___body
@@ -2227,51 +2128,6 @@ enum ContentfulFilmFieldsEnum {
     childrenContentfulFilmDescriptionTextNode___parent___parent___children
     childrenContentfulFilmDescriptionTextNode___parent___parent___id
     childrenContentfulFilmDescriptionTextNode___sys___type
-    childrenContentfulFilmVideoJsonNode
-    childrenContentfulFilmVideoJsonNode___assetId
-    childrenContentfulFilmVideoJsonNode___children
-    childrenContentfulFilmVideoJsonNode___children___children
-    childrenContentfulFilmVideoJsonNode___children___children___children
-    childrenContentfulFilmVideoJsonNode___children___children___id
-    childrenContentfulFilmVideoJsonNode___children___id
-    childrenContentfulFilmVideoJsonNode___children___internal___content
-    childrenContentfulFilmVideoJsonNode___children___internal___contentDigest
-    childrenContentfulFilmVideoJsonNode___children___internal___description
-    childrenContentfulFilmVideoJsonNode___children___internal___fieldOwners
-    childrenContentfulFilmVideoJsonNode___children___internal___ignoreType
-    childrenContentfulFilmVideoJsonNode___children___internal___mediaType
-    childrenContentfulFilmVideoJsonNode___children___internal___owner
-    childrenContentfulFilmVideoJsonNode___children___internal___type
-    childrenContentfulFilmVideoJsonNode___children___parent___children
-    childrenContentfulFilmVideoJsonNode___children___parent___id
-    childrenContentfulFilmVideoJsonNode___id
-    childrenContentfulFilmVideoJsonNode___internal___content
-    childrenContentfulFilmVideoJsonNode___internal___contentDigest
-    childrenContentfulFilmVideoJsonNode___internal___description
-    childrenContentfulFilmVideoJsonNode___internal___fieldOwners
-    childrenContentfulFilmVideoJsonNode___internal___ignoreType
-    childrenContentfulFilmVideoJsonNode___internal___mediaType
-    childrenContentfulFilmVideoJsonNode___internal___owner
-    childrenContentfulFilmVideoJsonNode___internal___type
-    childrenContentfulFilmVideoJsonNode___parent___children
-    childrenContentfulFilmVideoJsonNode___parent___children___children
-    childrenContentfulFilmVideoJsonNode___parent___children___id
-    childrenContentfulFilmVideoJsonNode___parent___id
-    childrenContentfulFilmVideoJsonNode___parent___internal___content
-    childrenContentfulFilmVideoJsonNode___parent___internal___contentDigest
-    childrenContentfulFilmVideoJsonNode___parent___internal___description
-    childrenContentfulFilmVideoJsonNode___parent___internal___fieldOwners
-    childrenContentfulFilmVideoJsonNode___parent___internal___ignoreType
-    childrenContentfulFilmVideoJsonNode___parent___internal___mediaType
-    childrenContentfulFilmVideoJsonNode___parent___internal___owner
-    childrenContentfulFilmVideoJsonNode___parent___internal___type
-    childrenContentfulFilmVideoJsonNode___parent___parent___children
-    childrenContentfulFilmVideoJsonNode___parent___parent___id
-    childrenContentfulFilmVideoJsonNode___playbackId
-    childrenContentfulFilmVideoJsonNode___ratio
-    childrenContentfulFilmVideoJsonNode___ready
-    childrenContentfulFilmVideoJsonNode___sys___type
-    childrenContentfulFilmVideoJsonNode___uploadId
     children___children
     children___children___children
     children___children___children___children
@@ -2447,27 +2303,12 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___childContentfulFilmDescriptionTextNode___childrenMdx
     filmmaker___film___childContentfulFilmDescriptionTextNode___description
     filmmaker___film___childContentfulFilmDescriptionTextNode___id
-    filmmaker___film___childContentfulFilmVideoJsonNode___assetId
-    filmmaker___film___childContentfulFilmVideoJsonNode___children
-    filmmaker___film___childContentfulFilmVideoJsonNode___id
-    filmmaker___film___childContentfulFilmVideoJsonNode___playbackId
-    filmmaker___film___childContentfulFilmVideoJsonNode___ratio
-    filmmaker___film___childContentfulFilmVideoJsonNode___ready
-    filmmaker___film___childContentfulFilmVideoJsonNode___uploadId
     filmmaker___film___children
     filmmaker___film___childrenContentfulFilmDescriptionTextNode
     filmmaker___film___childrenContentfulFilmDescriptionTextNode___children
     filmmaker___film___childrenContentfulFilmDescriptionTextNode___childrenMdx
     filmmaker___film___childrenContentfulFilmDescriptionTextNode___description
     filmmaker___film___childrenContentfulFilmDescriptionTextNode___id
-    filmmaker___film___childrenContentfulFilmVideoJsonNode
-    filmmaker___film___childrenContentfulFilmVideoJsonNode___assetId
-    filmmaker___film___childrenContentfulFilmVideoJsonNode___children
-    filmmaker___film___childrenContentfulFilmVideoJsonNode___id
-    filmmaker___film___childrenContentfulFilmVideoJsonNode___playbackId
-    filmmaker___film___childrenContentfulFilmVideoJsonNode___ratio
-    filmmaker___film___childrenContentfulFilmVideoJsonNode___ready
-    filmmaker___film___childrenContentfulFilmVideoJsonNode___uploadId
     filmmaker___film___children___children
     filmmaker___film___children___id
     filmmaker___film___contentful_id
@@ -2515,13 +2356,7 @@ enum ContentfulFilmFieldsEnum {
     filmmaker___film___sys___type
     filmmaker___film___title
     filmmaker___film___updatedAt
-    filmmaker___film___video___assetId
-    filmmaker___film___video___children
-    filmmaker___film___video___id
-    filmmaker___film___video___playbackId
-    filmmaker___film___video___ratio
-    filmmaker___film___video___ready
-    filmmaker___film___video___uploadId
+    filmmaker___film___videoSrc
     filmmaker___firstName
     filmmaker___id
     filmmaker___internal___content
@@ -2683,50 +2518,7 @@ enum ContentfulFilmFieldsEnum {
     sys___type
     title
     updatedAt
-    video___assetId
-    video___children
-    video___children___children
-    video___children___children___children
-    video___children___children___id
-    video___children___id
-    video___children___internal___content
-    video___children___internal___contentDigest
-    video___children___internal___description
-    video___children___internal___fieldOwners
-    video___children___internal___ignoreType
-    video___children___internal___mediaType
-    video___children___internal___owner
-    video___children___internal___type
-    video___children___parent___children
-    video___children___parent___id
-    video___id
-    video___internal___content
-    video___internal___contentDigest
-    video___internal___description
-    video___internal___fieldOwners
-    video___internal___ignoreType
-    video___internal___mediaType
-    video___internal___owner
-    video___internal___type
-    video___parent___children
-    video___parent___children___children
-    video___parent___children___id
-    video___parent___id
-    video___parent___internal___content
-    video___parent___internal___contentDigest
-    video___parent___internal___description
-    video___parent___internal___fieldOwners
-    video___parent___internal___ignoreType
-    video___parent___internal___mediaType
-    video___parent___internal___owner
-    video___parent___internal___type
-    video___parent___parent___children
-    video___parent___parent___id
-    video___playbackId
-    video___ratio
-    video___ready
-    video___sys___type
-    video___uploadId
+    videoSrc
 }
 
 enum ContentfulImageCropFocus {
@@ -3080,26 +2872,6 @@ enum ContentfulPersonFieldsEnum {
     film___childContentfulFilmDescriptionTextNode___parent___children
     film___childContentfulFilmDescriptionTextNode___parent___id
     film___childContentfulFilmDescriptionTextNode___sys___type
-    film___childContentfulFilmVideoJsonNode___assetId
-    film___childContentfulFilmVideoJsonNode___children
-    film___childContentfulFilmVideoJsonNode___children___children
-    film___childContentfulFilmVideoJsonNode___children___id
-    film___childContentfulFilmVideoJsonNode___id
-    film___childContentfulFilmVideoJsonNode___internal___content
-    film___childContentfulFilmVideoJsonNode___internal___contentDigest
-    film___childContentfulFilmVideoJsonNode___internal___description
-    film___childContentfulFilmVideoJsonNode___internal___fieldOwners
-    film___childContentfulFilmVideoJsonNode___internal___ignoreType
-    film___childContentfulFilmVideoJsonNode___internal___mediaType
-    film___childContentfulFilmVideoJsonNode___internal___owner
-    film___childContentfulFilmVideoJsonNode___internal___type
-    film___childContentfulFilmVideoJsonNode___parent___children
-    film___childContentfulFilmVideoJsonNode___parent___id
-    film___childContentfulFilmVideoJsonNode___playbackId
-    film___childContentfulFilmVideoJsonNode___ratio
-    film___childContentfulFilmVideoJsonNode___ready
-    film___childContentfulFilmVideoJsonNode___sys___type
-    film___childContentfulFilmVideoJsonNode___uploadId
     film___children
     film___childrenContentfulFilmDescriptionTextNode
     film___childrenContentfulFilmDescriptionTextNode___childMdx___body
@@ -3143,27 +2915,6 @@ enum ContentfulPersonFieldsEnum {
     film___childrenContentfulFilmDescriptionTextNode___parent___children
     film___childrenContentfulFilmDescriptionTextNode___parent___id
     film___childrenContentfulFilmDescriptionTextNode___sys___type
-    film___childrenContentfulFilmVideoJsonNode
-    film___childrenContentfulFilmVideoJsonNode___assetId
-    film___childrenContentfulFilmVideoJsonNode___children
-    film___childrenContentfulFilmVideoJsonNode___children___children
-    film___childrenContentfulFilmVideoJsonNode___children___id
-    film___childrenContentfulFilmVideoJsonNode___id
-    film___childrenContentfulFilmVideoJsonNode___internal___content
-    film___childrenContentfulFilmVideoJsonNode___internal___contentDigest
-    film___childrenContentfulFilmVideoJsonNode___internal___description
-    film___childrenContentfulFilmVideoJsonNode___internal___fieldOwners
-    film___childrenContentfulFilmVideoJsonNode___internal___ignoreType
-    film___childrenContentfulFilmVideoJsonNode___internal___mediaType
-    film___childrenContentfulFilmVideoJsonNode___internal___owner
-    film___childrenContentfulFilmVideoJsonNode___internal___type
-    film___childrenContentfulFilmVideoJsonNode___parent___children
-    film___childrenContentfulFilmVideoJsonNode___parent___id
-    film___childrenContentfulFilmVideoJsonNode___playbackId
-    film___childrenContentfulFilmVideoJsonNode___ratio
-    film___childrenContentfulFilmVideoJsonNode___ready
-    film___childrenContentfulFilmVideoJsonNode___sys___type
-    film___childrenContentfulFilmVideoJsonNode___uploadId
     film___children___children
     film___children___children___children
     film___children___children___id
@@ -3231,7 +2982,6 @@ enum ContentfulPersonFieldsEnum {
     film___filmmaker___film
     film___filmmaker___film___children
     film___filmmaker___film___childrenContentfulFilmDescriptionTextNode
-    film___filmmaker___film___childrenContentfulFilmVideoJsonNode
     film___filmmaker___film___contentful_id
     film___filmmaker___film___createdAt
     film___filmmaker___film___credits
@@ -3241,6 +2991,7 @@ enum ContentfulPersonFieldsEnum {
     film___filmmaker___film___spaceId
     film___filmmaker___film___title
     film___filmmaker___film___updatedAt
+    film___filmmaker___film___videoSrc
     film___filmmaker___firstName
     film___filmmaker___id
     film___filmmaker___internal___content
@@ -3338,26 +3089,7 @@ enum ContentfulPersonFieldsEnum {
     film___sys___type
     film___title
     film___updatedAt
-    film___video___assetId
-    film___video___children
-    film___video___children___children
-    film___video___children___id
-    film___video___id
-    film___video___internal___content
-    film___video___internal___contentDigest
-    film___video___internal___description
-    film___video___internal___fieldOwners
-    film___video___internal___ignoreType
-    film___video___internal___mediaType
-    film___video___internal___owner
-    film___video___internal___type
-    film___video___parent___children
-    film___video___parent___id
-    film___video___playbackId
-    film___video___ratio
-    film___video___ready
-    film___video___sys___type
-    film___video___uploadId
+    film___videoSrc
     firstName
     id
     internal___content
@@ -4945,101 +4677,6 @@ enum contentfulFilmDescriptionTextNodeFieldsEnum {
     sys___type
 }
 
-enum contentfulFilmVideoJsonNodeFieldsEnum {
-    assetId
-    children
-    children___children
-    children___children___children
-    children___children___children___children
-    children___children___children___id
-    children___children___id
-    children___children___internal___content
-    children___children___internal___contentDigest
-    children___children___internal___description
-    children___children___internal___fieldOwners
-    children___children___internal___ignoreType
-    children___children___internal___mediaType
-    children___children___internal___owner
-    children___children___internal___type
-    children___children___parent___children
-    children___children___parent___id
-    children___id
-    children___internal___content
-    children___internal___contentDigest
-    children___internal___description
-    children___internal___fieldOwners
-    children___internal___ignoreType
-    children___internal___mediaType
-    children___internal___owner
-    children___internal___type
-    children___parent___children
-    children___parent___children___children
-    children___parent___children___id
-    children___parent___id
-    children___parent___internal___content
-    children___parent___internal___contentDigest
-    children___parent___internal___description
-    children___parent___internal___fieldOwners
-    children___parent___internal___ignoreType
-    children___parent___internal___mediaType
-    children___parent___internal___owner
-    children___parent___internal___type
-    children___parent___parent___children
-    children___parent___parent___id
-    id
-    internal___content
-    internal___contentDigest
-    internal___description
-    internal___fieldOwners
-    internal___ignoreType
-    internal___mediaType
-    internal___owner
-    internal___type
-    parent___children
-    parent___children___children
-    parent___children___children___children
-    parent___children___children___id
-    parent___children___id
-    parent___children___internal___content
-    parent___children___internal___contentDigest
-    parent___children___internal___description
-    parent___children___internal___fieldOwners
-    parent___children___internal___ignoreType
-    parent___children___internal___mediaType
-    parent___children___internal___owner
-    parent___children___internal___type
-    parent___children___parent___children
-    parent___children___parent___id
-    parent___id
-    parent___internal___content
-    parent___internal___contentDigest
-    parent___internal___description
-    parent___internal___fieldOwners
-    parent___internal___ignoreType
-    parent___internal___mediaType
-    parent___internal___owner
-    parent___internal___type
-    parent___parent___children
-    parent___parent___children___children
-    parent___parent___children___id
-    parent___parent___id
-    parent___parent___internal___content
-    parent___parent___internal___contentDigest
-    parent___parent___internal___description
-    parent___parent___internal___fieldOwners
-    parent___parent___internal___ignoreType
-    parent___parent___internal___mediaType
-    parent___parent___internal___owner
-    parent___parent___internal___type
-    parent___parent___parent___children
-    parent___parent___parent___id
-    playbackId
-    ratio
-    ready
-    sys___type
-    uploadId
-}
-
 input AVIFOptions {
     lossless: Boolean
     quality: Int
@@ -5144,10 +4781,8 @@ input ContentfulEntrySortInput {
 input ContentfulFilmFilterInput {
     animPreview: ContentfulAssetFilterInput
     childContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterInput
-    childContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterInput
     children: NodeFilterListInput
     childrenContentfulFilmDescriptionTextNode: contentfulFilmDescriptionTextNodeFilterListInput
-    childrenContentfulFilmVideoJsonNode: contentfulFilmVideoJsonNodeFilterListInput
     contentful_id: StringQueryOperatorInput
     createdAt: DateQueryOperatorInput
     credits: StringQueryOperatorInput
@@ -5162,7 +4797,7 @@ input ContentfulFilmFilterInput {
     sys: ContentfulFilmSysFilterInput
     title: StringQueryOperatorInput
     updatedAt: DateQueryOperatorInput
-    video: contentfulFilmVideoJsonNodeFilterInput
+    videoSrc: StringQueryOperatorInput
 }
 
 input ContentfulFilmFilterListInput {
@@ -5739,32 +5374,6 @@ input contentfulFilmDescriptionTextNodeSortInput {
 }
 
 input contentfulFilmDescriptionTextNodeSysFilterInput {
-    type: StringQueryOperatorInput
-}
-
-input contentfulFilmVideoJsonNodeFilterInput {
-    assetId: StringQueryOperatorInput
-    children: NodeFilterListInput
-    id: StringQueryOperatorInput
-    internal: InternalFilterInput
-    parent: NodeFilterInput
-    playbackId: StringQueryOperatorInput
-    ratio: StringQueryOperatorInput
-    ready: BooleanQueryOperatorInput
-    sys: contentfulFilmVideoJsonNodeSysFilterInput
-    uploadId: StringQueryOperatorInput
-}
-
-input contentfulFilmVideoJsonNodeFilterListInput {
-    elemMatch: contentfulFilmVideoJsonNodeFilterInput
-}
-
-input contentfulFilmVideoJsonNodeSortInput {
-    fields: [contentfulFilmVideoJsonNodeFieldsEnum]
-    order: [SortOrderEnum] = [ASC]
-}
-
-input contentfulFilmVideoJsonNodeSysFilterInput {
     type: StringQueryOperatorInput
 }
 
