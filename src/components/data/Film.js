@@ -15,7 +15,7 @@ class Film {
         // Urls are suffixed by "//"
         this.animPreview = "https:" + this.animPreview
         this.stillPreview = film.stillPreview.gatsbyImageData
-        this.credits = film.credits
+        this.credits = film.credits.split(/\r?\n/)
     }
 }
 
