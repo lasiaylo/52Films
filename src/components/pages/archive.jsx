@@ -58,7 +58,7 @@ export default function Archive({film}) {
     const Credits = ({film, setSelected}) => {
         const credits = film.credits
         const text = credits.map((line, i) => {
-            let [role, member] = line.split(':')
+            let [role, member] = line.trim().split(':')
             role = `${role.trim()}: `
             member = member.trim()
             return (
