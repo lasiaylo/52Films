@@ -1,22 +1,24 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
-import {Canvas, useFrame} from '@react-three/fiber'
+import {Canvas, useFrame, useThree} from '@react-three/fiber'
 import "../styles/playerOverlayContainer.sass"
 import PlayerOverlay from "./PlayerOverlay";
 import {useSpring, animated} from "@react-spring/three";
 
-const previewX = 0.7
-const previewY = .75
+
 
 function Card(props) {
-    // This reference gives us direct access to the THREE.Mesh object
     const ref = useRef()
 
-    // TODO: Shape Canvas properly with CSS and position card in center
+    const {viewport} = useThree()
+    const cardWidth = viewport.width * .6
+    const cardHeight = cardWidth / (16/9)
+    const cardX = (viewport.width / 10)
+    const cardY = viewport.height / 10
 
     const [spring, setSpring] = useSpring(() => ({
         position: [
-            previewX,
-            previewY,
+            cardX,
+            cardY,
             40
         ],
         rotation: [
@@ -47,18 +49,20 @@ function Card(props) {
                 // Automatic playback started!
                 setSpring({
                     position: [
-                        previewX,
-                        previewY,
+                        cardX,
+                        cardY,
                         0
                     ],
                     rotation: [
                         0,
                         0,
                         0
-                    ]
+                    ],
+                    config: {
+                        mass: 1.4
+                    }
                 })
             }).catch(function (error) {
-
                 // Automatic playback failed.
                 // Show a UI element to let the user manually start playback.
             });
@@ -71,17 +75,22 @@ function Card(props) {
         // ref.current.position.z = Math.sin(Date.now() / 800) / 40
 
         // noinspection JSSuspiciousNameCombination
+        const now = Date.now()
+        const hoverOffset = hovered ? 1 : 0
         setSpring({
             position: [
-                previewX + (state.mouse.x / 8),
-                previewY + (state.mouse.y / 8),
-                Math.sin(Date.now()/ 500) / 40
+                cardX + ((state.mouse.x - (cardX/2))* .05),
+                cardY + ((state.mouse.y + (cardY/2)) * .05),
+                (Math.sin(now / 500) * 0.025) + hoverOffset
             ],
             rotation: [
-                (-state.mouse.y + previewY) * .05,
-                (state.mouse.x - previewX) * .05,
-                0
-            ]
+                (-state.mouse.y + (cardY/2)) * .05,
+                (Math.sin((now + 900)/ 1200)) * .015 + (state.mouse.x - (cardX/2)) * .05,
+                (Math.sin((now + 40)/ 1200)) * .02
+            ],
+            config: {
+                mass: 1
+            }
         })
     })
     return (
@@ -91,7 +100,7 @@ function Card(props) {
             ref={ref}
             onClick={() => props.setShowFilm(true)}
         >
-            <planeBufferGeometry attach="geometry" args={[8.5, 4.78125]}/>
+            <planeBufferGeometry attach="geometry" args={[cardWidth, cardHeight]}/>
             <meshBasicMaterial>
                 <videoTexture attach="map" args={[video]}/>
             </meshBasicMaterial>
@@ -111,7 +120,7 @@ export default function Preview({image, videoSrc}) {
     }
     return (
         <Canvas className={"canvas"}>
-            <Card position={[previewX, previewY, 0]} image={image} setShowFilm={setShowFilm}/>
+            <Card image={image} setShowFilm={setShowFilm}/>
         </Canvas>
     )
 }
