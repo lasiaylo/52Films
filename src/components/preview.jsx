@@ -91,8 +91,8 @@ function Card(props) {
             const zRotate = (Math.sin((now + 40) / 1600)) * .02
             setSpring({
                 position: [
-                    cardX + (Math.sin(now + 500 / 500) * 0.025),
-                    cardY + (Math.sin(now + 900 / 500) * 0.025),
+                    cardX,
+                    cardY,
                     (Math.sin(now / 500) * 0.025)
                 ],
                 rotation: [
@@ -115,6 +115,7 @@ function Card(props) {
         if (down) {
             setSpring({
                 scale: [0.95, 0.95, 1],
+                rotation: [0, 0, 0],
                 config: {
                     mass: 1
                 },
