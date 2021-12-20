@@ -17,7 +17,6 @@ module.exports = {
                 trackingId: "G-1D0PQ6V83X",
             },
         },
-        "gatsby-plugin-mdx",
         "gatsby-plugin-sharp",
         "gatsby-transformer-sharp",
         {

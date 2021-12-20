@@ -2,13 +2,11 @@ import "../../styles/tile.sass"
 import * as THREE from 'three'
 import {extend, useLoader, useThree} from '@react-three/fiber'
 import React, {useEffect} from "react"
-import {Text} from "troika-three-text"
 import {getTileXRotation, getTileZRotation, useHover} from "./dump"
 import {useDrag} from "@use-gesture/react";
 import {clampRange, RandomInNegativeRange} from "../../util/MathUtils";
 import {useSpring, animated} from "@react-spring/three";
 
-extend({Text})
 
 const TileSize = 1.5
 
