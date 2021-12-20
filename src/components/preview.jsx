@@ -124,8 +124,8 @@ function Card(props) {
                     mass: 1,
                     tension: 400
                 },
-                onRest: () => {
-                    props.setShowFilm(true)
+                onRest: {
+                    scale: () => props.setShowFilm(true)
                 }
             })
         }
@@ -155,7 +155,7 @@ export default function Preview({image, setShowFilm}) {
                 linear
         >
             <ambientLight intensity={0.1}/>
-            <pointLight intensity={1} position={[10, 10, 10]} />
+            <pointLight intensity={1} position={[10, 10, 10]}/>
 
             <Card image={image} setShowFilm={setShowFilm}/>
         </Canvas>

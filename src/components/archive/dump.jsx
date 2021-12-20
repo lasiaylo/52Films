@@ -61,19 +61,19 @@ function closestFilter(intersections) {
 
 export default function Dump(props) {
     const {films, selectedIndex, setSelected, setShowFilm} = props
-    const isSelected = selectedIndex !== -1
-    const tiles = films.map((film, i) =>
-        <Tile
-            {...props}
-            film={film}
-            key={`tile${i}`}
-            delay={i * 18}
-            isSelected={selectedIndex === i}
-            selectedIndex={selectedIndex}
-            setShowFilm={setShowFilm}
-        />)
+    const filmIsSelected = selectedIndex !== -1
+    const tiles = films.map((film, i) => {
+            return <Tile{...props}
+                film={film}
+                key={`tile${i}`}
+                delay={i * 18}
+                isSelected={selectedIndex === i}
+                selectedIndex={selectedIndex}
+                setShowFilm={setShowFilm}
+            />
+        })
 
-    const logline = isSelected ?
+    const logline = filmIsSelected ?
         <div className={"logline"} onClick={() => setSelected()}>{[films[selectedIndex].logline]}</div>
         : undefined
 
@@ -87,12 +87,12 @@ export default function Dump(props) {
                     colorManagement={false}
                 >
                     <ambientLight intensity={0.1}/>
-                    <pointLight intensity={1} position={[10, 10, 10]} />
+                    <pointLight intensity={1} position={[10, 10, 10]}/>
                     <Outline
-                        enable={!isSelected}
+                        enable={!filmIsSelected}
                     >
                         {tiles}
-                        <Blur {...props} isSelected={isSelected}/>
+                        <Blur {...props} isSelected={filmIsSelected}/>
                     </Outline>
                 </Canvas>
             </div>

@@ -40,7 +40,6 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
         })
     )
 
-    // Check for first render. TODO: find better solution
     const [firstRender, setFirstRender] = useState(true)
 
     useEffect(() => {
@@ -77,7 +76,7 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
 
     useEffect(() => {
         setFirstRender(false)
-    })
+    }, [])
 
     const {position} = spring
     const bind = useDrag((
@@ -88,12 +87,12 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
             down,
             tap
         }) => {
-        if (props.selectedIndex !== -1 && props.selectedIndex !== film.index) {
+        if (props.isOnSelection && !props.isSelected) {
             setSelected()
             return
         }
         if (tap) {
-            if (props.selectedIndex === film.index) {
+            if (isSelected) {
                 setShowFilm(true)
                 return
             }
