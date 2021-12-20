@@ -7,22 +7,30 @@
   display: flex
   color: black
   background: black
+  opacity: 1
   width: 100vw
   height: 100vh
   z-index: 3
 
-
 .playerOverlay
   display: flex
   width: 100%
+  height: 100%
+  opacity: 1
+  .svg
+    position: absolute
+    left: 10px
+    top: 10px
 
+    margin: 20px
 .closeButton
-  @include font-style
-
   position: absolute
-  left: 95%
-  margin: 40px
-  color: white
+  right: $padding
+  top: calc(#{$padding} * 3)
+  .line
+    stroke: white
+    stroke-width: 2
+    z-index: 200
 
 .player
   --video--width: 1296

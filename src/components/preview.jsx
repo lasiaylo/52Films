@@ -1,7 +1,6 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
 import {Canvas, useFrame, useThree} from '@react-three/fiber'
-import "../styles/playerOverlayContainer.sass"
-import PlayerOverlay from "./PlayerOverlay";
+import "../styles/playerOverlay.sass"
 import {useSpring, animated} from "@react-spring/three";
 import {useDrag} from "@use-gesture/react";
 
@@ -30,7 +29,7 @@ function Card(props) {
     }))
 
     const [hover, setHover] = useState(false)
-    const [clicked, setClicked] = useState(props.showFilm)
+    const [clicked, setClicked] = useState(false)
     const isBrowser = typeof document !== "undefined"
     const [video] = useState(() => {
         if (isBrowser) {
@@ -81,18 +80,13 @@ function Card(props) {
     }, [video])
 
     useFrame((state, delta) => {
-        // TODO: Interp to smooth animation
-        // Consider Anime.js
-        // ref.current.position.z = Math.sin(Date.now() / 800) / 40
-
-        // noinspection JSSuspiciousNameCombination
         if (!clicked) {
             const now = Date.now()
             const zRotate = (Math.sin((now + 40) / 1600)) * .02
             setSpring({
                 position: [
-                    cardX + (Math.sin(now + 500 / 500) * 0.025),
-                    cardY + (Math.sin(now + 900 / 500) * 0.025),
+                    cardX,
+                    cardY,
                     (Math.sin(now / 500) * 0.025)
                 ],
                 rotation: [
@@ -115,6 +109,7 @@ function Card(props) {
         if (down) {
             setSpring({
                 scale: [0.95, 0.95, 1],
+                rotation: [0, 0, 0],
                 config: {
                     mass: 1
                 },
@@ -131,7 +126,6 @@ function Card(props) {
                 },
                 onRest: () => {
                     props.setShowFilm(true)
-                    setClicked(false)
                 }
             })
         }
@@ -145,28 +139,25 @@ function Card(props) {
             {...bind()}
             onPointerOver={() => setHover(true)}
             onPointerLeave={() => setHover(false)}
+
         >
             <planeBufferGeometry attach="geometry" args={[cardWidth, cardHeight]}/>
-            <meshBasicMaterial>
+            <meshStandardMaterial>
                 <videoTexture attach="map" args={[video]}/>
-            </meshBasicMaterial>
+            </meshStandardMaterial>
         </animated.mesh>
     )
 }
 
-export default function Preview({image, videoSrc}) {
-    const [showFilm, setShowFilm] = useState(false)
-
-    if (showFilm) {
-        return (
-            <div className={"playerOverlayContainer"}>
-                <PlayerOverlay src={videoSrc} setShowFilm={setShowFilm}/>
-            </div>
-        )
-    }
+export default function Preview({image, setShowFilm}) {
     return (
-        <Canvas className={"canvas"}>
-            <Card image={image} showFilm={showFilm} setShowFilm={setShowFilm}/>
+        <Canvas className={"canvas"}
+                linear
+        >
+            <ambientLight intensity={0.1}/>
+            <pointLight intensity={1} position={[10, 10, 10]} />
+
+            <Card image={image} setShowFilm={setShowFilm}/>
         </Canvas>
     )
 }
