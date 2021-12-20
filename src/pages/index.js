@@ -70,7 +70,6 @@ export default function IndexPage({data}) {
     }
     return (
         <AnimatePresence>
-            {!showFilm &&
             <motion.div className={'frame'}
                         key={"mainFrame"}
                         initial={{opacity: 0}}
@@ -87,13 +86,12 @@ export default function IndexPage({data}) {
                     <div className={'routerContainer'}>
                         <Router className={'router'}>
                             <Home film={a} setShowFilm={setShowFilm} path="/"/>
-                            <LazyComponent Component={Archive} film={a} path="archive"/>
+                            <LazyComponent Component={Archive} film={a} setShowFilm={setShowFilm} path="archive"/>
                             <LazyComponent Component={About} path="about"/>
                         </Router>
                     </div>
                 </div>
             </motion.div>
-            }
         </AnimatePresence>
     )
 }

@@ -1,6 +1,8 @@
 import "../../styles/tile.sass"
 import * as THREE from 'three'
+import { TextureLoader } from 'three/src/loaders/TextureLoader.js'
 import {extend, useLoader, useThree} from '@react-three/fiber'
+
 import React, {useEffect} from "react"
 import {getTileXRotation, getTileZRotation, useHover} from "./dump"
 import {useDrag} from "@use-gesture/react";
@@ -10,15 +12,13 @@ import {useSpring, animated} from "@react-spring/three";
 
 const TileSize = 1.5
 
-export const selectedPos = [-1, 0.1, 3]
-
-export default function Tile({film, setSelected, isSelected, ...props}) {
+export default function Tile({film, setSelected, isSelected, setShowFilm, ...props}) {
     const {stillPreview} = film
     const {size, viewport} = useThree()
     const aspect = size.width / viewport.width
 
     const [, , largeSrc] = getSources(stillPreview)
-    const texture = useLoader(THREE.TextureLoader, largeSrc)
+    const texture = useLoader(TextureLoader, largeSrc)
 
     const posX = RandomInNegativeRange(getBounds(viewport.width))
     const posY = RandomInNegativeRange(getBounds(viewport.height))
@@ -80,11 +80,15 @@ export default function Tile({film, setSelected, isSelected, ...props}) {
             down,
             tap
         }) => {
-        if(props.selectedIndex !== -1 ) {
+        if(props.selectedIndex !== -1 && props.selectedIndex !== film.index) {
+            console.log("asdlkasjd ")
             setSelected()
             return
         }
         if (tap) {
+            if (props.selectedIndex === film.index) {
+                setShowFilm(true)
+            }
             setSelected(film, true)
             return
         }

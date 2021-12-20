@@ -1,5 +1,6 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
 import {Canvas, useFrame, useThree} from '@react-three/fiber'
+import * as THREE from 'three'
 import "../styles/playerOverlay.sass"
 import PlayerOverlay from "./PlayerOverlay";
 import {useSpring, animated} from "@react-spring/three";
@@ -145,18 +146,24 @@ function Card(props) {
             {...bind()}
             onPointerOver={() => setHover(true)}
             onPointerLeave={() => setHover(false)}
+
         >
             <planeBufferGeometry attach="geometry" args={[cardWidth, cardHeight]}/>
-            <meshBasicMaterial>
+            <meshStandardMaterial>
                 <videoTexture attach="map" args={[video]}/>
-            </meshBasicMaterial>
+            </meshStandardMaterial>
         </animated.mesh>
     )
 }
 
 export default function Preview({image, setShowFilm}) {
     return (
-        <Canvas className={"canvas"}>
+        <Canvas className={"canvas"}
+                linear
+        >
+            <ambientLight intensity={0.1}/>
+            <pointLight intensity={1} position={[10, 10, 10]} />
+
             <Card image={image} setShowFilm={setShowFilm}/>
         </Canvas>
     )

@@ -1,7 +1,8 @@
 import Tile from "./tile";
 import {Canvas, extend, useFrame, useThree} from "@react-three/fiber";
 import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
-import {Vector2} from "three";
+import * as THREE from 'three'
+import {Vector2} from "three"
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass"
@@ -60,7 +61,7 @@ function closestFilter(intersections) {
 }
 
 export default function Dump(props) {
-    const {films, selectedIndex, setSelected} = props
+    const {films, selectedIndex, setSelected, setShowFilm} = props
     const isSelected = selectedIndex !== -1
     const tiles = films.map((film, i) =>
         <Tile
@@ -70,6 +71,7 @@ export default function Dump(props) {
             delay={i * 20} //TODO: Reimplement delay
             isSelected={selectedIndex === i}
             selectedIndex={selectedIndex}
+            setShowFilm={setShowFilm}
         />)
 
     const logline = isSelected ?
@@ -82,8 +84,11 @@ export default function Dump(props) {
                 <Canvas
                     raycaster={{filter: closestFilter}}
                     onPointerMissed={() => setSelected()}
+                    linear
+                    colorManagement={false}
                 >
-                    <ambientLight intensity={2}/>
+                    <ambientLight intensity={0.1}/>
+                    <pointLight intensity={1} position={[10, 10, 10]} />
                     <Outline
                         enable={!isSelected}
                     >

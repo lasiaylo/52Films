@@ -10,7 +10,7 @@ const scrollTo = (index) => {
     element.scrollIntoView({block: "center", behavior: "smooth"})
 }
 
-export default function Archive({film}) {
+export default function Archive({film, setShowFilm}) {
     const films = new Array(52).fill(film)
 
     const [filmList, setFilmList] = useState(
@@ -89,7 +89,7 @@ export default function Archive({film}) {
     return (
         <div className={"archive"}>
             <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
-            <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+            <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>
             {credits}
         </div>
     )
