@@ -45,12 +45,12 @@ export default function PlayerOverlay({src, setShowFilm}) {
                     <svg
                         className={"closeButton"}
 
-                        width="41"
-                        height="41"
+                        width="36"
+                        height="36"
                         onClick={() => setShowFilm(false)}
                     >
-                        <line className={"line"} x1={"1"} y1={"1"} x2={"40"} y2={"40"}/>
-                        <line className={"line"} x1={"40"} y1={"1"} x2={"1"} y2={"40"}/>
+                        <line className={"line"} x1={"1"} y1={"1"} x2={"35"} y2={"35"}/>
+                        <line className={"line"} x1={"35"} y1={"1"} x2={"1"} y2={"35"}/>
                     </svg>
                 </motion.div>
             <VideoPlayer src={src}/>
