@@ -4,13 +4,13 @@ import PropTypes from "prop-types"
 import "../../styles/home.sass"
 import Preview from "../preview";
 
-function Home({film}) {
+function Home({film, setShowFilm}) {
     const {title, logline, animPreview, videoSrc} = film
 
     return (
         <div className={'home'}>
             <div className={'cardContainer'}>
-                <Preview image={animPreview} videoSrc={videoSrc}/>
+                <Preview image={animPreview} videoSrc={videoSrc} setShowFilm={setShowFilm}/>
             </div>
             <div className={'cardBorder'}>
                 <span className={"cardCTA"}>CLICK TO WATCH</span>

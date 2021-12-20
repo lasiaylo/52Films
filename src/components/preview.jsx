@@ -1,6 +1,6 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
 import {Canvas, useFrame, useThree} from '@react-three/fiber'
-import "../styles/playerOverlayContainer.sass"
+import "../styles/playerOverlay.sass"
 import PlayerOverlay from "./PlayerOverlay";
 import {useSpring, animated} from "@react-spring/three";
 import {useDrag} from "@use-gesture/react";
@@ -30,7 +30,7 @@ function Card(props) {
     }))
 
     const [hover, setHover] = useState(false)
-    const [clicked, setClicked] = useState(props.showFilm)
+    const [clicked, setClicked] = useState(false)
     const isBrowser = typeof document !== "undefined"
     const [video] = useState(() => {
         if (isBrowser) {
@@ -132,7 +132,6 @@ function Card(props) {
                 },
                 onRest: () => {
                     props.setShowFilm(true)
-                    setClicked(false)
                 }
             })
         }
@@ -155,19 +154,10 @@ function Card(props) {
     )
 }
 
-export default function Preview({image, videoSrc}) {
-    const [showFilm, setShowFilm] = useState(false)
-
-    if (showFilm) {
-        return (
-            <div className={"playerOverlayContainer"}>
-                <PlayerOverlay src={videoSrc} setShowFilm={setShowFilm}/>
-            </div>
-        )
-    }
+export default function Preview({image, setShowFilm}) {
     return (
         <Canvas className={"canvas"}>
-            <Card image={image} showFilm={showFilm} setShowFilm={setShowFilm}/>
+            <Card image={image} setShowFilm={setShowFilm}/>
         </Canvas>
     )
 }

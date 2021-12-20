@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react"
 import Vimeo from '@vimeo/player'
-import {useSpring, config, animated} from "@react-spring/three";
+import { motion } from "framer-motion"
 
 const VideoPlayer = ({src}) => {
     const ref = useRef()
@@ -23,19 +23,6 @@ const VideoPlayer = ({src}) => {
 }
 
 export default function PlayerOverlay({src, setShowFilm}) {
-    // const [spring, setSpring] = useSpring(() => ({
-    //     opacity: 0
-    // }))
-    // console.log(spring, setSpring)
-    //
-    // useEffect(
-    //     setSpring({
-    //         opacity: 1,
-    //         // config: config.gentle
-    //     })
-    //     , []
-    // )
-
     return (
         <div className={"playerOverlay"}>
             <span className={"closeButton"} onClick={() => setShowFilm(false)}>X</span>
