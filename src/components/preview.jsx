@@ -1,8 +1,6 @@
 import React, {useRef, useState, Suspense, useEffect} from 'react'
 import {Canvas, useFrame, useThree} from '@react-three/fiber'
-import * as THREE from 'three'
 import "../styles/playerOverlay.sass"
-import PlayerOverlay from "./PlayerOverlay";
 import {useSpring, animated} from "@react-spring/three";
 import {useDrag} from "@use-gesture/react";
 
@@ -82,11 +80,6 @@ function Card(props) {
     }, [video])
 
     useFrame((state, delta) => {
-        // TODO: Interp to smooth animation
-        // Consider Anime.js
-        // ref.current.position.z = Math.sin(Date.now() / 800) / 40
-
-        // noinspection JSSuspiciousNameCombination
         if (!clicked) {
             const now = Date.now()
             const zRotate = (Math.sin((now + 40) / 1600)) * .02

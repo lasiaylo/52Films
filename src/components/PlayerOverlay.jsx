@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react"
 import Vimeo from '@vimeo/player'
-import { motion } from "framer-motion"
 
 const VideoPlayer = ({src}) => {
     const ref = useRef()
@@ -9,7 +8,6 @@ const VideoPlayer = ({src}) => {
         let options = {
             url: src
         }
-
         const player = new Vimeo(ref.current, options)
         player.play()
     })
