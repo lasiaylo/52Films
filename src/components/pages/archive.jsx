@@ -7,11 +7,13 @@ import {isEmpty} from "../../util/StringUtil";
 
 const scrollTo = (index) => {
     const element = document.getElementById(`film${index}`)
+    if (element) {
     element.scrollIntoView({block: "center", behavior: "smooth"})
+        }
 }
 
-export default function Archive({film, setShowFilm}) {
-    const films = new Array(52).fill(film)
+export default function Archive({films, setShowFilm}) {
+    console.log(films.length)
 
     const [filmList, setFilmList] = useState(
         films.map(
@@ -31,8 +33,7 @@ export default function Archive({film, setShowFilm}) {
             const hash = window.location.hash
             if (hash) {
                 const index = parseInt(hash.split("#")[1])
-                if (index) {
-
+                if (index && index < films.length) {
                     setSelectedIndex(index - 1)
                     scrollTo(index - 1)
                 }

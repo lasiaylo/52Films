@@ -11,7 +11,6 @@ import Blur from "./blur";
 
 extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
 
-
 const hoverContext = React.createContext()
 
 export function useHover() {

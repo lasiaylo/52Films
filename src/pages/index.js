@@ -92,7 +92,7 @@ export default function IndexPage({data}) {
                     <div className={'routerContainer'}>
                         <Router className={'router'}>
                             <Home film={film} setShowFilm={setShowFilm} path="/"/>
-                            <LazyComponent Component={Archive} film={film} setShowFilm={setShowFilm} path="archive"/>
+                            <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilm} path="archive"/>
                             <LazyComponent Component={About} path="about"/>
                         </Router>
                     </div>
