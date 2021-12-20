@@ -2,7 +2,7 @@ import "../../styles/tile.sass"
 import {TextureLoader} from 'three/src/loaders/TextureLoader.js'
 import {useLoader, useThree} from '@react-three/fiber'
 
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {getTileXRotation, getTileZRotation, useHover} from "./dump"
 import {useDrag} from "@use-gesture/react";
 import {clampRange, RandomInNegativeRange} from "../../util/MathUtils";
@@ -40,13 +40,17 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
         })
     )
 
+    // Check for first render. TODO: find better solution
+    const [firstRender, setFirstRender] = useState(true)
+
     useEffect(() => {
             if (isSelected) {
                 setSpring(
                     {
                         position: selectedPos,
                         rotation: [0, 0, 0],
-                        scale: selectScale
+                        scale: selectScale,
+                        delay: firstRender ? 18 * 53 : 0
                     }
                 )
             } else {
@@ -62,13 +66,18 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
                             0,
                             getTileZRotation(),
                         ],
-                        scale: [1, 1, 1]
+                        scale: [1, 1, 1],
+                        delay: firstRender ? props.delay : 0
                     }
                 )
             }
 
         }, [isSelected]
     )
+
+    useEffect(() => {
+        setFirstRender(false)
+    })
 
     const {position} = spring
     const bind = useDrag((

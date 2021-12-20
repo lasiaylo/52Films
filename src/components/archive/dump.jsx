@@ -1,7 +1,6 @@
 import Tile from "./tile";
 import {Canvas, extend, useFrame, useThree} from "@react-three/fiber";
 import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
-import * as THREE from 'three'
 import {Vector2} from "three"
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
@@ -68,7 +67,7 @@ export default function Dump(props) {
             {...props}
             film={film}
             key={`tile${i}`}
-            delay={i * 20} //TODO: Reimplement delay
+            delay={i * 18}
             isSelected={selectedIndex === i}
             selectedIndex={selectedIndex}
             setShowFilm={setShowFilm}

@@ -54,7 +54,7 @@ export default function IndexPage({data}) {
     const film = data.allContentfulFilm.edges[0].node
     const a = new Film(film)
 
-    const [showFilm, setShowFilm] = useState(true)
+    const [showFilm, setShowFilm] = useState(false)
     if (showFilm) {
         return (
             <AnimatePresence>
