@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react"
+import React, {memo, useEffect, useState} from "react"
 
 const getFilmmaker = ({filmmaker}) => filmmaker[0].firstName + " " + filmmaker[0].lastName
 
 const getHoveredClassName = (className, isHovered) => isHovered ? className + " hovered" : className
 
-function ListElement({film, isSelected, selectedIndex, setSelected}) {
+function ListElement({film, isSelected, setSelected}) {
     const [isHovered, setHover] = useState(false)
     useEffect(() => {
         if (isHovered) {
@@ -29,7 +29,11 @@ function ListElement({film, isSelected, selectedIndex, setSelected}) {
     )
 }
 
-export default function Directory({films, ...props}) {
+const MemoizedListElement = memo(ListElement,
+    (prevProps, nextProps) => prevProps.isSelected === nextProps.isSelected
+)
+
+export default function Directory({films, selectedIndex, setSelected}) {
     return (
         <div className={"directoryContainer"}>
             <div className={"directory"}>
@@ -37,11 +41,11 @@ export default function Directory({films, ...props}) {
                 <div className={"filter"}/>
                 <ul className={"list"}>
                     {films.map((film, i) =>
-                        <ListElement
+                        <MemoizedListElement
                             key={`film${i}`}
                             film={film}
-                            isSelected={props.selectedIndex === i}
-                            {...props}
+                            isSelected={selectedIndex === i}
+                            setSelected={setSelected}
                         />
                     )}
                 </ul>

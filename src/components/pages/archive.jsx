@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import Dump from "../archive/dump"
 import Directory from "../archive/directory"
 import "../../styles/archive.sass"
@@ -12,9 +12,11 @@ const scrollTo = (index) => {
         }
 }
 
-export default function Archive({films, setShowFilm}) {
-    console.log(films.length)
-
+export default function Archive(props) {
+    const {setShowFilm} = props
+    let films = Array.from({
+        length: 17
+    }, () => props.films).flat();
     const [filmList, setFilmList] = useState(
         films.map(
             (film, i) => {
@@ -42,7 +44,7 @@ export default function Archive({films, setShowFilm}) {
         []
     )
 
-    const setSelected = (film, scroll) => {
+    const setSelected = useCallback((film, scroll) => {
         if (typeof film !== 'undefined') {
             const {index} = film
             setSelectedIndex(index)
@@ -55,7 +57,7 @@ export default function Archive({films, setShowFilm}) {
             setSelectedIndex(-1)
             navigate(`/archive`)
         }
-    }
+    }, [])
 
     const Credits = ({film, setSelected}) => {
         try {

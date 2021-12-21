@@ -5,7 +5,7 @@ import HomeLink from "../components/HomeLink"
 import Film from "../components/data/Film"
 import Home from "../components/pages/home"
 import "../styles/index.sass"
-import {useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 
@@ -59,6 +59,7 @@ export default function IndexPage({data}) {
     const film = films[0]
 
     const [showFilm, setShowFilm] = useState(false)
+    const setShowFilmCallback = useCallback((shouldShow) => setShowFilm(shouldShow), [])
     if (showFilm) {
         return (
             <AnimatePresence>
@@ -69,7 +70,7 @@ export default function IndexPage({data}) {
                     animate={{opacity: 1}}
                     exit={{opacity: 0}}
                 >
-                    <PlayerOverlay src={film.videoSrc} setShowFilm={setShowFilm}/>
+                    <PlayerOverlay src={film.videoSrc} setShowFilm={setShowFilmCallback}/>
                 </motion.div>
             </AnimatePresence>
         )

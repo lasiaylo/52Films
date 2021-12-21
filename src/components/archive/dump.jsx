@@ -1,6 +1,6 @@
-import Tile from "./tile";
+import Tile, {MemoizedTile} from "./tile";
 import {Canvas, extend, useFrame, useThree} from "@react-three/fiber";
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
+import React, {memo, useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
 import {Vector2} from "three"
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
@@ -62,12 +62,12 @@ export default function Dump(props) {
     const {films, selectedIndex, setSelected, setShowFilm} = props
     const filmIsSelected = selectedIndex !== -1
     const tiles = films.map((film, i) => {
-            return <Tile{...props}
-                film={film}
+            return <Tile
                 key={`tile${i}`}
+                film={film}
                 delay={i * 18}
                 isSelected={selectedIndex === i}
-                selectedIndex={selectedIndex}
+                setSelected={setSelected}
                 setShowFilm={setShowFilm}
             />
         })
