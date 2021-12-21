@@ -41,8 +41,6 @@ function Card(props) {
             return vid
         }
     })
-    video?.play()
-
     useEffect(() => {
         if (!clicked) {
             const scale = hover ? [1.02, 1.02, 1.02] : [1, 1, 1]
