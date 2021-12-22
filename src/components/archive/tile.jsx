@@ -11,7 +11,7 @@ import {useSpring, animated} from "@react-spring/three";
 
 const TileSize = 1.5
 
-export default function Tile({film, setSelected, isSelected, isOnSelection, setShowFilm, delay}) {
+export default function Tile({film, setSelected, isSelected, isOnSelection, setShowFilm, delay, finalDelay}) {
     const {stillPreview} = film
     const {size, viewport} = useThree()
     const aspect = size.width / viewport.width
@@ -49,7 +49,7 @@ export default function Tile({film, setSelected, isSelected, isOnSelection, setS
                         position: selectedPos,
                         rotation: [0, 0, 0],
                         scale: selectScale,
-                        delay: firstRender ? 18 * 53 : 0
+                        delay: firstRender ? finalDelay : 0
                     }
                 )
             } else {
