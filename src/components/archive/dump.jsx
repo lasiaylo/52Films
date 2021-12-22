@@ -62,6 +62,7 @@ export default function Dump(props) {
     const {films, selectedIndex, setSelected, setShowFilm} = props
     const filmIsSelected = selectedIndex !== -1
     const tiles = films.map((film, i) => {
+        if (!film.filler) {
             return <Tile
                 key={`tile${i}`}
                 film={film}
@@ -70,6 +71,7 @@ export default function Dump(props) {
                 setSelected={setSelected}
                 setShowFilm={setShowFilm}
             />
+        }
         })
 
     const logline = filmIsSelected ?

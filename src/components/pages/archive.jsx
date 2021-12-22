@@ -8,27 +8,40 @@ import {isEmpty} from "../../util/StringUtil";
 const scrollTo = (index) => {
     const element = document.getElementById(`film${index}`)
     if (element) {
-    element.scrollIntoView({block: "center", behavior: "smooth"})
-        }
+        element.scrollIntoView({block: "center", behavior: "smooth"})
+    }
 }
+
+const fillerText = "?????"
 
 export default function Archive(props) {
     const {setShowFilm} = props
-    let films = Array.from({
-        length: 17
-    }, () => props.films).flat();
+    // let films = Array.from({
+    //     length: 17
+    // }, () => props.films).flat();
+    const films = new Array(52).fill({
+        title: fillerText,
+        filmmaker: [
+            {
+                firstName: fillerText,
+                lastName: "",
+            }
+        ],
+        filler: true
+    })
+    films.splice(0, props.films.length, ...props.films)
     const [filmList, setFilmList] = useState(
         films.map(
             (film, i) => {
+                let filmInfo = film ?? {}
                 return {
-                    ...film,
+                    ...filmInfo,
                     index: i,
                     hidden: false,
                 }
             }
         )
     )
-
     const [selectedIndex, setSelectedIndex] = useState(-1)
 
     useEffect(() => {
@@ -45,7 +58,7 @@ export default function Archive(props) {
     )
 
     const setSelected = useCallback((film, scroll) => {
-        if (typeof film !== 'undefined') {
+        if (typeof film !== 'undefined' && !film.filler) {
             const {index} = film
             setSelectedIndex(index)
             navigate(`/archive#${index + 1}`)
