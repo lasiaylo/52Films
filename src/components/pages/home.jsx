@@ -7,7 +7,7 @@ import {useMemo} from "react";
 
 function Home({film, setShowFilm, filmCount}) {
     const {title, logline} = film
-    const count = useMemo(() => filmCount.toString().padStart(2, "0"), [])
+    const count = useMemo(() => filmCount.toString().padStart(2, "0"), [filmCount])
 
     return (
         <div className={'home'}>

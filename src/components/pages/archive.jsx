@@ -4,6 +4,7 @@ import Directory from "../archive/directory"
 import "../../styles/archive.sass"
 import {navigate} from '@reach/router'
 import {isEmpty} from "../../util/StringUtil";
+import Credits from "../archive/credits";
 
 const scrollTo = (index) => {
     const element = document.getElementById(`film${index}`)
@@ -30,7 +31,7 @@ export default function Archive(props) {
         filler: true
     })
     films.splice(0, props.films.length, ...props.films)
-    const [filmList, setFilmList] = useState(
+    const [filmList, ] = useState(
         films.map(
             (film, i) => {
                 let filmInfo = film ?? {}
@@ -54,7 +55,7 @@ export default function Archive(props) {
                 }
             }
         },
-        []
+        [films.length]
     )
 
     const setSelected = useCallback((film, scroll) => {
@@ -71,33 +72,6 @@ export default function Archive(props) {
             navigate(`/archive`)
         }
     }, [])
-
-    const Credits = ({film, setSelected}) => {
-        try {
-            const credits = film.credits
-            const text = credits.map((line, i) => {
-                if (isEmpty(line)) {
-                    return null
-                }
-                let [role, member] = line.trim().split(':')
-                role = `${role.trim()}: `
-                member = member.trim()
-                return (
-                    <div key={`credit pair ${i}`}>
-                        <span key={`role${i}`}>{role}</span>
-                        <span key={`member${i}`} className={"name"}>{member}</span>
-                    </div>
-                )
-            })
-            return (<div className={"credits"} onClick={() => setSelected()}>
-                <div className={"roles"}>
-                    {text}
-                </div>
-            </div>)
-        } catch {
-            return null
-        }
-    }
 
     const credits = selectedIndex !== -1 ?
         <Credits film={films[selectedIndex]} setSelected={setSelected}/> : undefined
