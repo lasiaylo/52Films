@@ -5,12 +5,12 @@ import "../../styles/home.sass"
 import Preview from "../preview";
 
 function Home({film, setShowFilm}) {
-    const {title, logline, animPreview, videoSrc} = film
+    const {title, logline, videoSrc} = film
 
     return (
         <div className={'home'}>
             <div className={'cardContainer'}>
-                <Preview image={animPreview} videoSrc={videoSrc} setShowFilm={setShowFilm}/>
+                <Preview film={film} videoSrc={videoSrc} setShowFilm={setShowFilm}/>
             </div>
             <div className={'cardBorder'}>
                 <span className={"cardCTA"}>CLICK TO WATCH</span>

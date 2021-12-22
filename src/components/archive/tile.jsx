@@ -93,7 +93,7 @@ export default function Tile({film, setSelected, isSelected, isOnSelection, setS
         }
         if (tap) {
             if (isSelected) {
-                setShowFilm(true)
+                setShowFilm(film)
                 return
             }
             setSelected(film, true)

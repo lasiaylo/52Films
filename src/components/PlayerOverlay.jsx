@@ -10,7 +10,7 @@ const VideoPlayer = ({src}) => {
             url: src
         }
         const player = new Vimeo(ref.current, options)
-        // player.play()
+        player.play()
     })
 
     return (
@@ -47,7 +47,7 @@ export default function PlayerOverlay({src, setShowFilm}) {
 
                         width="36"
                         height="36"
-                        onClick={() => setShowFilm(false)}
+                        onClick={() => setShowFilm()}
                     >
                         <line className={"line"} x1={"1"} y1={"1"} x2={"35"} y2={"35"}/>
                         <line className={"line"} x1={"35"} y1={"1"} x2={"1"} y2={"35"}/>

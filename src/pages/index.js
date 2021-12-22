@@ -56,9 +56,8 @@ export default function IndexPage({data}) {
             return new Film(film.node)
         }
     ), [data.allContentfulFilm.edges])
-    const film = films[0]
 
-    const [showFilm, setShowFilm] = useState(false)
+    const [showFilm, setShowFilm] = useState()
     const setShowFilmCallback = useCallback((shouldShow) => setShowFilm(shouldShow), [])
     if (showFilm) {
         return (
@@ -70,11 +69,12 @@ export default function IndexPage({data}) {
                     animate={{opacity: 1}}
                     exit={{opacity: 0}}
                 >
-                    <PlayerOverlay src={film.videoSrc} setShowFilm={setShowFilmCallback}/>
+                    <PlayerOverlay src={showFilm.videoSrc} setShowFilm={setShowFilmCallback}/>
                 </motion.div>
             </AnimatePresence>
         )
     }
+    const film = films[0]
     return (
         <AnimatePresence>
             <motion.div className={'frame'}

@@ -5,7 +5,7 @@ import {useSpring, animated} from "@react-spring/three";
 import {useDrag} from "@use-gesture/react";
 
 
-function Card(props) {
+function Card({film, setShowFilm}) {
     const ref = useRef()
 
     const {viewport} = useThree()
@@ -34,7 +34,7 @@ function Card(props) {
     const [video] = useState(() => {
         if (isBrowser) {
             const vid = document.createElement("video")
-            vid.src = props.image
+            vid.src = film.animPreview
             vid.crossOrigin = 'anonymous'
             vid.loop = true
             vid.muted = true
@@ -123,7 +123,7 @@ function Card(props) {
                     tension: 400
                 },
                 onRest: {
-                    scale: () => props.setShowFilm(true)
+                    scale: () => setShowFilm(film)
                 }
             })
         }
@@ -131,7 +131,6 @@ function Card(props) {
 
     return (
         <animated.mesh
-            {...props}
             {...spring}
             ref={ref}
             {...bind()}
@@ -147,7 +146,7 @@ function Card(props) {
     )
 }
 
-export default function Preview({image, setShowFilm}) {
+export default function Preview({film, setShowFilm}) {
     return (
         <Canvas className={"canvas"}
                 linear
@@ -155,7 +154,7 @@ export default function Preview({image, setShowFilm}) {
             <ambientLight intensity={0.1}/>
             <pointLight intensity={1} position={[10, 10, 10]}/>
 
-            <Card image={image} setShowFilm={setShowFilm}/>
+            <Card film={film} setShowFilm={setShowFilm}/>
         </Canvas>
     )
 }
