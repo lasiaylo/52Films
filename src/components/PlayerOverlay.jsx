@@ -30,7 +30,7 @@ export default function PlayerOverlay({src, setShowFilm}) {
                     if (showCloseButton) {
                         setShowCloseButton(false)
                     }
-                }, 2000
+                }, 1500
             )
         }, [showCloseButton]
     )
