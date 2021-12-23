@@ -13,7 +13,8 @@ export default function Intro({children, setShowIntro, isShowing}) {
                         layoutDependency={isShowing}
             >
                 <Typist className={"intro"} cursor={{show: false}}
-                        avgTypingDelay={10} stdTypingDelay={0} onTypingDone={
+                        startDelay={100}
+                        avgTypingDelay={15} stdTypingDelay={0} onTypingDone={
 
                     () => setTimeout(() => setShowIntro(false), 2000)
                     }>

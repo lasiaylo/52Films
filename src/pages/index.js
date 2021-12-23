@@ -60,7 +60,6 @@ export default function IndexPage({data}) {
 
     const [showIntro, setShowIntro] = useState(true)
     const [showSite, setShowSite] = useState(false)
-    console.log(showSite)
 
     const [showFilm, setShowFilm] = useState()
     const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
