@@ -58,8 +58,10 @@ export default function IndexPage({data}) {
         }
     ), [data.allContentfulFilm.edges])
 
-    const [showIntro, setShowIntro] = useState(true)
-    const [showSite, setShowSite] = useState(false)
+    const shouldShowIntro = window.location.pathname.length < 2
+
+    const [showIntro, setShowIntro] = useState(shouldShowIntro ?? true)
+    const [showSite, setShowSite] = useState(!shouldShowIntro ?? false)
 
     const [showFilm, setShowFilm] = useState()
     const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
@@ -87,7 +89,7 @@ export default function IndexPage({data}) {
             <div className={'frame'}
                  key={"mainFrame"}
             >
-                <title>52 Films</title>
+                <title>52 films</title>
                 {showIntro &&
                 <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY</Intro>}
                 {!showIntro &&
