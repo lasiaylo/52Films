@@ -3,18 +3,20 @@ import Film from "../data/Film"
 import PropTypes from "prop-types"
 import "../../styles/home.sass"
 import Preview from "../preview";
+import {useMemo} from "react";
 
-function Home({film, setShowFilm}) {
-    const {title, logline, animPreview, videoSrc} = film
+function Home({film, setShowFilm, filmCount}) {
+    const {title, logline} = film
+    const count = useMemo(() => filmCount.toString().padStart(2, "0"), [filmCount])
 
     return (
         <div className={'home'}>
             <div className={'cardContainer'}>
-                <Preview image={animPreview} videoSrc={videoSrc} setShowFilm={setShowFilm}/>
+                <Preview film={film} setShowFilm={setShowFilm}/>
             </div>
             <div className={'cardBorder'}>
                 <span className={"cardCTA"}>CLICK TO WATCH</span>
-                <span className={"cardNumber"}>34 / 52</span>
+                <span className={"cardNumber"}>{`${count} / 52`}</span>
             </div>
             <div className={'footer'}>
                 <h1>{title.toUpperCase()}</h1>

@@ -1,0 +1,23 @@
+@import 'archive'
+
+.creditContainer
+  grid-column: 3 / 8
+  grid-row: 5 / 8
+  margin-left: $padding
+  margin-bottom: $padding
+  z-index: 3
+  .credits
+    margin-top: auto
+    @include font-style
+    display: flex
+    flex-direction: column
+    width: 100%
+    height: 100%
+    overflow: hidden
+    .creditsList
+      display: flex
+      flex-flow: column nowrap
+    .creditsList >  :first-child
+      margin-top: auto !important
+    .name
+      font-weight: lighter

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap')
 
 
-$primary-color: #ffffff
+$primary-color: #FFFBF1
 $primary-background-color: black
 $padding: 20px
 
@@ -19,6 +19,13 @@ $padding: 20px
   font-family: "Inconsolata", sans-serif
   font-weight: lighter
   color: $primary-color
+
+@mixin disable-scrollbars
+  scrollbar-width: none /* Firefox */
+  -ms-overflow-style: none  /* IE 10+ */
+  &::-webkit-scrollbar
+    background: transparent /* Chrome/Safari/Webkit */
+    width: 0px
 
 html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   padding: 0
@@ -84,7 +91,7 @@ h2
     display: flex
     flex-direction: column
     height: 100%
-    border: white solid
+    border: $primary-color solid
 
     .routerContainer
       display: flex

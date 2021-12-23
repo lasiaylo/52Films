@@ -2,7 +2,7 @@ import "../../styles/tile.sass"
 import {TextureLoader} from 'three/src/loaders/TextureLoader.js'
 import {useLoader, useThree} from '@react-three/fiber'
 
-import React, {useEffect, useState} from "react"
+import React, {memo, useEffect, useState} from "react"
 import {getTileXRotation, getTileZRotation, useHover} from "./dump"
 import {useDrag} from "@use-gesture/react";
 import {clampRange, RandomInNegativeRange} from "../../util/MathUtils";
@@ -11,7 +11,7 @@ import {useSpring, animated} from "@react-spring/three";
 
 const TileSize = 1.5
 
-export default function Tile({film, setSelected, isSelected, setShowFilm, ...props}) {
+export default function Tile({film, setSelected, isSelected, isOnSelection, setShowFilm, delay, finalDelay}) {
     const {stillPreview} = film
     const {size, viewport} = useThree()
     const aspect = size.width / viewport.width
@@ -40,7 +40,6 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
         })
     )
 
-    // Check for first render. TODO: find better solution
     const [firstRender, setFirstRender] = useState(true)
 
     useEffect(() => {
@@ -50,7 +49,7 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
                         position: selectedPos,
                         rotation: [0, 0, 0],
                         scale: selectScale,
-                        delay: firstRender ? 18 * 53 : 0
+                        delay: firstRender ? finalDelay : 0
                     }
                 )
             } else {
@@ -67,7 +66,7 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
                             getTileZRotation(),
                         ],
                         scale: [1, 1, 1],
-                        delay: firstRender ? props.delay : 0
+                        delay: firstRender ? delay : 0
                     }
                 )
             }
@@ -77,7 +76,7 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
 
     useEffect(() => {
         setFirstRender(false)
-    })
+    }, [])
 
     const {position} = spring
     const bind = useDrag((
@@ -88,13 +87,13 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
             down,
             tap
         }) => {
-        if (props.selectedIndex !== -1 && props.selectedIndex !== film.index) {
+        if (isOnSelection && !isSelected) {
             setSelected()
             return
         }
         if (tap) {
-            if (props.selectedIndex === film.index) {
-                setShowFilm(true)
+            if (isSelected) {
+                setShowFilm(film)
                 return
             }
             setSelected(film, true)
@@ -104,7 +103,7 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
         setSpring(
             {
                 position: down ? [ox, oy, 1] : [x, y, (film.index * .01) - 0.5],
-                rotation: down ? [-clampRange(vy * dy * 40, 0.5), clampRange(vx * dx * 40, 0.5), 0] : [getTileXRotation(), 0, getTileZRotation()]
+                rotation: down ? [-clampRange(vy * dy * 40, 0.5), clampRange(vx * dx * 40, 0.5), 0] : [getTileXRotation(), 0, getTileZRotation()],
             }
         )
         if (isSelected) {
@@ -126,9 +125,7 @@ export default function Tile({film, setSelected, isSelected, setShowFilm, ...pro
 
     return (
         <animated.mesh
-            {...props}
             {...spring}
-            position-z={props['position-z']}
             {...bind()}
             {...useHover()}
         >

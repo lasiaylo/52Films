@@ -5,7 +5,7 @@ import HomeLink from "../components/HomeLink"
 import Film from "../components/data/Film"
 import Home from "../components/pages/home"
 import "../styles/index.sass"
-import {useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 
@@ -51,23 +51,30 @@ export const query = graphql`
 `
 
 export default function IndexPage({data}) {
-    const film = data.allContentfulFilm.edges[0].node
-    const a = new Film(film)
+    const films = useMemo(() => data.allContentfulFilm.edges.map(
+        film => {
+            return new Film(film.node)
+        }
+    ), [data.allContentfulFilm.edges])
 
-    const [showFilm, setShowFilm] = useState(false)
+    const [showFilm, setShowFilm] = useState()
+    const setShowFilmCallback = useCallback((shouldShow) => setShowFilm(shouldShow), [])
     if (showFilm) {
         return (
             <AnimatePresence>
-                <motion.div className={"playerOverlayContainer"}
-                            key={"playerOverlay"}
-                            initial={{opacity: 0}}
-                            animate={{opacity: 1}}
-                            exit={{opacity: 0}}>
-                    <PlayerOverlay src={film.videoSrc} setShowFilm={setShowFilm}/>
+                <motion.div
+                    className={"playerOverlayContainer"}
+                    key={"playerOverlay"}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                >
+                    <PlayerOverlay src={showFilm.videoSrc} setShowFilm={setShowFilmCallback}/>
                 </motion.div>
             </AnimatePresence>
         )
     }
+    const film = films[0]
     return (
         <AnimatePresence>
             <motion.div className={'frame'}
@@ -85,8 +92,8 @@ export default function IndexPage({data}) {
                     </div>
                     <div className={'routerContainer'}>
                         <Router className={'router'}>
-                            <Home film={a} setShowFilm={setShowFilm} path="/"/>
-                            <LazyComponent Component={Archive} film={a} setShowFilm={setShowFilm} path="archive"/>
+                            <Home film={film} setShowFilm={setShowFilm} filmCount={films.length} path="/"/>
+                            <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilm} path="archive"/>
                             <LazyComponent Component={About} path="about"/>
                         </Router>
                     </div>

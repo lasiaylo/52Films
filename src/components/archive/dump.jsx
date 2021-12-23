@@ -1,6 +1,6 @@
-import Tile from "./tile";
+import Tile, {MemoizedTile} from "./tile";
 import {Canvas, extend, useFrame, useThree} from "@react-three/fiber";
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
+import React, {memo, useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
 import {Vector2} from "three"
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
@@ -10,7 +10,6 @@ import {RandomInNegativeRange} from "../../util/MathUtils"
 import Blur from "./blur";
 
 extend({EffectComposer, RenderPass, OutlinePass, ShaderPass})
-
 
 const hoverContext = React.createContext()
 
@@ -61,19 +60,23 @@ function closestFilter(intersections) {
 
 export default function Dump(props) {
     const {films, selectedIndex, setSelected, setShowFilm} = props
-    const isSelected = selectedIndex !== -1
-    const tiles = films.map((film, i) =>
-        <Tile
-            {...props}
-            film={film}
-            key={`tile${i}`}
-            delay={i * 18}
-            isSelected={selectedIndex === i}
-            selectedIndex={selectedIndex}
-            setShowFilm={setShowFilm}
-        />)
+    const filmIsSelected = selectedIndex !== -1
+    const filmCount = useMemo(() => films.filter((film => !film.filler)).length, [])
+    const tiles = films.map((film, i) => {
+        if (!film.filler) {
+            return <Tile
+                key={`tile${i}`}
+                film={film}
+                delay={i * 18}
+                finalDelay={(filmCount + 1) * 18}
+                isSelected={selectedIndex === i}
+                setSelected={setSelected}
+                setShowFilm={setShowFilm}
+            />
+        }
+    })
 
-    const logline = isSelected ?
+    const logline = filmIsSelected ?
         <div className={"logline"} onClick={() => setSelected()}>{[films[selectedIndex].logline]}</div>
         : undefined
 
@@ -87,12 +90,12 @@ export default function Dump(props) {
                     colorManagement={false}
                 >
                     <ambientLight intensity={0.1}/>
-                    <pointLight intensity={1} position={[10, 10, 10]} />
+                    <pointLight intensity={1} position={[10, 10, 10]}/>
                     <Outline
-                        enable={!isSelected}
+                        enable={!filmIsSelected}
                     >
                         {tiles}
-                        <Blur {...props} isSelected={isSelected}/>
+                        <Blur {...props} isSelected={filmIsSelected}/>
                     </Outline>
                 </Canvas>
             </div>

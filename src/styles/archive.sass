@@ -10,14 +10,17 @@
 
 .archive
   display: grid
+  position: relative
   height: 100%
   grid-template-columns: repeat(6, 1fr)
   grid-template-rows: repeat(6, 1fr)
+  overflow: hidden
+
 
 .directoryContainer
   grid-column: 1/3
   grid-row: 1/7
-  border-right: white solid
+  border-right: $primary-color solid
 
 .directory
   display: flex
@@ -31,7 +34,7 @@
   display: flex
   flex: 0 0 auto
   height: 16%
-  border-bottom: white solid
+  border-bottom: $primary-color solid
 
 .filter
   flex: 0 0 auto
@@ -39,9 +42,10 @@
   color: black
   width: 100%
   height: 10px
-  background: white
+  background: $primary-color
 
 ul
+  @include disable-scrollbars
   flex: 1 1 auto
   width: 100%
   height: 0
@@ -54,22 +58,22 @@ ul
   flex-direction: column
   list-style: none
 
-.listRow
-  display: flex
-  position: relative
-  flex: 1 1 auto
-  scroll-snap-align: start
-  justify-content: space-between
-  overflow-y: hidden
-  border-bottom: solid white
-  height: 16.6667%
-  padding-left: $padding
-  padding-right: $padding
-  align-items: center
-
-  .listInfo
+  .listRow
     display: flex
-    flex-direction: column
+    position: relative
+    flex: 1 1 auto
+    scroll-snap-align: start
+    justify-content: space-between
+    overflow-y: hidden
+    border-bottom: solid $primary-color
+    height: 16.6667%
+    padding-left: $padding
+    padding-right: $padding
+    align-items: center
+
+    .listInfo
+      display: flex
+      flex-direction: column
 
 .listTitle
   @include font-style
@@ -131,36 +135,3 @@ ul
   grid-row: 1
   z-index: 3
   align-items: center
-
-.credits
-  @include font-style
-
-  margin-bottom: $padding
-  font-weight: lighter
-  font-size: 18px
-  max-height: 300px
-  justify-content: flex-end
-  grid-column: 3 / 8
-  grid-row: 6 / 7
-  z-index: 3
-
-  .title
-    @include font-style
-    margin-left: $padding
-    font-weight: bold
-    font-size: 24px
-
-  .roles
-    @include font-style
-    display: flex
-    justify-content: flex-end
-    height: 100%
-    flex-flow: column wrap
-    overflow-x: scroll
-    margin-left: $padding
-    font-weight: normal
-    .name
-      font-weight: lighter
-
-
-
