@@ -1,23 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap')
+@import url("https://use.typekit.net/aqk5knk.css")
 
-
-$primary-color: #FFFBF1
+$primary-color: #fff8e5
 $primary-background-color: black
 $padding: 20px
 
+@mixin title-style
+  font-family: "DM Serif Display", sans-serif
+  font-weight: 700
+  color: $primary-color
+  font-style: normal
+
 @mixin font-style
-  font-family: "Karla", sans-serif
-  font-weight: bold
+  font-family: "DM Serif Display",sans-serif
+  font-weight: lighter
+  font-style: normal
   color: $primary-color
 
 @mixin secondary-font-style
-  font-family: "SF Pro Display", serif
+  font-family: "Karla", monospace
   font-weight: normal
-  color: $primary-color
-
-@mixin tertiary-font-style
-  font-family: "Inconsolata", sans-serif
-  font-weight: lighter
   color: $primary-color
 
 @mixin disable-scrollbars
@@ -39,6 +42,12 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
 #gatsby-announcer
   height: 0px
 
+.siteContainer
+  display: flex
+  flex-direction: column
+  height: 100%
+  width: 100%
+
 body
   position: relative
   background-color: $primary-background-color
@@ -49,7 +58,7 @@ h1
   margin: 0
 
 h2
-  @include font-style
+  @include secondary-font-style
   font-weight: lighter
   font-size: 24px
   margin: 0
@@ -64,16 +73,16 @@ h2
   padding: $padding
 
 .homeLink
-  @include font-style
+  @include secondary-font-style
   font-weight: lighter
-  font-size: 18px
+  font-size: 20px
   text-decoration: none
-  font-style: italic
-  margin-top: 20px
+  margin-top: 15px
 
   &.title
+    @include title-style
     font-weight: bold
-    font-size: 36px
+    font-size: 48px
     font-style: normal
     margin-top: 0px
 
@@ -86,13 +95,11 @@ h2
   padding: $padding
   flex: 1 1 auto
   align-items: stretch
-
   .innerFrame
     display: flex
     flex-direction: column
     height: 100%
     border: $primary-color solid
-
     .routerContainer
       display: flex
       flex-direction: column
@@ -100,3 +107,23 @@ h2
 
       .router
         flex: 1 1 auto
+
+.introContainer
+  display: flex
+  justify-content: center
+  height: 100%
+  .introTextContainer
+    display: flex
+    flex: 0 0 auto
+    margin-top: auto
+    margin-bottom: auto
+    align-items: center
+    flex-direction: column
+    border: $primary-color solid
+    .intro
+      @include secondary-font-style
+      font-size: 20px
+      text-align: center
+      margin: 20px
+
+

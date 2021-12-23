@@ -19,7 +19,7 @@ const HomeLink = ({className, children, slug}) => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             to={slug}>
-            {children.toUpperCase()}
+            {children}
         </Link>
     )
 }
