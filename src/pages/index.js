@@ -8,6 +8,7 @@ import "../styles/index.sass"
 import {useCallback, useEffect, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
+import Intro from "../components/pages/intro";
 
 const About = React.lazy(() => import ('../components/pages/about'))
 const Archive = React.lazy(() => import ('../components/pages/archive'))
@@ -58,13 +59,12 @@ export default function IndexPage({data}) {
     ), [data.allContentfulFilm.edges])
 
     const [showIntro, setShowIntro] = useState(true)
+    const [showSite, setShowSite] = useState(false)
+    console.log(showSite)
 
     const [showFilm, setShowFilm] = useState()
+    const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
     const setShowFilmCallback = useCallback((shouldShow) => setShowFilm(shouldShow), [])
-
-    useEffect(() => {
-        setTimeout(() => setShowIntro(false), 4000)
-    }, [])
 
     if (showFilm) {
         return (
@@ -85,15 +85,25 @@ export default function IndexPage({data}) {
     const film = films[0]
     return (
         <AnimatePresence>
-            <motion.div className={'frame'}
-                        key={"mainFrame"}
-                        initial={{opacity: 0}}
-                        animate={{opacity: 1}}
-                        exit={{opacity: 0}}
+            <div className={'frame'}
+                 key={"mainFrame"}
             >
-                <div className={'innerFrame'}>
-                    <title>52 Films</title>
-                    {showIntro && <div className={"intro"}>A NEW FILM EVERY SATURDAY</div>}
+                <title>52 Films</title>
+                {showIntro &&
+                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY</Intro>}
+                {!showIntro &&
+                <motion.div
+                    className={'innerFrame'}
+                    layoutId={"frame"}
+                    onLayoutAnimationComplete={() => {
+                        setShowSite(true)
+                    }}
+                >
+                    {showSite && <motion.div className={"siteContainer"}
+                                             key={"mainFrame"}
+                                             initial={{opacity: 0}}
+                                             animate={{opacity: 1}}
+                                             exit={{opacity: 0}}>
                         <div className="menu">
                             <HomeLink className="title" slug="/">52 films</HomeLink>
                             <HomeLink slug={"/archive"}>> archive</HomeLink>
@@ -107,8 +117,9 @@ export default function IndexPage({data}) {
                                 <LazyComponent Component={About} path="about"/>
                             </Router>
                         </div>
-                    </div>
-            </motion.div>
+                    </motion.div>}
+                </motion.div>}
+            </div>
         </AnimatePresence>
     )
 }

@@ -42,6 +42,12 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
 #gatsby-announcer
   height: 0px
 
+.siteContainer
+  display: flex
+  flex-direction: column
+  height: 100%
+  width: 100%
+
 body
   position: relative
   background-color: $primary-background-color
@@ -89,13 +95,11 @@ h2
   padding: $padding
   flex: 1 1 auto
   align-items: stretch
-
   .innerFrame
     display: flex
     flex-direction: column
     height: 100%
     border: $primary-color solid
-
     .routerContainer
       display: flex
       flex-direction: column
@@ -104,10 +108,22 @@ h2
       .router
         flex: 1 1 auto
 
-.intro
-  @include font-style
-  position: absolute
-  left: 50%
-  top: 50%
+.introContainer
+  display: flex
+  justify-content: center
+  height: 100%
+  .introTextContainer
+    display: flex
+    flex: 0 0 auto
+    margin-top: auto
+    margin-bottom: auto
+    align-items: center
+    flex-direction: column
+    border: $primary-color solid
+    .intro
+      @include secondary-font-style
+      font-size: 20px
+      text-align: center
+      margin: 20px
 
 

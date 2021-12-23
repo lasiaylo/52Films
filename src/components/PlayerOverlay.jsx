@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react"
 import Vimeo from '@vimeo/player'
-import {AnimatePresence, motion} from 'framer-motion'
+import {motion} from 'framer-motion'
 
 const VideoPlayer = ({src}) => {
     const ref = useRef()
