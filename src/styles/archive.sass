@@ -16,7 +16,6 @@
   grid-template-rows: repeat(6, 1fr)
   overflow: hidden
 
-
 .directoryContainer
   grid-column: 1/3
   grid-row: 1/7
@@ -77,9 +76,9 @@ ul
 
 .listTitle
   @include font-style
-  -webkit-text-fill-color: black
-  -webkit-text-stroke-width: 1px
-  -webkit-text-stroke-color: gray
+  //-webkit-text-fill-color: black
+  //-webkit-text-stroke-width: 1px
+  //-webkit-text-stroke-color: gray
   font-size: 36px
   margin: 0
 
@@ -93,7 +92,7 @@ ul
   font-size: 14px
   font-weight: lighter
   margin: 0
-  color: gray
+  color: white
 
   &.hovered
     color: red
@@ -102,15 +101,18 @@ ul
   @include font-style
   color: gray
   position: relative
-  top: 44%
+  top: 35%
   font-size: 96px
   font-weight: lighter
+  //-webkit-text-fill-color: black
+  //-webkit-text-stroke-width: 1px
+  //-webkit-text-stroke-color: gray
 
   &.hovered
     color: red
 
 .dump
-  @include font-style
+  @include secondary-font-style
   font-size: 18px
   font-weight: lighter
 

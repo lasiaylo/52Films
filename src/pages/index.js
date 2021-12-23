@@ -5,7 +5,7 @@ import HomeLink from "../components/HomeLink"
 import Film from "../components/data/Film"
 import Home from "../components/pages/home"
 import "../styles/index.sass"
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 
@@ -57,8 +57,15 @@ export default function IndexPage({data}) {
         }
     ), [data.allContentfulFilm.edges])
 
+    const [showIntro, setShowIntro] = useState(true)
+
     const [showFilm, setShowFilm] = useState()
     const setShowFilmCallback = useCallback((shouldShow) => setShowFilm(shouldShow), [])
+
+    useEffect(() => {
+        setTimeout(() => setShowIntro(false), 4000)
+    }, [])
+
     if (showFilm) {
         return (
             <AnimatePresence>
@@ -74,6 +81,7 @@ export default function IndexPage({data}) {
             </AnimatePresence>
         )
     }
+
     const film = films[0]
     return (
         <AnimatePresence>
@@ -85,19 +93,21 @@ export default function IndexPage({data}) {
             >
                 <div className={'innerFrame'}>
                     <title>52 Films</title>
-                    <div className="menu">
-                        <HomeLink className="title" slug="/">52 Films</HomeLink>
-                        <HomeLink>Archive</HomeLink>
-                        <HomeLink>About</HomeLink>
+                    {showIntro && <div className={"intro"}>A NEW FILM EVERY SATURDAY</div>}
+                        <div className="menu">
+                            <HomeLink className="title" slug="/">52 films</HomeLink>
+                            <HomeLink slug={"/archive"}>> archive</HomeLink>
+                            <HomeLink slug={"/about"}>> about</HomeLink>
+                        </div>
+                        <div className={'routerContainer'}>
+                            <Router className={'router'}>
+                                <Home film={film} setShowFilm={setShowFilm} filmCount={films.length} path="/"/>
+                                <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilm}
+                                               path="archive"/>
+                                <LazyComponent Component={About} path="about"/>
+                            </Router>
+                        </div>
                     </div>
-                    <div className={'routerContainer'}>
-                        <Router className={'router'}>
-                            <Home film={film} setShowFilm={setShowFilm} filmCount={films.length} path="/"/>
-                            <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilm} path="archive"/>
-                            <LazyComponent Component={About} path="about"/>
-                        </Router>
-                    </div>
-                </div>
             </motion.div>
         </AnimatePresence>
     )

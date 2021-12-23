@@ -1,4 +1,5 @@
 @import 'index'
+
 .home
   display: flex
   flex: 1 1 auto
@@ -21,7 +22,7 @@ canvas
 $card-width: 58.5vw
 
 .cardBorder
-  @include tertiary-font-style
+  @include secondary-font-style
   position: absolute
   left: 30%
   top: 39.9%
@@ -31,6 +32,11 @@ $card-width: 58.5vw
   border: dashed $primary-color 1px
   z-index: -5
   margin: 0 auto
+  .cardInfo
+    position: absolute
+    left: 0
+    top: 100%
+    margin-top: 10px
   .cardCTA
     position: absolute
     right: 0

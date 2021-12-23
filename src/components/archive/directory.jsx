@@ -25,9 +25,9 @@ function ListElement({film, isSelected, setSelected}) {
             <div className={"listInfo"}>
                 <span className={getHoveredClassName("listTitle", shouldHighlight)}>{film.title.toUpperCase()}</span>
                 <span
-                    className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmaker(film).toUpperCase()}</span>
+                    className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmaker(film).toLowerCase()}</span>
             </div>
-            <div className={getHoveredClassName("listNumber", shouldHighlight)}>{film.index + 1}</div>
+            <div className={"listNumber"}>{film.index + 1}</div>
         </div>
     )
 }
