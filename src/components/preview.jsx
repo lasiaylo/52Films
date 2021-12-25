@@ -48,6 +48,7 @@ function Card({film, setShowFilm}) {
                 scale: scale
             })
         }
+        document.body.style.cursor = hover ? 'pointer' : 'auto'
     }, [hover])
 
     useEffect(() => {
@@ -136,7 +137,6 @@ function Card({film, setShowFilm}) {
             {...bind()}
             onPointerOver={() => setHover(true)}
             onPointerLeave={() => setHover(false)}
-
         >
             <planeBufferGeometry attach="geometry" args={[cardWidth, cardHeight]}/>
             <meshStandardMaterial>

@@ -65,7 +65,13 @@ export default function IndexPage({data}) {
 
     const [showFilm, setShowFilm] = useState()
     const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
-    const setShowFilmCallback = useCallback((shouldShow) => setShowFilm(shouldShow), [])
+    const setShowFilmCallback = useCallback((film) => {
+        if (film && !film.filler) {
+            setShowFilm(film)
+        } else {
+            setShowFilm()
+        }
+    }, [])
 
     if (showFilm) {
         return (
@@ -112,8 +118,8 @@ export default function IndexPage({data}) {
                         </div>
                         <div className={'routerContainer'}>
                             <Router className={'router'}>
-                                <Home film={film} setShowFilm={setShowFilm} filmCount={films.length} path="/"/>
-                                <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilm}
+                                <Home film={film} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>
+                                <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}
                                                path="archive"/>
                                 <LazyComponent Component={About} path="about"/>
                             </Router>

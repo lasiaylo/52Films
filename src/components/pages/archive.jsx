@@ -75,7 +75,7 @@ export default function Archive(props) {
 
     return (
         <div className={"archive"}>
-            <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+            <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>
             <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>
             {selectedIndex !== -1  &&  <Credits film={films[selectedIndex]} setSelected={setSelected}/>}
         </div>
