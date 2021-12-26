@@ -58,13 +58,20 @@ export default function IndexPage({data}) {
         }
     ), [data.allContentfulFilm.edges])
 
-    const [showIntro, setShowIntro] = useState(true)
-    const [showSite, setShowSite] = useState(false)
-    console.log(showSite)
+    const shouldShowIntro = window.location.pathname.length < 2
+
+    const [showIntro, setShowIntro] = useState(shouldShowIntro ?? true)
+    const [showSite, setShowSite] = useState(!shouldShowIntro ?? false)
 
     const [showFilm, setShowFilm] = useState()
     const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
-    const setShowFilmCallback = useCallback((shouldShow) => setShowFilm(shouldShow), [])
+    const setShowFilmCallback = useCallback((film) => {
+        if (film && !film.filler) {
+            setShowFilm(film)
+        } else {
+            setShowFilm()
+        }
+    }, [])
 
     if (showFilm) {
         return (
@@ -88,9 +95,9 @@ export default function IndexPage({data}) {
             <div className={'frame'}
                  key={"mainFrame"}
             >
-                <title>52 Films</title>
+                <title>52 films</title>
                 {showIntro &&
-                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY</Intro>}
+                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY. STARTING 2022.</Intro>}
                 {!showIntro &&
                 <motion.div
                     className={'innerFrame'}
@@ -99,25 +106,25 @@ export default function IndexPage({data}) {
                         setShowSite(true)
                     }}
                 >
-                    {showSite && <motion.div className={"siteContainer"}
-                                             key={"mainFrame"}
-                                             initial={{opacity: 0}}
-                                             animate={{opacity: 1}}
-                                             exit={{opacity: 0}}>
-                        <div className="menu">
-                            <HomeLink className="title" slug="/">52 films</HomeLink>
-                            <HomeLink slug={"/archive"}>> archive</HomeLink>
-                            <HomeLink slug={"/about"}>> about</HomeLink>
-                        </div>
-                        <div className={'routerContainer'}>
-                            <Router className={'router'}>
-                                <Home film={film} setShowFilm={setShowFilm} filmCount={films.length} path="/"/>
-                                <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilm}
-                                               path="archive"/>
-                                <LazyComponent Component={About} path="about"/>
-                            </Router>
-                        </div>
-                    </motion.div>}
+                    {/*{showSite && <motion.div className={"siteContainer"}*/}
+                    {/*                         key={"mainFrame"}*/}
+                    {/*                         initial={{opacity: 0}}*/}
+                    {/*                         animate={{opacity: 1}}*/}
+                    {/*                         exit={{opacity: 0}}>*/}
+                    {/*    <div className="menu">*/}
+                    {/*        <HomeLink className="title" slug="/">52 films</HomeLink>*/}
+                    {/*        <HomeLink slug={"/archive"}>> archive</HomeLink>*/}
+                    {/*        <HomeLink slug={"/about"}>> about</HomeLink>*/}
+                    {/*    </div>*/}
+                    {/*    <div className={'routerContainer'}>*/}
+                    {/*        <Router className={'router'}>*/}
+                    {/*            <Home film={film} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>*/}
+                    {/*            <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}*/}
+                    {/*                           path="archive"/>*/}
+                    {/*            <LazyComponent Component={About} path="about"/>*/}
+                    {/*        </Router>*/}
+                    {/*    </div>*/}
+                    {/*</motion.div>}*/}
                 </motion.div>}
             </div>
         </AnimatePresence>

@@ -58,13 +58,13 @@ export default function Archive(props) {
         [films.length]
     )
 
-    const setSelected = useCallback((film, scroll) => {
+    const setSelected = useCallback((film, shouldScroll) => {
         if (typeof film !== 'undefined' && !film.filler) {
             const {index} = film
             setSelectedIndex(index)
             navigate(`/archive#${index + 1}`)
 
-            if (scroll && document) {
+            if (shouldScroll && document) {
                 scrollTo(index)
             }
         } else {
@@ -73,14 +73,11 @@ export default function Archive(props) {
         }
     }, [])
 
-    const credits = selectedIndex !== -1 ?
-        <Credits film={films[selectedIndex]} setSelected={setSelected}/> : undefined
-
     return (
         <div className={"archive"}>
-            <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected}/>
+            <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>
             <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>
-            {credits}
+            {selectedIndex !== -1  &&  <Credits film={films[selectedIndex]} setSelected={setSelected}/>}
         </div>
     )
 }

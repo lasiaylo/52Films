@@ -8,7 +8,7 @@ export default function Blur({isSelected, setSelected}) {
     const [spring, setSpring] = useSpring(() => ({opacity: 0}))
     useEffect(() => {
         if (isSelected) {
-            setSpring({opacity: 0.9})
+            setSpring({opacity: 0.85})
         } else {
             setSpring({opacity: 0})
         }

@@ -1,12 +1,13 @@
 import React, {memo, useEffect, useState} from "react"
+import {motion} from "framer-motion"
 
 const getFilmmaker = ({filmmaker}) => filmmaker[0].firstName + " " + filmmaker[0].lastName
 
 const getHoveredClassName = (className, isHovered) => isHovered ? className + " hovered" : className
 
-const getShouldHighlight = (isSelected, isHovered, film) => isSelected || (film.filler && isHovered)
+const getShouldHighlight = (isSelected, isHovered, film) => isSelected || (!film.filler && isHovered)
 
-function ListElement({film, isSelected, setSelected}) {
+function ListElement({film, isSelected, setSelected, setShowFilm}) {
     const [isHovered, setHover] = useState(false)
     useEffect(() => {
         if (isHovered) {
@@ -14,13 +15,14 @@ function ListElement({film, isSelected, setSelected}) {
         }
     }, [isHovered])
     const shouldHighlight = getShouldHighlight(isSelected, isHovered, film)
-
     return (
         <div
             id={`film${film.index}`}
             className={getHoveredClassName("listRow", shouldHighlight)}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
+            onClick={() => setShowFilm(film)}
+            style={film.filler ? {} : {cursor: "pointer"}}
         >
             <div className={"listInfo"}>
                 <span className={getHoveredClassName("listTitle", shouldHighlight)}>{film.title.toUpperCase()}</span>
@@ -36,10 +38,14 @@ const MemoizedListElement = memo(ListElement,
     (prevProps, nextProps) => prevProps.isSelected === nextProps.isSelected
 )
 
-export default function Directory({films, selectedIndex, setSelected}) {
+export default function Directory({films, selectedIndex, setSelected, setShowFilm}) {
     return (
         <div className={"directoryContainer"}>
-            <div className={"directory"}>
+            <motion.div className={"directory"}
+                        initial={{left: "20px"}}
+                        animate={{left: "0px"}}
+                        exit={{left: "20px"}}
+            >
                 <div className={"filler"}/>
                 <div className={"filter"}/>
                 <ul className={"list"}>
@@ -49,10 +55,11 @@ export default function Directory({films, selectedIndex, setSelected}) {
                             film={film}
                             isSelected={selectedIndex === i}
                             setSelected={setSelected}
+                            setShowFilm={setShowFilm}
                         />
                     )}
                 </ul>
-            </div>
+            </motion.div>
         </div>
 
     )
