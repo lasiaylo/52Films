@@ -5,6 +5,9 @@
 $primary-color: #fff8e5
 $primary-background-color: black
 $padding: 20px
+$bigPadding: calc(#{$padding} * 2)
+$borderWidth: 4px
+$fullWithPadding: calc(100% - #{$padding} * 2)
 
 @mixin title-style
   font-family: "DM Serif Display", sans-serif
@@ -41,12 +44,6 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
 
 #gatsby-announcer
   height: 0px
-
-.siteContainer
-  display: flex
-  flex-direction: column
-  height: 100%
-  width: 100%
 
 body
   position: relative
@@ -90,37 +87,45 @@ h2
   &.hovered
     color: red
 
-.frame
+.frameBorder
+  position: absolute
   display: flex
   flex-direction: column
+  margin: #{$padding}
+  height: calc(100% - #{$padding} * 2)
+  width: calc(100% - (#{$padding} * 2))
+  outline: $primary-color $borderWidth solid
+  z-index: -1
+
+.siteContainer
+  display: flex
+  flex-direction: column
+  height: 100%
+  width: calc(100% - #{$padding} * 2)
   padding: $padding
   flex: 1 1 auto
   align-items: stretch
-  .innerFrame
+  .routerContainer
     display: flex
     flex-direction: column
-    height: 100%
-    border: $primary-color solid
-    .routerContainer
-      display: flex
-      flex-direction: column
+    flex: 1 1 auto
+    .router
       flex: 1 1 auto
 
-      .router
-        flex: 1 1 auto
-
 .introContainer
+  position: absolute
   display: flex
   justify-content: center
-  height: 100%
+  height: $fullWithPadding
+  width: $fullWithPadding
+  margin: $padding
   .introTextContainer
     display: flex
-    flex: 0 0 auto
     margin-top: auto
     margin-bottom: auto
     align-items: center
     flex-direction: column
-    border: $primary-color solid
+    outline: $primary-color $borderWidth solid
     .intro
       @include secondary-font-style
       font-size: 20px
