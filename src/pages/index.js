@@ -101,7 +101,7 @@ export default function IndexPage({data}) {
             >
                 <title>52 films</title>
                 {showIntro &&
-                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY. STARTING 2022.</Intro>}
+                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>STARTING 2022, A NEW FILM EVERY SATURDAY.</Intro>}
                 {!showIntro &&
                 <motion.div
                     className={'innerFrame'}
