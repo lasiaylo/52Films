@@ -97,7 +97,7 @@ export default function IndexPage({data}) {
             >
                 <title>52 films</title>
                 {showIntro &&
-                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY</Intro>}
+                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY. STARTING 2022.</Intro>}
                 {!showIntro &&
                 <motion.div
                     className={'innerFrame'}
@@ -106,25 +106,25 @@ export default function IndexPage({data}) {
                         setShowSite(true)
                     }}
                 >
-                    {showSite && <motion.div className={"siteContainer"}
-                                             key={"mainFrame"}
-                                             initial={{opacity: 0}}
-                                             animate={{opacity: 1}}
-                                             exit={{opacity: 0}}>
-                        <div className="menu">
-                            <HomeLink className="title" slug="/">52 films</HomeLink>
-                            <HomeLink slug={"/archive"}>> archive</HomeLink>
-                            <HomeLink slug={"/about"}>> about</HomeLink>
-                        </div>
-                        <div className={'routerContainer'}>
-                            <Router className={'router'}>
-                                <Home film={film} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>
-                                <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}
-                                               path="archive"/>
-                                <LazyComponent Component={About} path="about"/>
-                            </Router>
-                        </div>
-                    </motion.div>}
+                    {/*{showSite && <motion.div className={"siteContainer"}*/}
+                    {/*                         key={"mainFrame"}*/}
+                    {/*                         initial={{opacity: 0}}*/}
+                    {/*                         animate={{opacity: 1}}*/}
+                    {/*                         exit={{opacity: 0}}>*/}
+                    {/*    <div className="menu">*/}
+                    {/*        <HomeLink className="title" slug="/">52 films</HomeLink>*/}
+                    {/*        <HomeLink slug={"/archive"}>> archive</HomeLink>*/}
+                    {/*        <HomeLink slug={"/about"}>> about</HomeLink>*/}
+                    {/*    </div>*/}
+                    {/*    <div className={'routerContainer'}>*/}
+                    {/*        <Router className={'router'}>*/}
+                    {/*            <Home film={film} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>*/}
+                    {/*            <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}*/}
+                    {/*                           path="archive"/>*/}
+                    {/*            <LazyComponent Component={About} path="about"/>*/}
+                    {/*        </Router>*/}
+                    {/*    </div>*/}
+                    {/*</motion.div>}*/}
                 </motion.div>}
             </div>
         </AnimatePresence>
