@@ -57,11 +57,15 @@ export function getTileZRotation() {
 function closestFilter(intersections) {
     // TODO: Shouldn't put cursor management here.
     if (intersections?.length > 0) {
-         document.body.style.cursor = 'pointer'
+        if (document) {
+            document.body.style.cursor = 'pointer'
+        }
         return [intersections[0]]
     }
     else {
-        document.body.style.cursor = 'default'
+        if (document) {
+            document.body.style.cursor = 'default'
+        }
         return intersections
     }
 }

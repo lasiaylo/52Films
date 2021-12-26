@@ -10,7 +10,7 @@ const setUser = isAdmin =>
     window.localStorage.setItem("isAdmin", JSON.stringify(isAdmin))
 
 export const handleLogin = ({ username, password }) => {
-    if (password === `pass`, ) {
+    if (password === `pass`) {
         return setUser({
             username: `john`,
             name: `Johnny`,
