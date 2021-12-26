@@ -48,7 +48,9 @@ function Card({film, setShowFilm}) {
                 scale: scale
             })
         }
-        document.body.style.cursor = hover ? 'pointer' : 'auto'
+        if (document) {
+            document.body.style.cursor = hover ? 'pointer' : 'auto'
+        }
     }, [hover])
 
     useEffect(() => {

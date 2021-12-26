@@ -9,6 +9,7 @@ import {useCallback, useEffect, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 import Intro from "../components/pages/intro";
+import {isBrowser} from "../services/auth";
 
 const About = React.lazy(() => import ('../components/pages/about'))
 const Archive = React.lazy(() => import ('../components/pages/archive'))
@@ -58,7 +59,10 @@ export default function IndexPage({data}) {
         }
     ), [data.allContentfulFilm.edges])
 
-    const shouldShowIntro = window.location.pathname.length < 2
+    let shouldShowIntro = false
+    if (isBrowser()) {
+        shouldShowIntro = window.location.pathname.length < 2
+    }
 
     const [showIntro, setShowIntro] = useState(shouldShowIntro ?? true)
     const [showSite, setShowSite] = useState(!shouldShowIntro ?? false)
