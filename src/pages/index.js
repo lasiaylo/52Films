@@ -59,7 +59,7 @@ export default function IndexPage({data}) {
         }
     ), [data.allContentfulFilm.edges])
 
-    let shouldShowIntro = false
+    let shouldShowIntro = true
     if (isBrowser()) {
         shouldShowIntro = window.location.pathname.length < 2
     }
