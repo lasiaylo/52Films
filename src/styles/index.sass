@@ -3,11 +3,13 @@
 @import url("https://use.typekit.net/aqk5knk.css")
 
 $primary-color: #fff8e5
-$primary-background-color: black
+$selection-color: red
+$background-color: black
 $padding: 20px
 $bigPadding: calc(#{$padding} * 2)
 $borderWidth: 4px
 $fullWithPadding: calc(100% - #{$padding} * 2)
+$hoverTransition: 0.2s
 
 @mixin title-style
   font-family: "DM Serif Display", sans-serif
@@ -47,7 +49,7 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
 
 body
   position: relative
-  background-color: $primary-background-color
+  background-color: $background-color
 
 h1
   @include font-style
@@ -75,6 +77,8 @@ h2
   font-size: 20px
   text-decoration: none
   margin-top: 15px
+  transition: $hoverTransition
+
 
   &.title
     @include title-style
@@ -111,6 +115,7 @@ h2
     height: 0
     flex: 1 1 auto
     overflow-y: auto
+    overflow-x: hidden
     .router
       flex: 1 1 auto
 

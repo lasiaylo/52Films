@@ -5,14 +5,13 @@ import "../../styles/home.sass"
 import CardCanvas from "../cardCanvas";
 import {useMemo} from "react";
 
-function Home({film, setShowFilm, filmCount}) {
+function Home({film, showCard, filmCount, setShowFilm}) {
     const {title, logline} = film
     const count = useMemo(() => filmCount.toString().padStart(2, "0"), [filmCount])
-
     return (
         <div className={'home'}>
             <div className={'cardContainer'}>
-                <CardCanvas film={film} setShowFilm={setShowFilm}/>
+                <CardCanvas film={film} showCard={showCard} setShowFilm={setShowFilm}/>
             </div>
             <div className={'cardBorder'}>
                 <span className={"cardCTA"}>CLICK TO WATCH</span>

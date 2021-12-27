@@ -7,10 +7,7 @@ import {useDrag} from "@use-gesture/react";
 
 function Card({film, setShowFilm}) {
     const ref = useRef()
-
     const {viewport} = useThree()
-    console.log(viewport.width * .6)
-
     let cardWidth = viewport.width * .6
     let cardX = viewport.width / 10
     let cardY = viewport.height / 10
@@ -158,14 +155,14 @@ function Card({film, setShowFilm}) {
     )
 }
 
-export default function CardCanvas({film, setShowFilm}) {
+export default function CardCanvas({film, showCard, setShowFilm}) {
     return (
         <Canvas className={"canvas"}
                 linear
         >
             <ambientLight intensity={0.1}/>
             <pointLight intensity={1} position={[10, 10, 10]}/>
-            <Card film={film} setShowFilm={setShowFilm}/>
+            {showCard && <Card film={film} setShowFilm={setShowFilm}/>}
         </Canvas>
     )
 }

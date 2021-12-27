@@ -64,8 +64,8 @@ export default function IndexPage({data}) {
         shouldShowIntro = window.location.pathname.length < 2
     }
 
-    const [showIntro, setShowIntro] = useState(shouldShowIntro ?? true)
-    const [showSite, setShowSite] = useState(!shouldShowIntro ?? false)
+    const [showIntro, setShowIntro] = useState(shouldShowIntro)
+    const [showSite, setShowSite] = useState(!shouldShowIntro)
 
     const [showFilm, setShowFilm] = useState()
     const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
@@ -94,6 +94,11 @@ export default function IndexPage({data}) {
     }
 
     const film = films[0]
+
+    const showVariant = {
+        hidden: {opacity: 0},
+        visible: {opacity: 1},
+    }
     return (
         <AnimatePresence>
             <title>52 films</title>
@@ -108,25 +113,48 @@ export default function IndexPage({data}) {
             <div className={"siteContainer"} key={"siteContainer"}>
                 <div className="menu">
                     <motion.div
-                        key={"menu"}
-                        initial={{opacity: 0}}
-                        animate={{opacity: showIntro ? 0 : 1}}
+                        key="menu"
+                        initial="hidden"
+                        animate={showIntro ? "hidden" : "visible"}
+                        variants={showVariant}
+                        transition={{type: "tween", duration: 0.375}}
                         onAnimationComplete={() => {
-                            setShowSite(true)
+                            setTimeout(
+                                () => setShowSite(!showIntro), 250
+                            )
                         }}
                     >
                         <HomeLink className="title" slug="/">52 films</HomeLink>
                     </motion.div>
-                    <HomeLink slug={"/archive"}>> archive</HomeLink>
-                    <HomeLink slug={"/about"}>> about</HomeLink>
+                    <motion.div
+                        className={"homeLink"}
+                        key={"archive"}
+                        initial="hidden"
+                        animate={showSite ? "visible" : "hidden"}
+                        variants={showVariant}
+                        transition={{delay: 0.125}}
+                    >
+                        <HomeLink slug={"/archive"}>> archive</HomeLink>
+                    </motion.div>
+                    <motion.div
+                        className={"homeLink"}
+                        key={"about"}
+                        initial="hidden"
+                        animate={showSite ? "visible" : "hidden"}
+                        variants={showVariant}
+                        transition={{delay: 0.25}}
+                    >
+                        <HomeLink slug={"/about"}>> about</HomeLink>
+                    </motion.div>
                 </div>
                 <motion.div className={'routerContainer'}
-                     key={"mainFrame"}
-                     initial={{opacity: 0}}
-                     animate={{opacity: showSite ? 1 : 0}}
+                            key={"mainFrame"}
+                            initial={{opacity: 0}}
+                            animate={{opacity: showSite ? 1 : 0}}
+                            transition={{delay: 0.375}}
                 >
                     <Router className={'router'}>
-                        <Home film={film} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>
+                        <Home film={film} showCard={showSite} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>
                         <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}
                                        path="archive"/>
                         <LazyComponent Component={About} path="about"/>
