@@ -16,7 +16,13 @@ const Archive = React.lazy(() => import ('../components/pages/archive'))
 
 const LazyComponent = ({Component, ...props}) => (
     <React.Suspense fallback={'<p>Loading...</p>'}>
-        <Component {...props} />
+        <motion.div className={"router"}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+        >
+            <Component {...props} />
+        </motion.div>
     </React.Suspense>
 )
 
@@ -154,7 +160,15 @@ export default function IndexPage({data}) {
                             transition={{delay: 0.375}}
                 >
                     <Router className={'router'}>
-                        <Home film={film} showCard={showSite} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>
+                        <motion.div
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            exit={{opacity: 0}}
+                            path="/"
+                        >
+                            <Home film={film} showCard={showSite} setShowFilm={setShowFilmCallback}
+                                  filmCount={films.length} path="/"/>
+                        </motion.div>
                         <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}
                                        path="archive"/>
                         <LazyComponent Component={About} path="about"/>
