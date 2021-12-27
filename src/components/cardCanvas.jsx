@@ -9,10 +9,20 @@ function Card({film, setShowFilm}) {
     const ref = useRef()
 
     const {viewport} = useThree()
-    const cardWidth = viewport.width * .6
+    console.log(viewport.width * .6)
+
+    let cardWidth = viewport.width * .6
+    let cardX = viewport.width / 10
+    let cardY = viewport.height / 10
+
+    // TODO: BAD FIX FOR WIDE SCREENS
+    if (cardWidth >= 10.4) {
+        cardWidth =  10.4
+        cardX = 1
+        console.log("adlkajdlaskds")
+
+    }
     const cardHeight = cardWidth / (16 / 9)
-    const cardX = (viewport.width / 10)
-    const cardY = viewport.height / 10
 
     const [spring, setSpring] = useSpring(() => ({
         position: [
@@ -148,14 +158,13 @@ function Card({film, setShowFilm}) {
     )
 }
 
-export default function Preview({film, setShowFilm}) {
+export default function CardCanvas({film, setShowFilm}) {
     return (
         <Canvas className={"canvas"}
                 linear
         >
             <ambientLight intensity={0.1}/>
             <pointLight intensity={1} position={[10, 10, 10]}/>
-
             <Card film={film} setShowFilm={setShowFilm}/>
         </Canvas>
     )

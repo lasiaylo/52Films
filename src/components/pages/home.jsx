@@ -2,7 +2,7 @@ import * as React from "react"
 import Film from "../data/Film"
 import PropTypes from "prop-types"
 import "../../styles/home.sass"
-import Preview from "../preview";
+import CardCanvas from "../cardCanvas";
 import {useMemo} from "react";
 
 function Home({film, setShowFilm, filmCount}) {
@@ -12,7 +12,7 @@ function Home({film, setShowFilm, filmCount}) {
     return (
         <div className={'home'}>
             <div className={'cardContainer'}>
-                <Preview film={film} setShowFilm={setShowFilm}/>
+                <CardCanvas film={film} setShowFilm={setShowFilm}/>
             </div>
             <div className={'cardBorder'}>
                 <span className={"cardCTA"}>CLICK TO WATCH</span>

@@ -64,8 +64,8 @@ h2
 .menu
   display: flex
   flex-direction: column
-  width: fit-content
   position: absolute
+  width: fit-content
   z-index: 2
   padding: $padding
 
@@ -100,15 +100,17 @@ h2
 .siteContainer
   display: flex
   flex-direction: column
-  height: 100%
-  width: calc(100% - #{$padding} * 2)
+  height: $fullWithPadding
+  width: $fullWithPadding
   padding: $padding
-  flex: 1 1 auto
+  flex: 0 0 auto
   align-items: stretch
   .routerContainer
     display: flex
     flex-direction: column
+    height: 0
     flex: 1 1 auto
+    overflow-y: auto
     .router
       flex: 1 1 auto
 

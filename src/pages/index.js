@@ -105,25 +105,34 @@ export default function IndexPage({data}) {
             >
                 <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
             </motion.div>
-            <motion.div className={"siteContainer"}
-                        key={"mainFrame"}
+            <div className={"siteContainer"} key={"siteContainer"}>
+                <div className="menu">
+                    <motion.div
+                        key={"menu"}
                         initial={{opacity: 0}}
                         animate={{opacity: showIntro ? 0 : 1}}
-            >
-                <div className="menu">
-                    <HomeLink className="title" slug="/">52 films</HomeLink>
+                        onAnimationComplete={() => {
+                            setShowSite(true)
+                        }}
+                    >
+                        <HomeLink className="title" slug="/">52 films</HomeLink>
+                    </motion.div>
                     <HomeLink slug={"/archive"}>> archive</HomeLink>
                     <HomeLink slug={"/about"}>> about</HomeLink>
                 </div>
-                <div className={'routerContainer'}>
+                <motion.div className={'routerContainer'}
+                     key={"mainFrame"}
+                     initial={{opacity: 0}}
+                     animate={{opacity: showSite ? 1 : 0}}
+                >
                     <Router className={'router'}>
                         <Home film={film} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>
                         <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}
                                        path="archive"/>
                         <LazyComponent Component={About} path="about"/>
                     </Router>
-                </div>
-            </motion.div>
+                </motion.div>
+            </div>
         </AnimatePresence>
     )
 }
