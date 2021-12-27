@@ -29,7 +29,7 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
                 <span
                     className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmaker(film).toLowerCase()}</span>
             </div>
-            <div className={"listNumber"}>{film.index + 1}</div>
+            <div className={getHoveredClassName("listNumber", shouldHighlight)}>{film.index + 1}</div>
         </div>
     )
 }

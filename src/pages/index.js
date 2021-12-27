@@ -120,7 +120,7 @@ export default function IndexPage({data}) {
                         transition={{type: "tween", duration: 0.375}}
                         onAnimationComplete={() => {
                             setTimeout(
-                                () => setShowSite(!showIntro), 250
+                                () => setShowSite(!showIntro), 150
                             )
                         }}
                     >
