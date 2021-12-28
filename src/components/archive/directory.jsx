@@ -25,8 +25,7 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
     </div>
 
     const animationDelay = {"animation-delay": `${film.index * 0.125}s`,}
-    const fadeInDelay = {"animation-delay": `${(film.index * 0.125) + 0.1 }s`,}
-
+    const fadeInDelay = {"animation-delay": `${(film.index * 0.125) + 0.1}s`,}
 
     return (
         <div className={"listRow"}>
@@ -36,7 +35,7 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 onClick={() => setShowFilm(film)}
-                style={film.filler ? {...fadeInDelay} : {cursor: "pointer", ...fadeInDelay  }}
+                style={film.filler ? {...fadeInDelay} : {cursor: "pointer", ...fadeInDelay}}
             >
                 {listInfo}
                 <div className={getHoveredClassName("listNumber", shouldHighlight)}>{film.index + 1}</div>
@@ -68,7 +67,7 @@ export default function Directory({films, selectedIndex, setSelected, setShowFil
                     )}
                 </ul>
             </motion.div>
-                <span className={"directoryLine"}/>
+            <span className={"directoryLine"}/>
         </div>
 
     )
