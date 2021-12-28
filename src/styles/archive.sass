@@ -101,7 +101,7 @@ ul
       padding-right: $padding
       align-items: center
       opacity: 0
-      animation: opacityAnimate 0.35s cubic-bezier(.79,.18,.85,.77) forwards
+      animation: opacityAnimate 0.3s cubic-bezier(.79,.18,.85,.77) forwards
       .listInfo
         display: flex
         flex-direction: column
@@ -116,7 +116,8 @@ ul
   transform: scaleX(0)
   background-color: $primary-color
   transform-origin: left
-  animation: lineAnimate 0.7s cubic-bezier(.79,.18,.85,.77) forwards
+  animation-duration: 0.35s
+  animation: lineAnimate cubic-bezier(.79,.18,.85,.77) forwards
 
 .listTitle
   @include font-style

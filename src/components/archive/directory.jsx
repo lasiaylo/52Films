@@ -8,6 +8,7 @@ const getHoveredClassName = (className, isHovered) => isHovered ? className + " 
 const getShouldHighlight = (isSelected, isHovered, film) => isSelected || (!film.filler && isHovered)
 
 function ListElement({film, isSelected, setSelected, setShowFilm}) {
+    const {filler, index, title} = film
     const [isHovered, setHover] = useState(false)
     useEffect(() => {
         if (isHovered) {
@@ -16,31 +17,33 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
     }, [isHovered])
     const shouldHighlight = getShouldHighlight(isSelected, isHovered, film)
 
-    const listInfo = film.filler ? (
+    const listInfo = filler ? (
         <span className={"listFiller"}>?</span>
     ) : <div className={"listInfo"}>
-        <span className={getHoveredClassName("listTitle", shouldHighlight)}>{film.title.toUpperCase()}</span>
+        <span className={getHoveredClassName("listTitle", shouldHighlight)}>{title.toUpperCase()}</span>
         <span
             className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmaker(film).toLowerCase()}</span>
     </div>
 
-    const animationDelay = {"animationDelay": `${film.index * 0.125}s`,}
-    const fadeInDelay = {"animationDelay": `${(film.index * 0.125) + 0.1}s`,}
+    const delay = index < 10 ? index * 0.125 : 0
+    const animationDelay = {"animationDelay": `${delay}s`}
+    const fadeInDelay = {"animationDelay": `${delay + 0.1}s`}
+    const animationDuration = {"animationDuration": index < 10 ? "0.35s" : "0s"}
 
     return (
         <div className={"listRow"}>
             <div
-                id={`film${film.index}`}
+                id={`film${index}`}
                 className={getHoveredClassName("listRowInfo", shouldHighlight)}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 onClick={() => setShowFilm(film)}
-                style={film.filler ? {...fadeInDelay} : {cursor: "pointer", ...fadeInDelay}}
+                style={filler ? {...fadeInDelay, ...animationDuration} : {cursor: "pointer", ...fadeInDelay, ...animationDuration}}
             >
                 {listInfo}
-                <div className={getHoveredClassName("listNumber", shouldHighlight)}>{film.index + 1}</div>
+                <div className={getHoveredClassName("listNumber", shouldHighlight)}>{index + 1}</div>
             </div>
-            <span className="rowLine" style={animationDelay}/>
+            <span className="rowLine" style={{...animationDelay, ...animationDuration}}/>
         </div>
     )
 }
