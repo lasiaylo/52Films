@@ -24,8 +24,8 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
             className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmaker(film).toLowerCase()}</span>
     </div>
 
-    const animationDelay = {"animation-delay": `${film.index * 0.125}s`,}
-    const fadeInDelay = {"animation-delay": `${(film.index * 0.125) + 0.1}s`,}
+    const animationDelay = {"animationDelay": `${film.index * 0.125}s`,}
+    const fadeInDelay = {"animationDelay": `${(film.index * 0.125) + 0.1}s`,}
 
     return (
         <div className={"listRow"}>
