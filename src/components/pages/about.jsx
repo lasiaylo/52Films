@@ -45,9 +45,7 @@ export default function About({films}) {
 
 
     return (<div className={"aboutContainer"}>
-            <div className={"aboutDescription"}>We are a collective of filmmakers making 52 movies in one year. This is
-                who we are:
-            </div>
+            <div className={"aboutDescription"}>We are making 52 movies in one year.</div>
             <div className={"profilesContainer"}>
                 <div className={"picturesContainer"}>
                     {profilePictures}
