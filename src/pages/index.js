@@ -81,7 +81,6 @@ export default function IndexPage({data}) {
     if (isBrowser()) {
         shouldShowIntro = window.location.pathname.length < 2
     }
-    shouldShowIntro = false
 
     const [showIntro, setShowIntro] = useState(shouldShowIntro)
     const [showSite, setShowSite] = useState(!shouldShowIntro)
@@ -131,21 +130,6 @@ export default function IndexPage({data}) {
             </motion.div>
             <div className={"siteContainer"} key={"siteContainer"}>
                 <div className={"headerContainer"}>
-                    <motion.div
-                        className={"logo"}
-                        key="menu"
-                        initial="hidden"
-                        animate={showIntro ? "hidden" : "visible"}
-                        variants={showVariant}
-                        transition={{type: "tween", duration: 0.375}}
-                        onAnimationComplete={() => {
-                            setTimeout(
-                                () => setShowSite(!showIntro), 150
-                            )
-                        }}
-                    >
-                        <Link to={"/"}><Logo/></Link>
-                    </motion.div>
                     <div className="menu">
                         <motion.div
                             className={"homeLink"}
