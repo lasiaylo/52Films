@@ -40,6 +40,17 @@ export const query = graphql`
                     filmmaker {
                         firstName
                         lastName
+                        pronouns
+                        bio {
+                            raw
+                        }
+                        links {
+                            displayText
+                            url
+                        }
+                        profilePicture {
+                            gatsbyImageData(width: 200, aspectRatio: 1)
+                        }
                     }
                     animPreview {
                         file {
@@ -164,7 +175,7 @@ export default function IndexPage({data}) {
                               filmCount={films.length} path="/"/>
                         <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}
                                        path="archive"/>
-                        <LazyComponent Component={About} path="about"/>
+                        <LazyComponent Component={About} films={films} path="about"/>
                     </Router>
                 </motion.div>
             </div>

@@ -4,6 +4,7 @@
 
 $primary-color: #fff8e5
 $selection-color: #FFB900
+$secondary-selection-color: #17E6A8
 $secondary-color: rgba(255, 248, 229, 0.6)
 $background-color: black
 
@@ -24,11 +25,13 @@ $hoverTransition: 0.2s
   font-weight: lighter
   font-style: normal
   color: $primary-color
+  margin: 0
 
 @mixin secondary-font-style
   font-family: "Karla", monospace
   font-weight: normal
   color: $primary-color
+  margin: 0
 
 @mixin disable-scrollbars
   scrollbar-width: none /* Firefox */
@@ -56,13 +59,17 @@ body
 h1
   @include font-style
   font-size: 96px
-  margin: 0
 
 h2
   @include secondary-font-style
   font-weight: lighter
   font-size: 24px
-  margin: 0
+
+h3, a
+  @include secondary-font-style
+  font-weight: lighter
+  font-size: 18px
+
 
 
 .menu
@@ -127,6 +134,7 @@ h2
   height: $fullWithPadding
   width: $fullWithPadding
   margin: $padding
+  z-index: -20
   .introTextContainer
     display: flex
     margin-top: auto

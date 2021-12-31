@@ -1,0 +1,68 @@
+@import index
+
+$pictureDimension: calc(100vh - (150 + #{$padding} / 4) )
+
+.aboutContainer
+  display: flex
+  flex: 1 1 auto
+  height: calc(100% - 113px)
+  flex-direction: column
+  padding-top: 113px
+  align-items: center
+
+  .aboutDescription
+    @include secondary-font-style
+    font-weight: lighter
+    font-size: 20px
+    font-style: italic
+
+  .profilesContainer
+    display: flex
+    flex: 0 0 auto
+    column-gap: $padding
+    padding: 20px
+
+  .picturesContainer
+    display: flex
+    flex: 0 0 auto
+    flex-wrap: wrap
+    margin: -10px
+    width: calc(100vh - 200px)
+    height: calc(100vh - 200px)
+    .filmmakerProfilePictureContainer
+      display: flex
+      width: calc(25% - #{$padding} /2)
+      height: calc(25% - #{$padding} / 2)
+      padding: $padding / 4
+      align-items: center
+      justify-content: center
+      .filmmakerProfilePicture
+        height: 100%
+        width: 100%
+
+      .filmmakerFillerProfilePicture
+        @include font-style
+        display: flex
+        justify-content: center
+        align-items: center
+        flex: 1 1 auto
+        height: 100%
+        text-align: center
+        font-size: 120px
+        color: $secondary-color
+        border: $secondary-color dashed 1px
+
+
+  .profileDescriptionContainer
+    display: flex
+    flex: 0 1 auto
+    padding-left: 5%
+    padding-right: 10%
+    flex-direction: column
+    justify-content: center
+
+    > :not(:last-child)
+      margin-bottom: $padding
+
+    .filmmakerLink
+      color: $secondary-selection-color
