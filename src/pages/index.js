@@ -131,8 +131,6 @@ export default function IndexPage({data}) {
             logoState = 'topLeft'
         }
     }
-    console.log("RENDER")
-    console.log(logoState)
 
     const logoVariant = {
         hidden: {opacity: 0},
