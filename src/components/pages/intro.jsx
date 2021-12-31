@@ -21,7 +21,10 @@ export default function Intro({children, isShowing, isFrameExpanded, setLogoCent
                                 height: "100%",
                             }
                         }
-                        transition={{type: "tween"}}
+                        transition={{type: "tween", duration: 0.2}}
+                        onAnimationStart={() => {
+                            setLogoCentered(false)
+                        }}
                         onAnimationComplete={() => {
                             setTimeout(() => {
                                 setLogoCentered(false)
