@@ -76,8 +76,16 @@ h3, a
   z-index: 2
   display: flex
   padding: $padding
+
   .logo
     width: fit-content
+    position: fixed
+    left: 50%
+    top: 50%
+    transform: translate(-60px, -60px)
+    margin-top: auto
+    margin-bottom: auto
+    z-index: 2
 
 .logoSVG
   fill: $primary-color
@@ -86,12 +94,9 @@ h3, a
     fill: $selection-color
 
 .menu
-  position: absolute
-  left: 140px
-  top: $padding
+  padding-left: 140px
   display: flex
   flex-direction: row
-  width: fit-content
   > :not(:first-child)
     margin-left: $padding
 

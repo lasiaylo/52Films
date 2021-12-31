@@ -80,11 +80,16 @@ export default function IndexPage({data}) {
     let shouldShowIntro = true
     if (isBrowser()) {
         shouldShowIntro = window.location.pathname.length < 2
+
     }
 
+    // TODO: Move these states to an enum
+    const [showIntroText, setShowIntroText] = useState(shouldShowIntro)
     const [showIntro, setShowIntro] = useState(shouldShowIntro)
-    const [showSite, setShowSite] = useState(!shouldShowIntro)
+    const [isFrameExpanded, setFrameExpanded] = useState(!shouldShowIntro)
+    const [isLogoCentered, setLogoCentered] = useState(shouldShowIntro)
 
+    const [showSite, setShowSite] = useState(!shouldShowIntro)
     const [showFilm, setShowFilm] = useState()
     const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
     const setShowFilmCallback = useCallback((film) => {
@@ -117,6 +122,24 @@ export default function IndexPage({data}) {
         hidden: {opacity: 0},
         visible: {opacity: 1},
     }
+
+    let logoState = 'hidden'
+
+    if (!showIntro) {
+        logoState = 'center'
+        if (!isLogoCentered) {
+            logoState = 'topLeft'
+        }
+    }
+    console.log("RENDER")
+    console.log(logoState)
+
+    const logoVariant = {
+        hidden: {opacity: 0},
+        center: {opacity: 1},
+        topLeft: {opacity: 1, left: "100px", top: "100px"}
+    }
+
     return (
         <AnimatePresence>
             <title>52 films</title>
@@ -126,10 +149,26 @@ export default function IndexPage({data}) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                <Intro isShowing={showIntro} setShowIntro={setShowSite}>A NEW FILM EVERY SATURDAY.</Intro>
+                <Intro isShowing={showIntro} isFrameExpanded={isFrameExpanded} setLogoCentered={setLogoCentered} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
             </motion.div>
             <div className={"siteContainer"} key={"siteContainer"}>
                 <div className={"headerContainer"}>
+                    {!showIntro && <motion.div
+                        className={"logo"}
+                        key="menu"
+                        initial={isLogoCentered ? "hidden" : "topLeft"}
+                        animate={logoState}
+                        variants={logoVariant}
+                        transition={{type: "tween", duration: 0.5}}
+                        onAnimationComplete={() => {
+                            setFrameExpanded(true)
+                            if (logoState === 'topLeft') {
+                                setShowSite(true)
+                            }
+                        }}
+                    >
+                        <Link to={"/"}><Logo/></Link>
+                    </motion.div>}
                     <div className="menu">
                         <motion.div
                             className={"homeLink"}
