@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 import {graphql} from "gatsby"
-import {Router} from '@reach/router'
+import {Link, Router} from '@reach/router'
 import HomeLink from "../components/HomeLink"
 import Film from "../components/data/Film"
 import Home from "../components/pages/home"
@@ -10,6 +10,7 @@ import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 import Intro from "../components/pages/intro";
 import {isBrowser} from "../services/auth";
+import Logo from '../components/Logo'
 
 const About = React.lazy(() => import ('../components/pages/about'))
 const Archive = React.lazy(() => import ('../components/pages/archive'))
@@ -80,6 +81,7 @@ export default function IndexPage({data}) {
     if (isBrowser()) {
         shouldShowIntro = window.location.pathname.length < 2
     }
+    shouldShowIntro = false
 
     const [showIntro, setShowIntro] = useState(shouldShowIntro)
     const [showSite, setShowSite] = useState(!shouldShowIntro)
@@ -128,8 +130,9 @@ export default function IndexPage({data}) {
                 <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
             </motion.div>
             <div className={"siteContainer"} key={"siteContainer"}>
-                <div className="menu">
+                <div className={"headerContainer"}>
                     <motion.div
+                        className={"logo"}
                         key="menu"
                         initial="hidden"
                         animate={showIntro ? "hidden" : "visible"}
@@ -141,28 +144,30 @@ export default function IndexPage({data}) {
                             )
                         }}
                     >
-                        <HomeLink className="title" slug="/">52 films</HomeLink>
+                        <Link to={"/"}><Logo/></Link>
                     </motion.div>
-                    <motion.div
-                        className={"homeLink"}
-                        key={"archive"}
-                        initial="hidden"
-                        animate={showSite ? "visible" : "hidden"}
-                        variants={showVariant}
-                        transition={{delay: 0.125}}
-                    >
-                        <HomeLink slug={"/archive"}>> archive</HomeLink>
-                    </motion.div>
-                    <motion.div
-                        className={"homeLink"}
-                        key={"about"}
-                        initial="hidden"
-                        animate={showSite ? "visible" : "hidden"}
-                        variants={showVariant}
-                        transition={{delay: 0.25}}
-                    >
-                        <HomeLink slug={"/about"}>> about</HomeLink>
-                    </motion.div>
+                    <div className="menu">
+                        <motion.div
+                            className={"homeLink"}
+                            key={"archive"}
+                            initial="hidden"
+                            animate={showSite ? "visible" : "hidden"}
+                            variants={showVariant}
+                            transition={{delay: 0.125}}
+                        >
+                            <HomeLink slug={"/archive"}>> archive</HomeLink>
+                        </motion.div>
+                        <motion.div
+                            className={"homeLink"}
+                            key={"about"}
+                            initial="hidden"
+                            animate={showSite ? "visible" : "hidden"}
+                            variants={showVariant}
+                            transition={{delay: 0.25}}
+                        >
+                            <HomeLink slug={"/about"}>> about</HomeLink>
+                        </motion.div>
+                    </div>
                 </div>
                 <motion.div className={'routerContainer'}
                             key={"mainFrame"}

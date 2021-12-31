@@ -4,6 +4,7 @@
 
 $primary-color: #fff8e5
 $selection-color: #FFB900
+//$selection-color: #ce1c26
 $secondary-selection-color: #17E6A8
 $secondary-color: rgba(255, 248, 229, 0.6)
 $background-color: black
@@ -70,22 +71,36 @@ h3, a
   font-weight: lighter
   font-size: 18px
 
+.headerContainer
+  position: absolute
+  z-index: 2
+  display: flex
+  padding: $padding
+  .logo
+    width: fit-content
+
+.logoSVG
+  fill: $primary-color
+  transition: $hoverTransition
+  &.hovered
+    fill: $selection-color
+
 
 
 .menu
   display: flex
-  flex-direction: column
-  position: absolute
+  flex-direction: row
   width: fit-content
-  z-index: 2
-  padding: $padding
+  padding-left: $padding
+  > :not(:first-child)
+    margin-left: $padding
 
 .homeLink
   @include secondary-font-style
   font-weight: lighter
   font-size: 20px
   text-decoration: none
-  margin-top: 15px
+
   transition: $hoverTransition
   &.title
     @include title-style
