@@ -126,7 +126,7 @@ export default function IndexPage({data}) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
+                <Intro isShowing={showIntro} setShowIntro={setShowSite}>A NEW FILM EVERY SATURDAY.</Intro>
             </motion.div>
             <div className={"siteContainer"} key={"siteContainer"}>
                 <div className={"headerContainer"}>

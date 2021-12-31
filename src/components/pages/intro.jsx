@@ -41,7 +41,7 @@ export default function Intro({children, setShowIntro, isShowing}) {
                         }
                         transition={{type: "tween"}}
                         onAnimationComplete={() => {
-                            setShowIntro(false)
+                            setShowIntro(true)
                         }}
             >
                 {/*<AnimatePresence>*/}
