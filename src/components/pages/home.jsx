@@ -2,17 +2,20 @@ import * as React from "react"
 import Film from "../data/Film"
 import PropTypes from "prop-types"
 import "../../styles/home.sass"
-import Preview from "../preview";
-import {useMemo} from "react";
+import CardCanvas from "../cardCanvas"
+import {useMemo} from "react"
+import {motion} from "framer-motion"
 
-function Home({film, setShowFilm, filmCount}) {
+function Home({film, showCard, filmCount, setShowFilm}) {
     const {title, logline} = film
     const count = useMemo(() => filmCount.toString().padStart(2, "0"), [filmCount])
-
     return (
-        <div className={'home'}>
+        <motion.div className={'home'}
+             initial={{opacity: 0}}
+             animate={{opacity: 1}}
+             exit={{opacity: 0}}>
             <div className={'cardContainer'}>
-                <Preview film={film} setShowFilm={setShowFilm}/>
+                <CardCanvas film={film} showCard={showCard} setShowFilm={setShowFilm}/>
             </div>
             <div className={'cardBorder'}>
                 <span className={"cardCTA"}>CLICK TO WATCH</span>
@@ -22,7 +25,7 @@ function Home({film, setShowFilm, filmCount}) {
                 <h1>{title.toUpperCase()}</h1>
                 <h2>{logline}</h2>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

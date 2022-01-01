@@ -8,6 +8,7 @@ const getHoveredClassName = (className, isHovered) => isHovered ? className + " 
 const getShouldHighlight = (isSelected, isHovered, film) => isSelected || (!film.filler && isHovered)
 
 function ListElement({film, isSelected, setSelected, setShowFilm}) {
+    const {filler, index, title} = film
     const [isHovered, setHover] = useState(false)
     useEffect(() => {
         if (isHovered) {
@@ -15,21 +16,34 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
         }
     }, [isHovered])
     const shouldHighlight = getShouldHighlight(isSelected, isHovered, film)
+
+    const listInfo = filler ? (
+        <span className={"listFiller"}>?</span>
+    ) : <div className={"listInfo"}>
+        <span className={getHoveredClassName("listTitle", shouldHighlight)}>{title.toUpperCase()}</span>
+        <span
+            className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmaker(film).toLowerCase()}</span>
+    </div>
+
+    const delay = index < 10 ? index * 0.125 : 0
+    const animationDelay = {"animationDelay": `${delay}s`}
+    const fadeInDelay = {"animationDelay": `${delay + 0.1}s`}
+    const animationDuration = {"animationDuration": index < 10 ? "0.35s" : "0s"}
+
     return (
-        <div
-            id={`film${film.index}`}
-            className={getHoveredClassName("listRow", shouldHighlight)}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            onClick={() => setShowFilm(film)}
-            style={film.filler ? {} : {cursor: "pointer"}}
-        >
-            <div className={"listInfo"}>
-                <span className={getHoveredClassName("listTitle", shouldHighlight)}>{film.title.toUpperCase()}</span>
-                <span
-                    className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmaker(film).toLowerCase()}</span>
+        <div className={"listRow"}>
+            <div
+                id={`film${index}`}
+                className={getHoveredClassName("listRowInfo", shouldHighlight)}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                onClick={() => setShowFilm(film)}
+                style={filler ? {...fadeInDelay, ...animationDuration} : {cursor: "pointer", ...fadeInDelay, ...animationDuration}}
+            >
+                {listInfo}
+                <div className={getHoveredClassName("listNumber", shouldHighlight)}>{index + 1}</div>
             </div>
-            <div className={"listNumber"}>{film.index + 1}</div>
+            <span className="rowLine" style={{...animationDelay, ...animationDuration}}/>
         </div>
     )
 }
@@ -41,13 +55,9 @@ const MemoizedListElement = memo(ListElement,
 export default function Directory({films, selectedIndex, setSelected, setShowFilm}) {
     return (
         <div className={"directoryContainer"}>
-            <motion.div className={"directory"}
-                        initial={{left: "20px"}}
-                        animate={{left: "0px"}}
-                        exit={{left: "20px"}}
-            >
+            <motion.div className={"directory"}>
                 <div className={"filler"}/>
-                <div className={"filter"}/>
+                <span className={"filter"}/>
                 <ul className={"list"}>
                     {films.map((film, i) =>
                         <MemoizedListElement
@@ -60,6 +70,7 @@ export default function Directory({films, selectedIndex, setSelected, setShowFil
                     )}
                 </ul>
             </motion.div>
+            <span className={"directoryLine"}/>
         </div>
 
     )

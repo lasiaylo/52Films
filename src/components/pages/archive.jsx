@@ -3,7 +3,6 @@ import Dump from "../archive/dump"
 import Directory from "../archive/directory"
 import "../../styles/archive.sass"
 import {navigate} from '@reach/router'
-import {isEmpty} from "../../util/StringUtil";
 import Credits from "../archive/credits";
 
 const scrollTo = (index) => {

@@ -135,7 +135,7 @@ export default function Tile({film, setSelected, isSelected, isOnSelection, setS
     )
 }
 
-function getSources(gatsbyImage) {
+export function getSources(gatsbyImage) {
     let [smallSrc, midSrc, largeSrc] = gatsbyImage.images.sources[0].srcSet.split(',')
     return [
         smallSrc.split(" ")[0],

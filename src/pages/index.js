@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 import {graphql} from "gatsby"
-import {Router} from '@reach/router'
+import {Link, Router} from '@reach/router'
 import HomeLink from "../components/HomeLink"
 import Film from "../components/data/Film"
 import Home from "../components/pages/home"
@@ -10,13 +10,20 @@ import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 import Intro from "../components/pages/intro";
 import {isBrowser} from "../services/auth";
+import Logo from '../components/Logo'
 
 const About = React.lazy(() => import ('../components/pages/about'))
 const Archive = React.lazy(() => import ('../components/pages/archive'))
 
 const LazyComponent = ({Component, ...props}) => (
     <React.Suspense fallback={'<p>Loading...</p>'}>
-        <Component {...props} />
+        <motion.div className={"router"}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+        >
+            <Component {...props} />
+        </motion.div>
     </React.Suspense>
 )
 
@@ -34,6 +41,17 @@ export const query = graphql`
                     filmmaker {
                         firstName
                         lastName
+                        pronouns
+                        bio {
+                            raw
+                        }
+                        links {
+                            displayText
+                            url
+                        }
+                        profilePicture {
+                            gatsbyImageData(width: 200, aspectRatio: 1)
+                        }
                     }
                     animPreview {
                         file {
@@ -62,11 +80,16 @@ export default function IndexPage({data}) {
     let shouldShowIntro = true
     if (isBrowser()) {
         shouldShowIntro = window.location.pathname.length < 2
+
     }
 
-    const [showIntro, setShowIntro] = useState(shouldShowIntro ?? true)
-    const [showSite, setShowSite] = useState(!shouldShowIntro ?? false)
+    // TODO: Move these states to an enum
+    const [showIntroText, setShowIntroText] = useState(shouldShowIntro)
+    const [showIntro, setShowIntro] = useState(shouldShowIntro)
+    const [isFrameExpanded, setFrameExpanded] = useState(!shouldShowIntro)
+    const [isLogoCentered, setLogoCentered] = useState(shouldShowIntro)
 
+    const [showSite, setShowSite] = useState(!shouldShowIntro)
     const [showFilm, setShowFilm] = useState()
     const setShowIntroCallback = useCallback((shouldShow) => setShowIntro(shouldShow), [])
     const setShowFilmCallback = useCallback((film) => {
@@ -94,42 +117,96 @@ export default function IndexPage({data}) {
     }
 
     const film = films[0]
+
+    const showVariant = {
+        hidden: {opacity: 0},
+        visible: {opacity: 1},
+    }
+
+    let logoState = 'hidden'
+
+    if (!showIntro) {
+        logoState = 'center'
+        if (!isLogoCentered) {
+            logoState = 'topLeft'
+        }
+    }
+
+    const logoVariant = {
+        hidden: {opacity: 0},
+        center: {opacity: 1},
+        topLeft: {opacity: 1, left: "100px", top: "100px"}
+    }
+
     return (
         <AnimatePresence>
-            <div className={'frame'}
-                 key={"mainFrame"}
+            <title>52 films</title>
+            <motion.div
+                key={"introTransition"}
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
             >
-                <title>52 films</title>
-                {showIntro &&
-                <Intro isShowing={showIntro} setShowIntro={setShowIntroCallback}>STARTING 2022, A NEW FILM EVERY SATURDAY.</Intro>}
-                {!showIntro &&
-                <motion.div
-                    className={'innerFrame'}
-                    layoutId={"frame"}
-                    onLayoutAnimationComplete={() => {
-                        setShowSite(true)
-                    }}
+                <Intro isShowing={showIntro} isFrameExpanded={isFrameExpanded} setLogoCentered={setLogoCentered} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
+            </motion.div>
+            <div className={"siteContainer"} key={"siteContainer"}>
+                <div className={"headerContainer"}>
+                    {!showIntro && <motion.div
+                        className={"logo"}
+                        key="menu"
+                        initial={isLogoCentered ? "hidden" : "topLeft"}
+                        animate={logoState}
+                        variants={logoVariant}
+                        transition={{type: "tween", duration: 0.35}}
+                        onAnimationComplete={() => {
+                            if (logoState === 'topLeft') {
+                                setShowSite(true)
+                            } else {
+                                setTimeout(() => {
+                                    setFrameExpanded(true)
+                                }, 200)
+                            }
+                        }}
+                    >
+                        <Link to={"/"}><Logo/></Link>
+                    </motion.div>}
+                    <div className="menu">
+                        <motion.div
+                            className={"homeLink"}
+                            key={"archive"}
+                            initial="hidden"
+                            animate={showSite ? "visible" : "hidden"}
+                            variants={showVariant}
+                            transition={{delay: 0.125}}
+                        >
+                            <HomeLink slug={"/archive"}>> archive</HomeLink>
+                        </motion.div>
+                        <motion.div
+                            className={"homeLink"}
+                            key={"about"}
+                            initial="hidden"
+                            animate={showSite ? "visible" : "hidden"}
+                            variants={showVariant}
+                            transition={{delay: 0.25}}
+                        >
+                            <HomeLink slug={"/about"}>> about</HomeLink>
+                        </motion.div>
+                    </div>
+                </div>
+                <motion.div className={'routerContainer'}
+                            key={"mainFrame"}
+                            initial={{opacity: 0}}
+                            animate={{opacity: showSite ? 1 : 0}}
+                            transition={{delay: 0.375}}
                 >
-                    {/*{showSite && <motion.div className={"siteContainer"}*/}
-                    {/*                         key={"mainFrame"}*/}
-                    {/*                         initial={{opacity: 0}}*/}
-                    {/*                         animate={{opacity: 1}}*/}
-                    {/*                         exit={{opacity: 0}}>*/}
-                    {/*    <div className="menu">*/}
-                    {/*        <HomeLink className="title" slug="/">52 films</HomeLink>*/}
-                    {/*        <HomeLink slug={"/archive"}>> archive</HomeLink>*/}
-                    {/*        <HomeLink slug={"/about"}>> about</HomeLink>*/}
-                    {/*    </div>*/}
-                    {/*    <div className={'routerContainer'}>*/}
-                    {/*        <Router className={'router'}>*/}
-                    {/*            <Home film={film} setShowFilm={setShowFilmCallback} filmCount={films.length} path="/"/>*/}
-                    {/*            <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}*/}
-                    {/*                           path="archive"/>*/}
-                    {/*            <LazyComponent Component={About} path="about"/>*/}
-                    {/*        </Router>*/}
-                    {/*    </div>*/}
-                    {/*</motion.div>}*/}
-                </motion.div>}
+                    <Router className={'router'}>
+                        <Home film={film} showCard={showSite} setShowFilm={setShowFilmCallback}
+                              filmCount={films.length} path="/"/>
+                        <LazyComponent Component={Archive} films={films} setShowFilm={setShowFilmCallback}
+                                       path="archive"/>
+                        <LazyComponent Component={About} films={films} path="about"/>
+                    </Router>
+                </motion.div>
             </div>
         </AnimatePresence>
     )

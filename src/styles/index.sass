@@ -3,8 +3,17 @@
 @import url("https://use.typekit.net/aqk5knk.css")
 
 $primary-color: #fff8e5
-$primary-background-color: black
+$selection-color: #FFB900
+//$selection-color: #ce1c26
+$secondary-selection-color: #17E6A8
+$secondary-color: rgba(255, 248, 229, 0.6)
+$background-color: black
+
 $padding: 20px
+$bigPadding: calc(#{$padding} * 2)
+$borderWidth: 4px
+$fullWithPadding: calc(100% - #{$padding} * 2)
+$hoverTransition: 0.2s
 
 @mixin title-style
   font-family: "DM Serif Display", sans-serif
@@ -17,11 +26,13 @@ $padding: 20px
   font-weight: lighter
   font-style: normal
   color: $primary-color
+  margin: 0
 
 @mixin secondary-font-style
   font-family: "Karla", monospace
   font-weight: normal
   color: $primary-color
+  margin: 0
 
 @mixin disable-scrollbars
   scrollbar-width: none /* Firefox */
@@ -42,43 +53,60 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
 #gatsby-announcer
   height: 0px
 
-.siteContainer
-  display: flex
-  flex-direction: column
-  height: 100%
-  width: 100%
-
 body
   position: relative
-  background-color: $primary-background-color
+  background-color: $background-color
 
 h1
   @include font-style
   font-size: 96px
-  margin: 0
 
 h2
   @include secondary-font-style
   font-weight: lighter
   font-size: 24px
-  margin: 0
 
+h3, a
+  @include secondary-font-style
+  font-weight: lighter
+  font-size: 18px
 
-.menu
-  display: flex
-  flex-direction: column
-  width: fit-content
+.headerContainer
   position: absolute
   z-index: 2
+  display: flex
   padding: $padding
+
+  .logo
+    width: fit-content
+    position: fixed
+    left: 50%
+    top: 50%
+    transform: translate(-60px, -60px)
+    margin-top: auto
+    margin-bottom: auto
+    z-index: 2
+
+.logoSVG
+  fill: $primary-color
+  transition: $hoverTransition
+  &.hovered
+    fill: $selection-color
+
+.menu
+  padding-left: 140px
+  display: flex
+  flex-direction: row
+  > :not(:first-child)
+    margin-left: $padding
 
 .homeLink
   @include secondary-font-style
   font-weight: lighter
   font-size: 20px
   text-decoration: none
-  margin-top: 15px
 
+  transition: $hoverTransition
   &.title
     @include title-style
     font-weight: bold
@@ -88,39 +116,53 @@ h2
     line-height: 40px
 
   &.hovered
-    color: red
+    color: $selection-color
 
-.frame
+.frameBorder
+  position: absolute
   display: flex
   flex-direction: column
+  margin: #{$padding}
+  height: calc(100% - #{$padding} * 2)
+  width: calc(100% - (#{$padding} * 2))
+  outline: $primary-color $borderWidth solid
+  z-index: -1
+
+.siteContainer
+  display: flex
+  flex-direction: column
+  height: $fullWithPadding
+  width: $fullWithPadding
   padding: $padding
-  flex: 1 1 auto
+  flex: 0 0 auto
   align-items: stretch
-  .innerFrame
+  .routerContainer
     display: flex
     flex-direction: column
-    height: 100%
-    border: $primary-color solid
-    .routerContainer
-      display: flex
-      flex-direction: column
+    height: 0
+    flex: 1 1 auto
+    overflow-y: auto
+    overflow-x: hidden
+    .router
       flex: 1 1 auto
-
-      .router
-        flex: 1 1 auto
+      height: 100%
 
 .introContainer
+  position: absolute
   display: flex
   justify-content: center
-  height: 100%
+  height: $fullWithPadding
+  width: $fullWithPadding
+  margin: $padding
+  z-index: -20
   .introTextContainer
     display: flex
-    flex: 0 0 auto
     margin-top: auto
     margin-bottom: auto
+    justify-content: center
     align-items: center
     flex-direction: column
-    border: $primary-color solid
+    outline: $primary-color $borderWidth solid
     .intro
       @include secondary-font-style
       font-size: 20px
