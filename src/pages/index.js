@@ -157,11 +157,14 @@ export default function IndexPage({data}) {
                         initial={isLogoCentered ? "hidden" : "topLeft"}
                         animate={logoState}
                         variants={logoVariant}
-                        transition={{type: "tween", duration: 0.5}}
+                        transition={{type: "tween", duration: 0.35}}
                         onAnimationComplete={() => {
-                            setFrameExpanded(true)
                             if (logoState === 'topLeft') {
                                 setShowSite(true)
+                            } else {
+                                setTimeout(() => {
+                                    setFrameExpanded(true)
+                                }, 200)
                             }
                         }}
                     >

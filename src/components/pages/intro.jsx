@@ -1,8 +1,6 @@
 import React, {useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Typist from 'react-typist'
-import {Link} from "@reach/router";
-import Logo from "../Logo";
 
 export default function Intro({children, isShowing, isFrameExpanded, setLogoCentered, setShowIntro}) {
     return (
@@ -26,9 +24,7 @@ export default function Intro({children, isShowing, isFrameExpanded, setLogoCent
                             setLogoCentered(true)
                         }}
                         onAnimationComplete={() => {
-                            setTimeout(() => {
                                 setLogoCentered(false)
-                            }, 150)
                         }}
                             >
                             <AnimatePresence>
