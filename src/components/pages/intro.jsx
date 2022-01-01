@@ -1,8 +1,15 @@
 import React, {useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Typist from 'react-typist'
+import {isBrowser} from "../../services/auth";
 
 export default function Intro({children, isShowing, isFrameExpanded, setLogoCentered, setShowIntro}) {
+    let text = children
+    let shouldAllowIntoSite = true
+    if(isBrowser() && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        text = 'This site is formatted for desktop. Mobile coming soon'
+        shouldAllowIntoSite = false
+    }
     return (
         <div className={"introContainer"}>
             <motion.div className={"introTextContainer"}
@@ -41,12 +48,13 @@ export default function Intro({children, isShowing, isFrameExpanded, setLogoCent
                             avgTypingDelay={20} stdTypingDelay={0}
                             onTypingDone={() => {
                             setTimeout(() => {
-                            setShowIntro(false)
-
+                                if (shouldAllowIntoSite) {
+                                    setShowIntro(false)
+                                }
                         }, 1000)
                         }}
                             >
-                        {children}
+                        {text}
                             </Typist>
                             </motion.div>
                         }
