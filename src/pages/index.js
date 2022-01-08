@@ -50,7 +50,7 @@ export const query = graphql`
                             url
                         }
                         profilePicture {
-                            gatsbyImageData(width: 200, aspectRatio: 1)
+                            gatsbyImageData(width: 300, aspectRatio: 1)
                         }
                     }
                     animPreview {
