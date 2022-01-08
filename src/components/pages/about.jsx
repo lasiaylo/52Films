@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react'
+import React, {memo, useMemo, useState} from 'react'
 import "../../styles/about.sass"
 import {GatsbyImage} from "gatsby-plugin-image";
 import {motion} from "framer-motion";
@@ -35,7 +35,7 @@ const ProfilePicture = ({filmmaker, isSelected, setFilmmaker}) => {
             />
         }
         return null
-    }, [])
+    }, [filmmaker])
 
     let profilePicture = picture === null
         ? <div className={"filmmakerFillerProfilePicture"}><span>?</span></div> :
@@ -62,7 +62,7 @@ export default function About({films}) {
     const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers.at(-1))
     const [hidden, setHidden] = useState(false)
 
-    const setSelectedFilmmakerCallback = useCallback((filmmaker) => {
+    const setSelectedFilmmakerCallback = (filmmaker) => {
         if (filmmaker === selectedFilmmaker) {
             return
         }
@@ -71,7 +71,7 @@ export default function About({films}) {
             setHidden(false)
             setSelectedFilmmaker(filmmaker)
         }, 100)
-    })
+    }
 
     const profilePictures = getProfilePictures(filmmakers, selectedFilmmaker, setSelectedFilmmakerCallback)
     const name = getFilmmakerName(selectedFilmmaker)

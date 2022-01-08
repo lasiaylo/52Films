@@ -5,7 +5,7 @@ import HomeLink from "../components/HomeLink"
 import Film from "../components/data/Film"
 import Home from "../components/pages/home"
 import "../styles/index.sass"
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 import Intro from "../components/pages/intro";
@@ -83,7 +83,6 @@ export default function IndexPage({data}) {
     }
 
     // TODO: Move these states to an enum
-    const [showIntroText, setShowIntroText] = useState(shouldShowIntro)
     const [showIntro, setShowIntro] = useState(shouldShowIntro)
     const [isFrameExpanded, setFrameExpanded] = useState(!shouldShowIntro)
     const [isLogoCentered, setLogoCentered] = useState(shouldShowIntro)
