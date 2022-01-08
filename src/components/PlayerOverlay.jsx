@@ -11,13 +11,10 @@ const VideoPlayer = ({src}) => {
         }
         const player = new Vimeo(ref.current, options)
         player.play()
-    })
+    }, [])
 
     return (
-        <div className={"player"}
-             ref={ref}
-        >
-        </div>
+        <div className={"player"} ref={ref}/>
     );
 }
 

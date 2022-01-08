@@ -5,7 +5,7 @@ import HomeLink from "../components/HomeLink"
 import Film from "../components/data/Film"
 import Home from "../components/pages/home"
 import "../styles/index.sass"
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 import Intro from "../components/pages/intro";
@@ -29,7 +29,7 @@ const LazyComponent = ({Component, ...props}) => (
 
 export const query = graphql`
     query PageQuery{
-        allContentfulFilm(sort: { fields: [createdAt], order: DESC}) {
+        allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
             edges {
                 node {
                     title
@@ -50,7 +50,7 @@ export const query = graphql`
                             url
                         }
                         profilePicture {
-                            gatsbyImageData(width: 200, aspectRatio: 1)
+                            gatsbyImageData(width: 300, aspectRatio: 1)
                         }
                     }
                     animPreview {
@@ -80,11 +80,9 @@ export default function IndexPage({data}) {
     let shouldShowIntro = true
     if (isBrowser()) {
         shouldShowIntro = window.location.pathname.length < 2
-
     }
 
     // TODO: Move these states to an enum
-    const [showIntroText, setShowIntroText] = useState(shouldShowIntro)
     const [showIntro, setShowIntro] = useState(shouldShowIntro)
     const [isFrameExpanded, setFrameExpanded] = useState(!shouldShowIntro)
     const [isLogoCentered, setLogoCentered] = useState(shouldShowIntro)
@@ -116,7 +114,7 @@ export default function IndexPage({data}) {
         )
     }
 
-    const film = films[0]
+    const film = films.at(-1)
 
     const showVariant = {
         hidden: {opacity: 0},
