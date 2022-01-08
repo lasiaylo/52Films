@@ -6,7 +6,10 @@ import {isBrowser} from "../../services/auth";
 export default function Intro({children, isShowing, isFrameExpanded, setLogoCentered, setShowIntro}) {
     let text = children
     let shouldAllowIntoSite = true
-    if (isBrowser() && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    if (isBrowser()
+        // && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        && window.matchMedia("only screen and (max-width: 760px)").matches
+    ) {
         text = 'This site is formatted for desktop. Mobile coming soon'
         shouldAllowIntoSite = false
     }
