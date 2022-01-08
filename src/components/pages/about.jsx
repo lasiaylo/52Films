@@ -94,9 +94,12 @@ export default function About({films}) {
                         <span className={"filmmakerPronoun"}> {pronouns}</span>
                     </h2>
                     <h3 className={"filmmakerDescription"}>{bio}</h3>
+                    <div>
+                        <span className={"filmmakerLinksText"}>Links | </span>
                     <a className={"filmmakerLink"}
                        href={selectedFilmmaker.links.url}
                     >{selectedFilmmaker.links.displayText}</a>
+                    </div>
                 </motion.div>
             </div>
         </div>
