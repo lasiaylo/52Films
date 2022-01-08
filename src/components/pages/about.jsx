@@ -1,7 +1,7 @@
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react'
 import "../../styles/about.sass"
 import {GatsbyImage} from "gatsby-plugin-image";
-import {AnimatePresence, motion} from "framer-motion";
+import {motion} from "framer-motion";
 
 const getFilmmakers = (films) => {
     return Array.from(new Set(films.map(film => film.filmmaker[0])))

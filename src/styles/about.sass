@@ -1,13 +1,14 @@
 @import index
 
 $pictureDimension: calc(100vh - (150 + #{$padding} / 4) )
+$paddingTop: 116px
 
 .aboutContainer
   display: flex
   flex: 1 1 auto
-  height: calc(100% - 113px)
+  height: calc(100% - #{$paddingTop})
   flex-direction: column
-  padding-top: 120px
+  padding-top: $paddingTop
   align-items: center
 
   .aboutDescription
