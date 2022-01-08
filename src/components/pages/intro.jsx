@@ -10,8 +10,7 @@ export default function Intro({children, isShowing, isFrameExpanded, setLogoCent
         // && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
         && window.matchMedia("only screen and (max-width: 760px)").matches
     ) {
-        text = 'This site is formatted for desktop. Mobile coming soon'
-        shouldAllowIntoSite = false
+        text = 'This site is formatted for desktop. Mobile coming soon.'
     }
     return (
         <div className={"introContainer"}>
