@@ -59,7 +59,7 @@ const MemoizedProfilePicture = memo(
 export default function About({films}) {
     const filmmakers = getFilmmakers(films)
 
-    const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers.at(-1))
+    const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers[filmmakers.length -1])
     const [hidden, setHidden] = useState(false)
 
     const setSelectedFilmmakerCallback = (filmmaker) => {

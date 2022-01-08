@@ -114,7 +114,7 @@ export default function IndexPage({data}) {
         )
     }
 
-    const film = films.at(-1)
+    const film = films[films.length - 1]
 
     const showVariant = {
         hidden: {opacity: 0},
