@@ -29,7 +29,7 @@ const LazyComponent = ({Component, ...props}) => (
 
 export const query = graphql`
     query PageQuery{
-        allContentfulFilm(sort: { fields: [createdAt], order: DESC}) {
+        allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
             edges {
                 node {
                     title
@@ -80,7 +80,6 @@ export default function IndexPage({data}) {
     let shouldShowIntro = true
     if (isBrowser()) {
         shouldShowIntro = window.location.pathname.length < 2
-
     }
 
     // TODO: Move these states to an enum
@@ -116,7 +115,7 @@ export default function IndexPage({data}) {
         )
     }
 
-    const film = films[0]
+    const film = films.at(-1)
 
     const showVariant = {
         hidden: {opacity: 0},
