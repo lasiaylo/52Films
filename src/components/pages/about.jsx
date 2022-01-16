@@ -59,7 +59,7 @@ const MemoizedProfilePicture = memo(
 export default function About({films}) {
     const filmmakers = getFilmmakers(films)
 
-    const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers[filmmakers.length -1])
+    const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers[filmmakers.length - 1])
     const [hidden, setHidden] = useState(false)
 
     const setSelectedFilmmakerCallback = (filmmaker) => {
@@ -78,6 +78,14 @@ export default function About({films}) {
     const pronouns = getPronouns(selectedFilmmaker)
     const bio = JSON.parse(selectedFilmmaker.bio.raw).content[0].content[0].value
 
+    const link = (selectedFilmmaker.links === null) ? null : <div>
+        <span className={"filmmakerLinksText"}>Links | </span>
+        <a className={"filmmakerLink"}
+           href={selectedFilmmaker.links.url}
+        >{selectedFilmmaker.links.displayText}</a>
+    </div>
+
+
     return (<div className={"aboutContainer"}>
             <div className={"aboutDescription"}>We are making 52 movies in one year.</div>
             <div className={"profilesContainer"}>
@@ -94,12 +102,7 @@ export default function About({films}) {
                         <span className={"filmmakerPronoun"}> {pronouns}</span>
                     </h2>
                     <h3 className={"filmmakerDescription"}>{bio}</h3>
-                    <div>
-                        <span className={"filmmakerLinksText"}>Links | </span>
-                    <a className={"filmmakerLink"}
-                       href={selectedFilmmaker.links.url}
-                    >{selectedFilmmaker.links.displayText}</a>
-                    </div>
+                    {link}
                 </motion.div>
             </div>
         </div>
