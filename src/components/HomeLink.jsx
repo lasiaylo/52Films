@@ -14,7 +14,7 @@ const HomeLink = ({className, children, slug}) => {
     const [isHovered, setHover] = useState(false)
 
     // TODO: Refactor out to share behavior with Logo
-    const isOnPage = window.location.pathname.replace("/", "") === children
+    const isOnPage = isBrowser ? window.location.pathname.replace("/", "") === children : false
     const finalClassName = isHovered || (isMobile() && isOnPage) ? className + " hovered" : className
     slug = slug ?? "/" + slugify(children, {lower: true}) + "/"
     return (
