@@ -2,7 +2,7 @@ import "../../styles/tile.sass"
 import {TextureLoader} from 'three/src/loaders/TextureLoader.js'
 import {useLoader, useThree} from '@react-three/fiber'
 
-import React, { useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 import {getTileXRotation, getTileZRotation, useHover} from "./dump"
 import {useDrag} from "@use-gesture/react";
 import {clampRange, RandomInNegativeRange} from "../../util/MathUtils";

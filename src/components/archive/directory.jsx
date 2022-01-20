@@ -1,5 +1,7 @@
 import React, {memo, useEffect, useState} from "react"
 import {motion} from "framer-motion"
+import {isMobile} from "../../services/auth";
+import {GatsbyImage} from "gatsby-plugin-image";
 
 const getFilmmaker = ({filmmaker}) => filmmaker[0].firstName + " " + filmmaker[0].lastName
 
@@ -8,7 +10,7 @@ const getHoveredClassName = (className, isHovered) => isHovered ? className + " 
 const getShouldHighlight = (isSelected, isHovered, film) => isSelected || (!film.filler && isHovered)
 
 function ListElement({film, isSelected, setSelected, setShowFilm}) {
-    const {filler, index, title} = film
+    const {filler, index, title, stillPreview} = film
     const [isHovered, setHover] = useState(false)
     useEffect(() => {
         if (isHovered) {
@@ -30,18 +32,27 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
     const fadeInDelay = {"animationDelay": `${delay + 0.1}s`}
     const animationDuration = {"animationDuration": index < 10 ? "0.35s" : "0s"}
 
+    const orientation = index % 2 ? "left" : "right"
+    const isFiller = filler ? "fillerRow" : ""
     return (
         <div className={"listRow"}>
             <div
                 id={`film${index}`}
-                className={getHoveredClassName("listRowInfo", shouldHighlight)}
+                className={getHoveredClassName(`listRowInfo ${orientation} ${isFiller}`, shouldHighlight)}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 onClick={() => setShowFilm(film)}
                 style={filler ? {...fadeInDelay, ...animationDuration} : {cursor: "pointer", ...fadeInDelay, ...animationDuration}}
             >
                 {listInfo}
-                <div className={getHoveredClassName("listNumber", shouldHighlight)}>{index + 1}</div>
+                {<div className={getHoveredClassName(`listNumber ${orientation}`, shouldHighlight)}>{index + 1}</div>}
+                {isMobile() && !filler &&
+                <GatsbyImage
+                    className={"filmStillPreview"}
+                    alt={"FilmImage"}
+                    image={stillPreview}
+                />
+                }
             </div>
             <span className="rowLine" style={{...animationDelay, ...animationDuration}}/>
         </div>
@@ -53,11 +64,39 @@ const MemoizedListElement = memo(ListElement,
 )
 
 export default function Directory({films, selectedIndex, setSelected, setShowFilm}) {
+    var checkScrollSpeed = (function (settings) {
+        settings = settings || {};
+
+        var lastPos, newPos, timer, delta,
+            delay = settings.delay || 50; // in "ms" (higher means lower fidelity )
+
+        function clear() {
+            lastPos = null;
+            delta = 0;
+        }
+
+        clear();
+
+        return function () {
+            newPos = window.scrollY;
+            if (lastPos != null) { // && newPos < maxScroll
+                delta = newPos - lastPos;
+            }
+            lastPos = newPos;
+            clearTimeout(timer);
+            timer = setTimeout(clear, delay);
+            return delta;
+        };
+    })();
+
+// listen to "scroll" event
+    window.onscroll = () => console.log("adslksajdlsakj")
+
     return (
         <div className={"directoryContainer"}>
             <motion.div className={"directory"}>
-                <div className={"filler"}/>
-                <span className={"filter"}/>
+                {!isMobile() && <div className={"filler"}/>}
+                {!isMobile() && <span className={"filter"}/>}
                 <ul className={"list"}>
                     {films.map((film, i) =>
                         <MemoizedListElement

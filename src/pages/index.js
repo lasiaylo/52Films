@@ -59,7 +59,7 @@ export const query = graphql`
                         }
                     }
                     stillPreview {
-                        gatsbyImageData
+                        gatsbyImageData(aspectRatio: 1)
                     }
                     credits {
                         credits
@@ -73,6 +73,7 @@ export const query = graphql`
 function getMenuText(text) { return isMobile() ? text : `> ${text}`}
 
 export default function IndexPage({data}) {
+    window.addEventListener('scroll',  () => console.log("adslksajdlsakj"))
     const films = useMemo(() => data.allContentfulFilm.edges.map(
         film => {
             return new Film(film.node)
@@ -171,7 +172,7 @@ export default function IndexPage({data}) {
                             }
                         }}
                     >
-                        <Link to={"/"}><Logo showText={isLogoCentered}/></Link>
+                        <Link to={"/"}><Logo showText={isLogoCentered || !isMobile()}/></Link>
                     </motion.div>}
                     <div className="menu">
                         <motion.div
