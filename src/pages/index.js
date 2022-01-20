@@ -73,7 +73,6 @@ export const query = graphql`
 function getMenuText(text) { return isMobile() ? text : `> ${text}`}
 
 export default function IndexPage({data}) {
-    window.addEventListener('scroll',  () => console.log("adslksajdlsakj"))
     const films = useMemo(() => data.allContentfulFilm.edges.map(
         film => {
             return new Film(film.node)

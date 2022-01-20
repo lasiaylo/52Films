@@ -103,7 +103,7 @@ h3, a
     display: flex
     align-items: center
     justify-content: center
-    border-top: red $borderWidth solid
+    border-top: $primary-color $borderWidth solid
 
   .logoSVG
     fill: $primary-color
@@ -123,7 +123,7 @@ h3, a
   > :not(:first-child)
     margin-left: $padding
     @media(max-width: $breakpoint-mobile)
-      border-left: yellow $borderWidth solid
+      border-left: $primary-color $borderWidth solid
       margin-left: 0
 
   @media(max-width: $breakpoint-mobile)
@@ -135,7 +135,7 @@ h3, a
     width: calc(100% - ((#{$padding} * 2) + #{$nav-height} + #{$borderWidth}))
     display: flex
 
-    border: yellow $borderWidth solid
+    border: $primary-color $borderWidth solid
 
 .homeLink
   @include secondary-font-style

@@ -4,14 +4,18 @@ import {string} from "prop-types";
 import {Link} from "@reach/router";
 import slugify from "slugify";
 import {useState} from "react";
+import {isMobile} from "../services/auth";
 
 const homeLinkClassname = "homeLink "
 
 const HomeLink = ({className, children, slug}) => {
     className = className ?? ""
     className = homeLinkClassname + className
-    const [isHovered, setHover] = useState(false);
-    const finalClassName = isHovered ? className + " hovered" : className
+    const [isHovered, setHover] = useState(false)
+
+    // TODO: Refactor out to share behavior with Logo
+    const isOnPage = window.location.pathname.replace("/", "") === children
+    const finalClassName = isHovered || (isMobile() && isOnPage) ? className + " hovered" : className
     slug = slug ?? "/" + slugify(children, {lower: true}) + "/"
     return (
         <Link
