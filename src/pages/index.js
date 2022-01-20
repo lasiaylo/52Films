@@ -9,7 +9,7 @@ import {useCallback, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 import Intro from "../components/pages/intro";
-import {isBrowser} from "../services/auth";
+import {isBrowser, isMobile} from "../services/auth";
 import Logo from '../components/Logo'
 
 const About = React.lazy(() => import ('../components/pages/about'))
@@ -70,6 +70,8 @@ export const query = graphql`
     }
 `
 
+function getMenuText(text) { return isMobile() ? text : `> ${text}`}
+
 export default function IndexPage({data}) {
     const films = useMemo(() => data.allContentfulFilm.edges.map(
         film => {
@@ -79,6 +81,8 @@ export default function IndexPage({data}) {
 
     let shouldShowIntro = true
     if (isBrowser()) {
+
+
         shouldShowIntro = window.location.pathname.length < 2
     }
 
@@ -126,14 +130,15 @@ export default function IndexPage({data}) {
     if (!showIntro) {
         logoState = 'center'
         if (!isLogoCentered) {
-            logoState = 'topLeft'
+            logoState = 'positioned'
         }
     }
 
     const logoVariant = {
         hidden: {opacity: 0},
         center: {opacity: 1},
-        topLeft: {opacity: 1, left: "100px", top: "100px"}
+        positioned: isMobile() ? {opacity: 1, left: "80px", top: "calc(100% - 54px)"}:
+            {opacity: 1, left: "100px", top: "100px"}
     }
 
     return (
@@ -152,12 +157,12 @@ export default function IndexPage({data}) {
                     {!showIntro && <motion.div
                         className={"logo"}
                         key="menu"
-                        initial={isLogoCentered ? "hidden" : "topLeft"}
+                        initial={isLogoCentered ? "hidden" : "positioned"}
                         animate={logoState}
                         variants={logoVariant}
                         transition={{type: "tween", duration: 0.35}}
                         onAnimationComplete={() => {
-                            if (logoState === 'topLeft') {
+                            if (logoState === 'positioned') {
                                 setShowSite(true)
                             } else {
                                 setTimeout(() => {
@@ -166,28 +171,28 @@ export default function IndexPage({data}) {
                             }
                         }}
                     >
-                        <Link to={"/"}><Logo/></Link>
+                        <Link to={"/"}><Logo showText={isLogoCentered}/></Link>
                     </motion.div>}
                     <div className="menu">
                         <motion.div
-                            className={"homeLink"}
+                            className={"link"}
                             key={"archive"}
                             initial="hidden"
                             animate={showSite ? "visible" : "hidden"}
                             variants={showVariant}
                             transition={{delay: 0.125}}
                         >
-                            <HomeLink slug={"/archive"}>> archive</HomeLink>
+                            <HomeLink slug={"/archive"}>{getMenuText('archive')}</HomeLink>
                         </motion.div>
                         <motion.div
-                            className={"homeLink"}
+                            className={"link"}
                             key={"about"}
                             initial="hidden"
                             animate={showSite ? "visible" : "hidden"}
                             variants={showVariant}
                             transition={{delay: 0.25}}
                         >
-                            <HomeLink slug={"/about"}>> about</HomeLink>
+                            <HomeLink slug={"/about"}>{getMenuText('about')}</HomeLink>
                         </motion.div>
                     </div>
                 </div>

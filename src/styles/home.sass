@@ -1,6 +1,7 @@
 @import 'index'
 
 $card-width: Min(58.5vw, 1700px)
+$card-width-mobile: calc(100vw - (#{$padding} * 4))
 
 .home
   display: flex
@@ -15,6 +16,8 @@ $card-width: Min(58.5vw, 1700px)
   flex: 1 1 auto
   width: 100%
   max-height: 95vh
+  @media(max-width: $breakpoint-mobile)
+    max-height: 100%
 
 canvas
   display: flex
@@ -32,32 +35,55 @@ canvas
   top: 39.9%
   transform: translateY(-50%)
   width: $card-width
-  height: calc(#{$card-width} / (16/9))
+  height: calc(#{$card-width} / (16 / 9))
   border: dashed $primary-color 1px
   z-index: -5
   margin: 0 auto
+
+  @media(max-width: $breakpoint-mobile)
+    font-weight: lighter
+    left: $padding
+    top: 50%
+    width: $card-width-mobile
+    height: calc(#{$card-width-mobile} / (16 / 9))
+    border: none
 
   .cardInfo
     position: absolute
     left: 0
     top: 100%
     margin-top: 10px
+
   .cardCTA
     position: absolute
     right: 0
     top: 100%
     justify-self: center
     margin-top: 10px
+    @media(max-width: $breakpoint-mobile)
+      visibility: hidden
+
   .cardNumber
     position: absolute
-    left: 100%
     writing-mode: vertical-lr
     margin-left: 10px
+    @media(min-width: calc(#{$breakpoint-mobile} + 1px))
+      left: 100%
+    @media(max-width: $breakpoint-mobile)
+      right: 0
+      top: 100%
+      justify-self: center
+      writing-mode: horizontal-tb
+      margin-top: 10px
+
 
 .footer
   position: absolute
   left: 0
-  bottom: 0
   width: 70%
   z-index: -2
   padding: $padding
+  @media(min-width: calc(#{$breakpoint-mobile} + 1px))
+    bottom: 0
+  @media(max-width: $breakpoint-mobile)
+    top: calc(70%)

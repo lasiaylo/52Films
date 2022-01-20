@@ -8,6 +8,10 @@ $secondary-selection-color: #17E6A8
 $secondary-color: rgba(255, 248, 229, 0.6)
 $background-color: black
 
+$breakpoint-mobile: 600px
+$breakpoint-tablet: 768px
+$nav-height: 90px
+
 $padding: 20px
 $bigPadding: calc(#{$padding} * 2)
 $borderWidth: 4px
@@ -21,7 +25,7 @@ $hoverTransition: 0.2s
   font-style: normal
 
 @mixin font-style
-  font-family: "DM Serif Display",sans-serif
+  font-family: "DM Serif Display", sans-serif
   font-weight: lighter
   font-style: normal
   color: $primary-color
@@ -34,10 +38,13 @@ $hoverTransition: 0.2s
   margin: 0
 
 @mixin disable-scrollbars
-  scrollbar-width: none /* Firefox */
-  -ms-overflow-style: none  /* IE 10+ */
+  scrollbar-width: none
+  /* Firefox */
+  -ms-overflow-style: none
+  /* IE 10+ */
   &::-webkit-scrollbar
-    background: transparent /* Chrome/Safari/Webkit */
+    background: transparent
+    /* Chrome/Safari/Webkit */
     width: 0px
 
 html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
@@ -59,11 +66,15 @@ body
 h1
   @include font-style
   font-size: 96px
+  @media(max-width: $breakpoint-mobile)
+    font-size: 40px
 
 h2
   @include secondary-font-style
   font-weight: lighter
   font-size: 24px
+  @media(max-width: $breakpoint-mobile)
+      font-size: 16px
 
 h3, a
   @include secondary-font-style
@@ -75,22 +86,35 @@ h3, a
   z-index: 2
   display: flex
   padding: $padding
-
   .logo
-    width: fit-content
     position: fixed
     left: 50%
     top: 50%
     transform: translate(-60px, -60px)
     margin-top: auto
     margin-bottom: auto
-    z-index: 2
 
-.logoSVG
-  fill: $primary-color
-  transition: $hoverTransition
-  &.hovered
-    fill: $selection-color
+
+
+.logoContainer
+  @media(max-width: $breakpoint-mobile)
+    height: $nav-height
+    width: $nav-height
+    display: flex
+    align-items: center
+    justify-content: center
+    border-top: red $borderWidth solid
+
+  .logoSVG
+    fill: $primary-color
+    transition: $hoverTransition
+
+    &.hovered
+      fill: $selection-color
+
+    @media(max-width: $breakpoint-mobile)
+      position: fixed
+      top: 30px // SVG WIDTH / 2
 
 .menu
   padding-left: 140px
@@ -98,24 +122,41 @@ h3, a
   flex-direction: row
   > :not(:first-child)
     margin-left: $padding
+    @media(max-width: $breakpoint-mobile)
+      border-left: yellow $borderWidth solid
+      margin-left: 0
+
+  @media(max-width: $breakpoint-mobile)
+    position: fixed
+    padding-left: 0
+    top: calc(100% - (#{$padding} + #{$nav-height} + #{$borderWidth}))
+    left: calc(#{$nav-height} + #{$padding})
+    height: $nav-height
+    width: calc(100% - ((#{$padding} * 2) + #{$nav-height} + #{$borderWidth}))
+    display: flex
+
+    border: yellow $borderWidth solid
 
 .homeLink
   @include secondary-font-style
   font-weight: lighter
   font-size: 20px
   text-decoration: none
-
   transition: $hoverTransition
-  &.title
-    @include title-style
-    font-weight: bold
-    font-size: 40px
-    font-style: normal
-    margin-top: 0px
-    line-height: 40px
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
 
   &.hovered
     color: $selection-color
+
+.link
+  @media(max-width: $breakpoint-mobile)
+    width: 50%
+    display: flex
+
+
 
 .frameBorder
   position: absolute
@@ -135,16 +176,23 @@ h3, a
   padding: $padding
   flex: 0 0 auto
   align-items: stretch
+
+  @media(max-width: $breakpoint-mobile)
+    height: calc(#{$fullWithPadding} - #{$nav-height})
+
   .routerContainer
     display: flex
     flex-direction: column
-    height: 0
     flex: 1 1 auto
+    height: 0
     overflow-y: auto
     overflow-x: hidden
+
     .router
       flex: 1 1 auto
       height: 100%
+      @media(max-width: $breakpoint-mobile)
+        flex: 0 0 auto
 
 .introContainer
   position: absolute
@@ -154,6 +202,7 @@ h3, a
   width: $fullWithPadding
   margin: $padding
   z-index: -20
+
   .introTextContainer
     display: flex
     margin-top: auto
@@ -162,6 +211,7 @@ h3, a
     align-items: center
     flex-direction: column
     outline: $primary-color $borderWidth solid
+
     .intro
       @include secondary-font-style
       font-size: 20px
