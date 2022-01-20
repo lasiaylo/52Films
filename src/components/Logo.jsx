@@ -4,7 +4,8 @@ import {isMobile} from "../services/auth";
 // TODO: BAD. Figure out how to import from file
 export default function Logo({showText}) {
     const [hovered, setHovered] = useState(false)
-    const className = hovered ? 'logoSVG hovered' : 'logoSVG'
+    const isOnPage = window.location.pathname === "/"
+    const className = hovered || (isMobile() && isOnPage) ? 'logoSVG hovered' : 'logoSVG'
     const width = isMobile() ? '60px' : '120px'
     return (
         <div
