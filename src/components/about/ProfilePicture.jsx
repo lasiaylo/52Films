@@ -1,6 +1,7 @@
 import React, {memo, useMemo, useState} from "react";
 import {GatsbyImage} from "gatsby-plugin-image";
 
+export const FillerProfilePicture = () => <div className={"filmmakerFillerProfilePicture"}><span>?</span></div>
 const ProfilePicture = ({filmmaker, isSelected, setFilmmaker}) => {
     const [hover, setHover] = useState(false)
     const className = "actualFilmmakerProfilerPictureContainer"
@@ -18,7 +19,7 @@ const ProfilePicture = ({filmmaker, isSelected, setFilmmaker}) => {
     }, [filmmaker])
 
     let profilePicture = picture === null
-        ? <div className={"filmmakerFillerProfilePicture"}><span>?</span></div> :
+        ? <FillerProfilePicture/> :
         <div className={finalClassName}
              onPointerOver={() => setHover(true)}
              onPointerLeave={() => setHover(false)}

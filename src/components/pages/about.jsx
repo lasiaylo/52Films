@@ -3,6 +3,7 @@ import "../../styles/about.sass"
 import {motion} from "framer-motion";
 import {isMobile} from "../../services/auth";
 import {MemoizedProfilePicture} from "../about/ProfilePicture";
+import FilmmakerCarousel from "../about/FilmmakerCarousel";
 
 const getFilmmakers = (films) => {
     return Array.from(new Set(films.map(film => film.filmmaker[0])))
@@ -16,11 +17,13 @@ const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
     const pictures = new Array(16).fill(null)
     for (let i = 0; i < pictures.length; i++) {
         const filmmaker = filmmakers[i]
-        pictures[i] = <MemoizedProfilePicture
-            key={i}
-            filmmaker={filmmaker}
-            isSelected={selectedFilmmaker === filmmaker}
-            setFilmmaker={setFilmmaker}/>
+        pictures[i] =
+            <MemoizedProfilePicture
+                key={i}
+                filmmaker={filmmaker}
+                isSelected={selectedFilmmaker === filmmaker}
+                setFilmmaker={setFilmmaker}
+            />
     }
     return pictures
 }
@@ -55,12 +58,18 @@ export default function About({films}) {
     </div>
 
 
-    return (<div className={"aboutContainer"}>
+    return (
+        <div className={"aboutContainer"}>
             <div className={"aboutDescription"}>We are making 52 movies in one year.</div>
             <div className={"profilesContainer"}>
-                <div className={"picturesContainer"}>
+                {!isMobile() && <div className={"picturesContainer"}>
                     {profilePictures}
-                </div>
+                </div>}
+                {isMobile() &&
+                <FilmmakerCarousel
+                    onFocus={setSelectedFilmmakerCallback}
+                    filmmakers={filmmakers}
+                />}
                 <motion.div className={"profileDescriptionContainer"}
                             key={"profileDescriptionContainer"}
                             initial={{opacity: 1}}

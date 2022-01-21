@@ -15,6 +15,7 @@ $nav-height: 90px
 $padding: 20px
 $bigPadding: calc(#{$padding} * 2)
 $borderWidth: 4px
+$borderWidthMobile: 2px
 $fullWithPadding: calc(100% - #{$padding} * 2)
 $hoverTransition: 0.2s
 
@@ -55,6 +56,7 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   display: flex
   flex-direction: column
   flex: 1 1 auto
+  overscroll-behavior-y: none
 
 #gatsby-announcer
   height: 0px
@@ -106,7 +108,7 @@ h3, a
     display: flex
     align-items: center
     justify-content: center
-    border-top: $primary-color $borderWidth solid
+    border-top: $primary-color $borderWidthMobile solid
 
   .logoSVG
     fill: $primary-color
@@ -126,19 +128,19 @@ h3, a
   > :not(:first-child)
     margin-left: $padding
     @media(max-width: $breakpoint-mobile)
-      border-left: $primary-color $borderWidth solid
+      border-left: $primary-color $borderWidthMobile solid
       margin-left: 0
 
   @media(max-width: $breakpoint-mobile)
     position: fixed
     padding-left: 0
-    top: calc(100% - (#{$padding} + #{$nav-height} + #{$borderWidth}))
+    top: calc(100% - (#{$padding} + #{$nav-height} + #{$borderWidthMobile}))
     left: calc(#{$nav-height} + #{$padding})
     height: $nav-height
-    width: calc(100% - ((#{$padding} * 2) + #{$nav-height} + #{$borderWidth}))
+    width: calc(100% - ((#{$padding} * 2) + #{$nav-height} + #{$borderWidthMobile}))
     display: flex
 
-    border: $primary-color $borderWidth solid
+    border: $primary-color $borderWidthMobile solid
 
 .homeLink
   @include secondary-font-style
@@ -170,6 +172,9 @@ h3, a
   width: calc(100% - (#{$padding} * 2))
   outline: $primary-color $borderWidth solid
   z-index: -1
+
+  @media(max-width: $breakpoint-mobile)
+    outline: $primary-color $borderWidthMobile solid
 
 .siteContainer
   display: flex
@@ -214,6 +219,9 @@ h3, a
     align-items: center
     flex-direction: column
     outline: $primary-color $borderWidth solid
+
+    @media(max-width: $breakpoint-mobile)
+      outline: $primary-color $borderWidthMobile solid
 
     .intro
       @include secondary-font-style
