@@ -3,7 +3,6 @@ import "../../styles/about.sass"
 import {motion} from "framer-motion";
 import {isMobile} from "../../services/auth";
 import {MemoizedProfilePicture} from "../about/ProfilePicture";
-import Selector from "../about/Carousel";
 
 const getFilmmakers = (films) => {
     return Array.from(new Set(films.map(film => film.filmmaker[0])))
@@ -59,11 +58,9 @@ export default function About({films}) {
     return (<div className={"aboutContainer"}>
             <div className={"aboutDescription"}>We are making 52 movies in one year.</div>
             <div className={"profilesContainer"}>
-                {!isMobile() && <div className={"picturesContainer"}>
+                <div className={"picturesContainer"}>
                     {profilePictures}
-                </div>}
-                {isMobile() && <Selector list={profilePictures}/>
-                }
+                </div>
                 <motion.div className={"profileDescriptionContainer"}
                             key={"profileDescriptionContainer"}
                             initial={{opacity: 1}}
