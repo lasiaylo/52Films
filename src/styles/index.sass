@@ -59,6 +59,10 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   flex-direction: column
   flex: 1 1 auto
   overscroll-behavior-y: none
+  @media(max-width: $breakpoint-mobile)
+    height  : 100%
+    overflow: hidden
+    position: relative
 
 #gatsby-announcer
   height: 0px
