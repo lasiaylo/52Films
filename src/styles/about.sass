@@ -12,11 +12,18 @@ $paddingTop: 116px
   padding-top: $paddingTop
   align-items: center
 
+  @media(max-width: $breakpoint-mobile)
+    height: 100%
+    padding-top: 0
+    padding-left: $padding
+    padding-right: $padding
+
   .aboutDescription
     @include secondary-font-style
     font-weight: lighter
     font-size: 20px
     @media(max-width: $breakpoint-mobile)
+      margin-top: calc(#{$padding})
       font-size: 16px
 
   .profilesContainer
@@ -29,7 +36,6 @@ $paddingTop: 116px
     @media(max-width: $breakpoint-mobile)
       flex-direction: column
       width: 100%
-      padding: $padding 0 0 0
       justify-content: center
 
   .picturesContainer
@@ -92,12 +98,15 @@ $paddingTop: 116px
   justify-content: center
 
   @media(max-width: $breakpoint-mobile)
-    padding-top: $padding
+    //padding-top: $padding
     padding-left: 0
     padding-right: 0
 
   > :not(:last-child)
     margin-bottom: $padding
+    @media(max-width: $breakpoint-mobile)
+      margin-bottom: calc(#{$padding} / 2)
+
 
   .filmmakerLink
     color: $secondary-selection-color
