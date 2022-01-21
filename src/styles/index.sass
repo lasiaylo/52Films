@@ -13,11 +13,13 @@ $breakpoint-tablet: 768px
 $nav-height: 90px
 
 $padding: 20px
-$bigPadding: calc(#{$padding} * 2)
-$borderWidth: 4px
-$borderWidthMobile: 2px
-$fullWithPadding: calc(100% - #{$padding} * 2)
-$hoverTransition: 0.2s
+$big-padding: calc(#{$padding} * 2)
+$border-width: 4px
+$border-width-mobile: 2px
+$full-with-padding: calc(100% - #{$padding} * 2)
+$hover-transition-duration: 0.2s
+
+$page-height-mobile: calc(100vh - #{$padding} * 2 - #{$nav-height})
 
 @mixin title-style
   font-family: "DM Serif Display", sans-serif
@@ -108,11 +110,11 @@ h3, a
     display: flex
     align-items: center
     justify-content: center
-    border-top: $primary-color $borderWidthMobile solid
+    border-top: $primary-color $border-width-mobile solid
 
   .logoSVG
     fill: $primary-color
-    transition: $hoverTransition
+    transition: $hover-transition-duration
 
     &.hovered
       fill: $selection-color
@@ -128,26 +130,26 @@ h3, a
   > :not(:first-child)
     margin-left: $padding
     @media(max-width: $breakpoint-mobile)
-      border-left: $primary-color $borderWidthMobile solid
+      border-left: $primary-color $border-width-mobile solid
       margin-left: 0
 
   @media(max-width: $breakpoint-mobile)
     position: fixed
     padding-left: 0
-    top: calc(100% - (#{$padding} + #{$nav-height} + #{$borderWidthMobile}))
+    top: calc(100% - (#{$padding} + #{$nav-height} + #{$border-width-mobile}))
     left: calc(#{$nav-height} + #{$padding})
     height: $nav-height
-    width: calc(100% - ((#{$padding} * 2) + #{$nav-height} + #{$borderWidthMobile}))
+    width: calc(100% - ((#{$padding} * 2) + #{$nav-height} + #{$border-width-mobile}))
     display: flex
 
-    border: $primary-color $borderWidthMobile solid
+    border: $primary-color $border-width-mobile solid
 
 .homeLink
   @include secondary-font-style
   font-weight: lighter
   font-size: 20px
   text-decoration: none
-  transition: $hoverTransition
+  transition: $hover-transition-duration
   width: 100%
   display: flex
   justify-content: center
@@ -170,23 +172,23 @@ h3, a
   margin: #{$padding}
   height: calc(100% - #{$padding} * 2)
   width: calc(100% - (#{$padding} * 2))
-  outline: $primary-color $borderWidth solid
+  outline: $primary-color $border-width solid
   z-index: -1
 
   @media(max-width: $breakpoint-mobile)
-    outline: $primary-color $borderWidthMobile solid
+    outline: $primary-color $border-width-mobile solid
 
 .siteContainer
   display: flex
   flex-direction: column
-  height: $fullWithPadding
-  width: $fullWithPadding
+  height: $full-with-padding
+  width: $full-with-padding
   padding: $padding
   flex: 0 0 auto
   align-items: stretch
 
   @media(max-width: $breakpoint-mobile)
-    height: calc(#{$fullWithPadding} - #{$nav-height})
+    height: calc(#{$full-with-padding} - #{$nav-height})
 
   .routerContainer
     display: flex
@@ -206,8 +208,8 @@ h3, a
   position: absolute
   display: flex
   justify-content: center
-  height: $fullWithPadding
-  width: $fullWithPadding
+  height: $full-with-padding
+  width: $full-with-padding
   margin: $padding
   z-index: -20
 
@@ -218,10 +220,10 @@ h3, a
     justify-content: center
     align-items: center
     flex-direction: column
-    outline: $primary-color $borderWidth solid
+    outline: $primary-color $border-width solid
 
     @media(max-width: $breakpoint-mobile)
-      outline: $primary-color $borderWidthMobile solid
+      outline: $primary-color $border-width-mobile solid
 
     .intro
       @include secondary-font-style

@@ -1,7 +1,7 @@
 @import index
 
 $pictureDimension: calc(100vh - (150 + #{$padding} / 4))
-$profileDimensionMobile: 300px
+$profileDimensionMobile: min(calc(100vw - #{$padding} * 4), 300px)
 $paddingTop: 116px
 
 .aboutContainer
@@ -12,20 +12,30 @@ $paddingTop: 116px
   padding-top: $paddingTop
   align-items: center
 
+  @media(max-width: $breakpoint-mobile)
+    height: calc(100% - (#{padding} * 2))
+    padding: 0
+    margin: $padding $padding 0 $padding
+
   .aboutDescription
     @include secondary-font-style
     font-weight: lighter
     font-size: 20px
+    @media(max-width: $breakpoint-mobile)
+      font-size: 16px
 
   .profilesContainer
     display: flex
     flex: 1 1 auto
-    width: $fullWithPadding
+    width: $full-with-padding
     column-gap: $padding
     padding: $padding
 
     @media(max-width: $breakpoint-mobile)
       flex-direction: column
+      width: 100%
+      padding: $padding 0 0 0
+      justify-content: center
 
   .picturesContainer
     display: flex
@@ -68,7 +78,7 @@ $paddingTop: 116px
     width: $profileDimensionMobile
 
 .actualFilmmakerProfilerPictureContainer
-  transition: $hoverTransition
+  transition: $hover-transition-duration
   opacity: 0.25
 
   &.hover
@@ -86,16 +96,16 @@ $paddingTop: 116px
   flex-direction: column
   justify-content: center
 
+  @media(max-width: $breakpoint-mobile)
+    padding-top: $padding
+    padding-left: 0
+    padding-right: 0
 
   > :not(:last-child)
     margin-bottom: $padding
 
   .filmmakerLink
     color: $secondary-selection-color
-
-  @media(max-width: $breakpoint-mobile)
-    padding-top: $padding
-    padding-left: 0px
 
 .profileHeader
   @media(max-width: $breakpoint-mobile)
@@ -111,11 +121,9 @@ $paddingTop: 116px
   display: flex
   width: $profileDimensionMobile
   height: $profileDimensionMobile
+  align-self: center
+  justify-self: center
   aspect-ratio: 1 / 1
-  outline: red solid
-  margin-left: auto
-  margin-right: auto
-
 
 .slider
   width: 100%
