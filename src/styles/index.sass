@@ -93,10 +93,18 @@ h3, a
     font-size: 14px
 
 .headerContainer
-  position: absolute
+  position: fixed
   z-index: 2
   display: flex
   padding: $padding
+
+  @media(max-width: $breakpoint-mobile)
+    position: relative
+    padding: 0
+    height: $nav-height
+    display: flex
+    flex-direction: column
+
   .logo
     position: fixed
     left: 50%
@@ -105,7 +113,15 @@ h3, a
     margin-top: auto
     margin-bottom: auto
 
-
+  .navbarLine
+    color: white
+    width: 100%
+    height: $border-width-mobile
+    background-color: $primary-color
+    transform-origin: left
+    transform: scale(0)
+    &.expanded
+      animation: lineAnimate 0.18s cubic-bezier(.79, .18, .85, .77) forwards
 
 .logoContainer
   @media(max-width: $breakpoint-mobile)
@@ -114,8 +130,6 @@ h3, a
     display: flex
     align-items: center
     justify-content: center
-    border-top: $primary-color $border-width-mobile solid
-
   .logoSVG
     fill: $primary-color
     transition: $hover-transition-duration
@@ -134,19 +148,23 @@ h3, a
   > :not(:first-child)
     margin-left: $padding
     @media(max-width: $breakpoint-mobile)
-      border-left: $primary-color $border-width-mobile solid
+      //border-left: $primary-color $border-width-mobile solid
       margin-left: 0
 
   @media(max-width: $breakpoint-mobile)
-    position: fixed
     padding-left: 0
-    top: calc(100% - (#{$padding} + #{$nav-height} + #{$border-width-mobile}))
-    left: calc(#{$nav-height} + #{$padding})
+    align-self: flex-end
     height: $nav-height
-    width: calc(100% - ((#{$padding} * 2) + #{$nav-height} + #{$border-width-mobile}))
-    display: flex
+    width: calc(100vw - ((#{$padding} * 2) + #{$nav-height} + #{$border-width-mobile}))
 
-    border: $primary-color $border-width-mobile solid
+  .menuLine
+    height: 100%
+    background-color: $primary-color
+    width: $border-width-mobile
+    transform-origin: top
+    transform: scale(1,0)
+    &.expanded
+      animation: lineYAnimate 0.18s cubic-bezier(.79, .18, .85, .77) forwards
 
 .homeLink
   @include secondary-font-style
@@ -192,7 +210,7 @@ h3, a
   align-items: stretch
 
   @media(max-width: $breakpoint-mobile)
-    height: calc(#{$full-with-padding} - #{$nav-height})
+    flex-direction: column-reverse
 
   .routerContainer
     display: flex

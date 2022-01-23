@@ -17,9 +17,6 @@ const fillerText = "?????"
 
 export default function Archive(props) {
     const {setShowFilm} = props
-    // let films = Array.from({
-    //     length: 17
-    // }, () => props.films).flat();
     const films = new Array(52).fill({
         title: fillerText,
         filmmaker: [

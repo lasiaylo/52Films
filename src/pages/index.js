@@ -70,7 +70,9 @@ export const query = graphql`
     }
 `
 
-function getMenuText(text) { return isMobile() ? text : `> ${text}`}
+function getMenuText(text) {
+    return isMobile() ? text : `> ${text}`
+}
 
 export default function IndexPage({data}) {
     const films = useMemo(() => data.allContentfulFilm.edges.map(
@@ -137,9 +139,13 @@ export default function IndexPage({data}) {
     const logoVariant = {
         hidden: {opacity: 0},
         center: {opacity: 1},
-        positioned: isMobile() ? {opacity: 1, left: "80px", top: "calc(100% - 54px)"}:
+        positioned: isMobile() ? {opacity: 1, left: "81px", top: "calc(100% - 50px)"} :
             {opacity: 1, left: "100px", top: "100px"}
     }
+
+
+    // BAD. TODO: Make util to change class names based off of state
+    const expanded = showSite ? "expanded" : ""
 
     return (
         <AnimatePresence>
@@ -150,30 +156,46 @@ export default function IndexPage({data}) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                <Intro isShowing={showIntro} isFrameExpanded={isFrameExpanded} setLogoCentered={setLogoCentered} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
+                <Intro isShowing={showIntro} isFrameExpanded={isFrameExpanded} setLogoCentered={setLogoCentered}
+                       setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
             </motion.div>
             <div className={"siteContainer"} key={"siteContainer"}>
                 <div className={"headerContainer"}>
-                    {!showIntro && <motion.div
-                        className={"logo"}
-                        key="menu"
-                        initial={isLogoCentered ? "hidden" : "positioned"}
-                        animate={logoState}
-                        variants={logoVariant}
-                        transition={{type: "tween", duration: 0.35}}
-                        onAnimationComplete={() => {
-                            if (logoState === 'positioned') {
-                                setShowSite(true)
-                            } else {
-                                setTimeout(() => {
-                                    setFrameExpanded(true)
-                                }, 200)
-                            }
-                        }}
-                    >
-                        <Link to={"/"}><Logo showText={isLogoCentered || !isMobile()}/></Link>
-                    </motion.div>}
+                    {
+                        !showIntro && <motion.div
+                            className={"logo"}
+                            key="menu"
+                            initial={isLogoCentered ? "hidden" : "positioned"}
+                            animate={logoState}
+                            variants={logoVariant}
+                            transition={{type: "tween", duration: 0.35}}
+                            onAnimationComplete={() => {
+                                if (logoState === 'positioned') {
+                                    setShowSite(true)
+                                } else {
+                                    setTimeout(() => {
+                                        setFrameExpanded(true)
+                                    }, 200)
+                                }
+                            }}
+                        >
+                            <Link to={"/"}><Logo showText={isLogoCentered || !isMobile()}/></Link>
+                        </motion.div>
+                    }
+                    {
+                        isMobile() && <span
+                            className={`navbarLine ${expanded}`}
+                            key={"navbarLine"}
+                        />
+                    }
                     <div className="menu">
+                        {
+                            isMobile() &&
+                            <span
+                                className={`menuLine ${expanded}`}
+                                key={"menuLine"}
+                            />
+                        }
                         <motion.div
                             className={"link"}
                             key={"archive"}
@@ -184,6 +206,14 @@ export default function IndexPage({data}) {
                         >
                             <HomeLink slug={"/archive"}>{getMenuText('archive')}</HomeLink>
                         </motion.div>
+                        {
+                            isMobile() &&
+                            <motion.span
+                                className={`menuLine ${expanded}`}
+                                key={"menuLine"}
+                                style={{animationDelay: "0.15s"}}
+                            />
+                        }
                         <motion.div
                             className={"link"}
                             key={"about"}
