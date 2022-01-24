@@ -139,7 +139,7 @@ export default function IndexPage({data}) {
     const logoVariant = {
         hidden: {opacity: 0},
         center: {opacity: 1},
-        positioned: isMobile() ? {opacity: 1, left: "81px", top: "calc(100% - 50px)"} :
+        positioned: isMobile() ? {opacity: 1, left: "81px", top: "calc(100% - 54px)"} :
             {opacity: 1, left: "100px", top: "100px"}
     }
 
