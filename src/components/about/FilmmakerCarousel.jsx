@@ -1,5 +1,5 @@
-import React, {useMemo} from 'react'
-import {CarouselProvider, Slider, Slide, ButtonBack, ButtonNext} from 'pure-react-carousel';
+import React, {useContext, useMemo} from 'react'
+import {CarouselProvider, Slider, Slide, CarouselContext} from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import {GatsbyImage} from "gatsby-plugin-image";
 import {FillerProfilePicture} from "./ProfilePicture";
@@ -21,7 +21,6 @@ const getProfilePictures = (filmmakers, onFocus) => {
         pictures[i] = <Slide
             index={i}
             key={i}
-            onFocus={picture === null ? undefined : () => console.log("alkjdlkjslkjs")}
         >
             {picture ?? <FillerProfilePicture/>}
         </Slide>
@@ -30,22 +29,22 @@ const getProfilePictures = (filmmakers, onFocus) => {
 }
 
 
-export default function FilmmakerCarousel({filmmakers, onFocus}) {
-    const pictures = getProfilePictures(filmmakers)
-    console.log(pictures)
+export default function FilmmakerCarousel({filmmakers, onFocus, startingSlide}) {
+    const pictures = getProfilePictures(filmmakers, onFocus)
     return (
         <CarouselProvider
             className={"carousel"}
             naturalSlideHeight={100}
             naturalSlideWidth={125}
-            totalSlides={16}>
+            totalSlides={16}
+            currentSlide={startingSlide ?? 0}
+        >
             <Slider
                 className={"slider"}
             >
                 {pictures}
-                {/*<Slide index={0}>I am the first Slide.</Slide>*/}
-                {/*<Slide index={1}>I am the second Slide.</Slide>*/}
             </Slider>
+
         </CarouselProvider>
     )
 }

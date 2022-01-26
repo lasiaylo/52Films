@@ -193,7 +193,7 @@ export default function IndexPage({data}) {
                             isMobile() &&
                             <span
                                 className={`menuLine ${expanded}`}
-                                key={"menuLine"}
+                                key="menuLine1"
                             />
                         }
                         <motion.div
@@ -210,7 +210,7 @@ export default function IndexPage({data}) {
                             isMobile() &&
                             <motion.span
                                 className={`menuLine ${expanded}`}
-                                key={"menuLine"}
+                                key="menuLine2"
                                 style={{animationDelay: "0.15s"}}
                             />
                         }
