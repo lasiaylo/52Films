@@ -24,7 +24,6 @@ export function FilmmakerBio({filmmaker}) {
                     </div>
                 }))
                 setHidden(false)
-
             }, 100)
         }, [filmmaker]
     )

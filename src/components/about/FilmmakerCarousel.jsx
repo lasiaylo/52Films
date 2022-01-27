@@ -1,8 +1,8 @@
 import React, {useContext, useMemo} from 'react'
-import {CarouselProvider, Slider, Slide, CarouselContext} from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
-import {GatsbyImage} from "gatsby-plugin-image";
-import {FillerProfilePicture} from "./ProfilePicture";
+import {CarouselProvider, Slider, Slide, CarouselContext} from 'pure-react-carousel'
+import 'pure-react-carousel/dist/react-carousel.es.css'
+import {GatsbyImage} from "gatsby-plugin-image"
+import {FillerProfilePicture} from "./ProfilePicture"
 
 const getProfilePictures = (filmmakers, onFocus) => {
     const pictures = new Array(16).fill(null)
@@ -44,7 +44,6 @@ export default function FilmmakerCarousel({filmmakers, onFocus, startingSlide}) 
             >
                 {pictures}
             </Slider>
-
         </CarouselProvider>
     )
 }
