@@ -11,20 +11,22 @@ export function FilmmakerBio({filmmaker}) {
 
     useEffect(() => {
             setHidden(true)
-            setTimeout(() => {
-                setFilmmakerInfo(({
-                    name: getFilmmakerName(filmmaker),
-                    pronouns: getPronouns(filmmaker),
-                    bio: JSON.parse(filmmaker.bio.raw).content[0].content[0].value,
-                    link: (filmmaker.links === null) ? null : <div>
-                        <span className={"filmmakerLinksText"}>Links | </span>
-                        <a className={"filmmakerLink"}
-                           href={filmmaker.links.url}
-                        >{filmmaker.links.displayText}</a>
-                    </div>
-                }))
-                setHidden(false)
-            }, 100)
+            if (filmmaker) {
+                setTimeout(() => {
+                    setFilmmakerInfo(({
+                        name: getFilmmakerName(filmmaker),
+                        pronouns: getPronouns(filmmaker),
+                        bio: JSON.parse(filmmaker.bio.raw).content[0].content[0].value,
+                        link: (filmmaker.links === null) ? null : <div>
+                            <span className={"filmmakerLinksText"}>Links | </span>
+                            <a className={"filmmakerLink"}
+                               href={filmmaker.links.url}
+                            >{filmmaker.links.displayText}</a>
+                        </div>
+                    }))
+                    setHidden(false)
+                }, 100)
+            }
         }, [filmmaker]
     )
 

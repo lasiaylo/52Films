@@ -1,10 +1,11 @@
-import React, {useContext, useMemo} from 'react'
+import React, {useContext, useEffect, useState, useMemo} from 'react'
 import {CarouselProvider, Slider, Slide, CarouselContext} from 'pure-react-carousel'
 import 'pure-react-carousel/dist/react-carousel.es.css'
 import {GatsbyImage} from "gatsby-plugin-image"
 import {FillerProfilePicture} from "./ProfilePicture"
+import {FilmmakerBio} from "./FilmmakerBio";
 
-const getProfilePictures = (filmmakers, onFocus) => {
+const getProfilePictures = (filmmakers) => {
     const pictures = new Array(16).fill(null)
     for (let i = 0; i < pictures.length; i++) {
         const filmmaker = filmmakers[i]
@@ -28,9 +29,23 @@ const getProfilePictures = (filmmakers, onFocus) => {
     return pictures
 }
 
+const FilmmakerBioContainer = ({filmmakers}) => {
+    const carouselContext = useContext(CarouselContext);
+    const [currentSlide, setCurrentSlide] = useState(carouselContext.state.currentSlide);
+    useEffect(() => {
+        function onChange() {
+            setCurrentSlide(carouselContext.state.currentSlide);
+        }
 
-export default function FilmmakerCarousel({filmmakers, onFocus, startingSlide}) {
-    const pictures = getProfilePictures(filmmakers, onFocus)
+        carouselContext.subscribe(onChange);
+        return () => carouselContext.unsubscribe(onChange);
+    }, [carouselContext]);
+    return <FilmmakerBio filmmaker={filmmakers[currentSlide]}/>
+}
+
+
+export default function FilmmakerCarousel({filmmakers, startingSlide}) {
+    const pictures = useMemo(() => getProfilePictures(filmmakers), filmmakers)
     return (
         <CarouselProvider
             className={"carousel"}
@@ -44,6 +59,7 @@ export default function FilmmakerCarousel({filmmakers, onFocus, startingSlide}) 
             >
                 {pictures}
             </Slider>
+            <FilmmakerBioContainer filmmakers={filmmakers}/>
         </CarouselProvider>
     )
 }
