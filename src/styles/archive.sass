@@ -109,7 +109,6 @@ ul
     @media(max-width: $breakpoint-mobile)
       height: 150px
 
-
     .listRowInfo
       display: flex
       position: relative
@@ -128,7 +127,9 @@ ul
         padding-right: calc(#{$padding} / 2)
         &.left
           flex-direction: row-reverse
-          justify-content: start
+          > :first-child
+            flex: 1 1 auto
+            max-width: calc(50% - #{$padding})
           > :last-child
             margin-right: $padding
         &.fillerRow
