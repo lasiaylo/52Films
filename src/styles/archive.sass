@@ -100,13 +100,15 @@ ul
   @media(max-width: $breakpoint-mobile)
     margin-top: $padding
     scroll-snap-type: none
+    > :not(:first-child)
+      padding-top: $padding
   .listRow
     display: flex
     flex-direction: column
     height: calc(16.6667%)
     @media(max-width: $breakpoint-mobile)
       height: 150px
-      padding-top: $padding
+
 
     .listRowInfo
       display: flex

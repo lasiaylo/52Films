@@ -183,7 +183,7 @@ export default function IndexPage({data}) {
                         </motion.div>
                     }
                     {
-                        isMobile() && <span
+                        isMobile() && <div
                             className={`navbarLine ${expanded}`}
                             key={"navbarLine"}
                         />
