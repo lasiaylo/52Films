@@ -11,6 +11,10 @@
   width: 100vw
   height: 100vh
   z-index: 3
+  @media(max-width: $breakpoint-mobile)
+    left: 0
+    top: 0
+
 
 .playerOverlay
   display: flex
@@ -23,6 +27,15 @@
     top: 10px
 
     margin: 20px
+
+.closeButtonContainer
+  opacity: 1
+  transition: 0.25s cubic-bezier(.79, .18, .85, .77)
+  &.hidden
+    opacity: 0
+    @media(max-width: $breakpoint-mobile)
+      opacity: 1
+
 .closeButton
   position: absolute
   right: $padding
