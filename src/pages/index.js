@@ -186,7 +186,7 @@ export default function IndexPage({data}) {
                         isMobile() && <div
                             className={`navbarLine ${expanded}`}
                             key={"navbarLine"}
-                        />
+                        > </div>
                     }
                     <div className="menu">
                         {
