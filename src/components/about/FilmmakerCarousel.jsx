@@ -22,6 +22,9 @@ const getProfilePictures = (filmmakers) => {
         pictures[i] = <Slide
             index={i}
             key={i}
+            className={"slide"}
+            classNameHidden={"hidden"}
+            innerClassName={"innerSlide"}
         >
             {picture ?? <FillerProfilePicture/>}
         </Slide>
