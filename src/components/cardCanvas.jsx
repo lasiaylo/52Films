@@ -45,6 +45,7 @@ function Card({film, setShowFilm}) {
             vid.crossOrigin = 'anonymous'
             vid.loop = true
             vid.muted = true
+            vid.playsInline = true
             return vid
         }
     })
