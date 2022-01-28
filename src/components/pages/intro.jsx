@@ -1,9 +1,9 @@
 import React from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Typist from 'react-typist'
-import {isBrowser} from "../../services/auth";
+import {isMobile} from "../../services/auth";
 
-export default function Intro({children, isShowing, isFrameExpanded, setLogoCentered, setShowIntro}) {
+export default function Intro({children, isFrameExpanded, isLogoCentered, isShowing, setLogoCentered, setShowIntro}) {
     let text = children
     let shouldAllowIntoSite = true
     return (
@@ -24,7 +24,7 @@ export default function Intro({children, isShowing, isFrameExpanded, setLogoCent
                         }
                         transition={{type: "tween", duration: 0.2}}
                         onAnimationStart={() => {
-                            setLogoCentered(true)
+                            setLogoCentered(isLogoCentered)
                         }}
                         onAnimationComplete={() => {
                             setLogoCentered(false)

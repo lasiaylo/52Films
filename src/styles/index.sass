@@ -11,6 +11,7 @@ $background-color: black
 $breakpoint-mobile: 600px
 $breakpoint-tablet: 768px
 $nav-height: 90px
+$svg-height-mobile: 30px // SVG WIDTH / 2
 
 $padding: 20px
 $big-padding: calc(#{$padding} * 2)
@@ -113,6 +114,8 @@ h3, a
     transform: translate(-60px, -60px)
     margin-top: auto
     margin-bottom: auto
+    @media(max-width: $breakpoint-mobile)
+      transform: translate(calc(-60px + (#{$nav-height} / 6)),calc(-60px - (#{$svg-height-mobile} + #{$border-width-mobile})))
 
 .navbarLine
   position: absolute
@@ -124,7 +127,6 @@ h3, a
   transform-origin: left
   transform: scale(0)
   &.expanded
-    transform: scale(1)
     animation: lineAnimate 0.18s cubic-bezier(.79, .18, .85, .77) forwards
 
 .logoContainer
@@ -143,7 +145,7 @@ h3, a
 
     @media(max-width: $breakpoint-mobile)
       position: fixed
-      top: 30px // SVG WIDTH / 2
+      top: $svg-height-mobile
 
 .menu
   padding-left: 140px
@@ -258,3 +260,5 @@ h3, a
       margin: 20px
 
 
+.logoSVG
+  fill: #17E6A8

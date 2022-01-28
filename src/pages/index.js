@@ -132,14 +132,14 @@ export default function IndexPage({data}) {
     if (!showIntro) {
         logoState = 'center'
         if (!isLogoCentered) {
-            logoState = 'positioned'
+            logoState = 'navBar'
         }
     }
 
     const logoVariant = {
         hidden: {opacity: 0},
         center: {opacity: 1},
-        positioned: isMobile() ? {opacity: 1, left: "81px", top: "calc(100% - 54px)"} :
+        navBar: isMobile() ? {opacity: 1, left: "65px", top: "calc(100% - 21px)"} :
             {opacity: 1, left: "100px", top: "100px"}
     }
 
@@ -156,8 +156,15 @@ export default function IndexPage({data}) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                <Intro isShowing={showIntro} isFrameExpanded={isFrameExpanded} setLogoCentered={setLogoCentered}
-                       setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
+                <Intro
+                    isFrameExpanded={isFrameExpanded}
+                    isShowing={showIntro}
+                    isLogoCentered={isLogoCentered}
+                    setLogoCentered={setLogoCentered}
+                    setShowIntro={setShowIntroCallback}
+                >
+                    A NEW FILM EVERY SATURDAY.
+                </Intro>
             </motion.div>
             <div className={"siteContainer"} key={"siteContainer"}>
                 <div className={"headerContainer"}>
@@ -165,12 +172,12 @@ export default function IndexPage({data}) {
                         !showIntro && <motion.div
                             className={"logo"}
                             key="menu"
-                            initial={isLogoCentered ? "hidden" : "positioned"}
+                            initial={isLogoCentered ? "hidden" : "navBar"}
                             animate={logoState}
                             variants={logoVariant}
                             transition={{type: "tween", duration: 0.35}}
                             onAnimationComplete={() => {
-                                if (logoState === 'positioned') {
+                                if (logoState === 'navBar') {
                                     setShowSite(true)
                                 } else {
                                     setTimeout(() => {
@@ -179,7 +186,7 @@ export default function IndexPage({data}) {
                                 }
                             }}
                         >
-                            <Link to={"/"}><Logo showText={isLogoCentered || !isMobile()}/></Link>
+                            <Link to={"/"}><Logo showText={isLogoCentered || !isMobile()} centered={isLogoCentered}/></Link>
                         </motion.div>
                     }
                     {

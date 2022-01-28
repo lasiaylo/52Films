@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import {isBrowser, isMobile} from "../services/auth";
 
 // TODO: BAD. Figure out how to import from file
-export default function Logo({showText}) {
+export default function Logo({showText, centered}) {
     const [hovered, setHovered] = useState(false)
     const isOnPage = isBrowser() ? window.location.pathname === "/" : false
-    const className = hovered || (isMobile() && isOnPage) ? 'logoSVG hovered' : 'logoSVG'
-    const width = isMobile() ? '60px' : '120px'
+    const className = hovered || (isMobile() && isOnPage && !centered) ? 'logoSVG hovered' : 'logoSVG'
+    const width = isMobile() && !centered ? '60px' : '120px'
     return (
         <div
             className={"logoContainer"}
