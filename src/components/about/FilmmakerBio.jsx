@@ -41,7 +41,9 @@ export function FilmmakerBio({filmmaker}) {
                 <span className={"filmmakerName"}>{name}</span>
                 <span className={"filmmakerPronoun"}> {pronouns}</span>
             </h2>
-            <h3 className={"filmmakerDescription"}>{bio}</h3>
-            {link}
+            <div className={"filmmakerDescriptionContainer"}>
+                <h3 className={"filmmakerDescription"}>{bio}</h3>
+                {link}
+            </div>
         </motion.div>)
 }
