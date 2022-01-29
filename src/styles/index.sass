@@ -52,16 +52,17 @@ $page-height-mobile: calc(100vh - #{$padding} * 2 - #{$nav-height})
     width: 0px
 
 @mixin desktop
-  @media (min-width: calc(#{$breakpoint-mobile-width} + 1px)) and (max-height: calc(#{$breakpoint-mobile-height} + 1px))
+  @media (min-width: calc(#{$breakpoint-mobile-width} + 1px)) and (min-height: calc(#{$breakpoint-mobile-height} + 1px))
     @content
 
 @mixin mobile
   @media screen and (max-width: $breakpoint-mobile-width), screen and (max-height: $breakpoint-mobile-height)
     @content
 
-@mixin landscape
-  @media screen and (orientation: landscape)
-    @content
+@mixin mobileLandscape
+  @include mobile
+    @media screen and (orientation: landscape)
+      @content
 
 html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   padding: 0
