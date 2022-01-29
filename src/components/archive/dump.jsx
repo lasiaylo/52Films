@@ -102,7 +102,7 @@ export default function Dump(props) {
                     colorManagement={false}
                 >
                     <ambientLight intensity={0.1}/>
-                    <pointLight intensity={1} position={[10, 10, 10]}/>
+                    <pointLight intensity={1} position={[10, 50, 20]}/>
                     <Outline
                         enable={!filmIsSelected}
                     >
