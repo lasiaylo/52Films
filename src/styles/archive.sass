@@ -39,6 +39,10 @@
   grid-row: 1/7
   position: relative
   min-width: 340px
+  @include mobile
+    padding-left: calc(#{$padding} / 2)
+    min-width: calc(100vw - (#{$padding} * 3))
+
   .directoryLine
     position: absolute
     top: 0
@@ -47,7 +51,13 @@
     background-color: $primary-color
     height: 100%
     transform-origin: top
-    animation: lineYAnimate 0.75s cubic-bezier(.79,.18,.85,.77) forwards
+    animation: lineYAnimate 0.75s cubic-bezier(.79, .18, .85, .77) forwards
+    @include mobile
+      visibility: hidden
+
+.filmStillPreview
+  height: 100%
+  aspect-ratio: 1/1
 
 .directory
   display: flex
@@ -71,7 +81,7 @@
   height: 10px
   background: $primary-color
   transform-origin: left
-  animation: lineAnimate 0.35s cubic-bezier(.79,.18,.85,.77) forwards
+  animation: lineAnimate 0.35s cubic-bezier(.79, .18, .85, .77) forwards
 
 ul
   @include disable-scrollbars
@@ -86,10 +96,19 @@ ul
   padding: 0
   flex-direction: column
   list-style: none
+
+  @include mobile
+    margin-top: $padding
+    scroll-snap-type: none
+    > :not(:first-child)
+      padding-top: $padding
   .listRow
     display: flex
     flex-direction: column
     height: calc(16.6667%)
+    @include mobile
+      height: 150px
+
     .listRowInfo
       display: flex
       position: relative
@@ -101,10 +120,28 @@ ul
       padding-right: $padding
       align-items: center
       opacity: 0
-      animation: opacityAnimate 0.3s cubic-bezier(.79,.18,.85,.77) forwards
+      animation: opacityAnimate 0.3s cubic-bezier(.79, .18, .85, .77) forwards
+
+      @include mobile
+        padding-left: calc(#{$padding})
+        padding-right: calc(#{$padding} / 2)
+        &.left
+          flex-direction: row-reverse
+          > :first-child
+            flex: 1 1 auto
+            max-width: calc(50% - #{$padding})
+          > :last-child
+            margin-right: $padding
+        &.fillerRow
+          justify-content: space-between
+          flex-direction: row-reverse
+          > :first-child
+              flex: none
+              max-width: none
       .listInfo
         display: flex
         flex-direction: column
+
       .listFiller
         @include font-style
         color: $secondary-color
@@ -113,28 +150,34 @@ ul
 .rowLine
   height: 2px
   width: 100%
-  transform: scaleX(0)
   background-color: $primary-color
-  transform-origin: left
+  transform: scaleX(0)
   animation-duration: 0.35s
-  animation: lineAnimate cubic-bezier(.79,.18,.85,.77) forwards
+  transform-origin: left
+  animation: lineAnimate cubic-bezier(.79, .18, .85, .77) forwards
+  @include mobile
+    height: 1px
+    margin-top: $padding
+
 
 .listTitle
   @include font-style
-  //-webkit-text-fill-color: black
-  //-webkit-text-stroke-width: 1px
-  //-webkit-text-stroke-color: $secondary-color
   color: $secondary-color
   font-size: 36px
   margin: 0
-  transition: $hoverTransition
+  transition: $hover-transition-duration
 
-  &.hovered
-    -webkit-text-fill-color: $selection-color
-    -webkit-text-stroke-width: 0px
-    color: $selection-color
-    margin-left: 5px
-    margin-top: 2px
+  @include desktop
+    &.hovered
+      -webkit-text-fill-color: $selection-color
+      -webkit-text-stroke-width: 0px
+      color: $selection-color
+      margin-left: 5px
+      margin-top: 2px
+
+  @include mobile
+    font-size: 24px
+    color: $primary-color
 
 .listFilmmaker
   @include font-style
@@ -142,10 +185,14 @@ ul
   font-weight: lighter
   color: $secondary-color
   margin: 0
-  transition: $hoverTransition * 2
-  &.hovered
-    color: $selection-color
-    margin-left: 5px
+  transition: $hover-transition-duration * 2
+  @include desktop
+    &.hovered
+      color: $selection-color
+      margin-left: 5px
+
+  @include mobile
+    color: $primary-color
 
 .listNumber
   @include font-style
@@ -154,14 +201,15 @@ ul
   top: 35%
   font-size: 96px
   font-weight: lighter
-  transition: $hoverTransition * 3
-  //-webkit-text-fill-color: black
-  //-webkit-text-stroke-width: 1px
-  //-webkit-text-stroke-color: $secondary-color
-
-  //&.hovered
-  //  color: $selection-color
-    //top: 20%
+  transition: $hover-transition-duration * 3
+  @include mobile
+    @include secondary-font-style
+    position: absolute
+    font-size: 14px
+    top: 50%
+    left: 0
+    opacity: 60%
+    transform: translate(0, -50%)
 
 .dump
   @include secondary-font-style

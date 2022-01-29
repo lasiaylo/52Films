@@ -1,6 +1,7 @@
 @import 'index'
 
 $card-width: Min(58.5vw, 1700px)
+$card-width-mobile: calc(100vw - (#{$padding} * 4))
 
 .home
   display: flex
@@ -10,11 +11,21 @@ $card-width: Min(58.5vw, 1700px)
   position: relative
   height: 100%
 
+  @include mobile
+    flex-direction: column-reverse
+
 .cardContainer
   display: flex
   flex: 1 1 auto
   width: 100%
   max-height: 95vh
+  @include mobile
+    position: absolute
+    height: 100%
+    max-height: 100%
+
+  @include landscape
+    left: 10%
 
 canvas
   display: flex
@@ -32,32 +43,63 @@ canvas
   top: 39.9%
   transform: translateY(-50%)
   width: $card-width
-  height: calc(#{$card-width} / (16/9))
+  height: calc(#{$card-width} / (16 / 9))
   border: dashed $primary-color 1px
   z-index: -5
   margin: 0 auto
+
+  @include mobile
+    transform: none
+    font-weight: lighter
+    left: $padding
+    width: $card-width-mobile
+    height: calc(#{$card-width-mobile} / (16 / 9))
+    border: none
+
+  @include landscape
+    top: 11%
+    width: 90%
+    height: 20%
 
   .cardInfo
     position: absolute
     left: 0
     top: 100%
     margin-top: 10px
+
   .cardCTA
     position: absolute
     right: 0
     top: 100%
     justify-self: center
     margin-top: 10px
+    @include mobile
+      visibility: hidden
+
   .cardNumber
     position: absolute
-    left: 100%
     writing-mode: vertical-lr
     margin-left: 10px
+    @include desktop
+      left: 100%
+    @include mobile
+      right: 0
+      top: 100%
+      justify-self: center
+      writing-mode: horizontal-tb
+      margin: 0
 
+    @include landscape
+      writing-mode: vertical-lr
+      top: 0
+      left: 100%
 .footer
   position: absolute
   left: 0
-  bottom: 0
   width: 70%
   z-index: -2
   padding: $padding
+  @include desktop
+    bottom: 0
+  @include mobile
+    position: relative

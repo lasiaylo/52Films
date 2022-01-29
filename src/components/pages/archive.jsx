@@ -4,6 +4,7 @@ import Directory from "../archive/directory"
 import "../../styles/archive.sass"
 import {navigate} from '@reach/router'
 import Credits from "../archive/credits";
+import {isMobile} from "../../services/auth";
 
 const scrollTo = (index) => {
     const element = document.getElementById(`film${index}`)
@@ -16,9 +17,6 @@ const fillerText = "?????"
 
 export default function Archive(props) {
     const {setShowFilm} = props
-    // let films = Array.from({
-    //     length: 17
-    // }, () => props.films).flat();
     const films = new Array(52).fill({
         title: fillerText,
         filmmaker: [
@@ -75,8 +73,8 @@ export default function Archive(props) {
     return (
         <div className={"archive"}>
             <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>
-            <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>
-            {selectedIndex !== -1  &&  <Credits film={films[selectedIndex]} setSelected={setSelected}/>}
+            {!isMobile() && <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>}
+            {!isMobile() && selectedIndex !== -1  &&  <Credits film={films[selectedIndex]} setSelected={setSelected}/>}
         </div>
     )
 }

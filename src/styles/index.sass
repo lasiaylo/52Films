@@ -8,11 +8,19 @@ $secondary-selection-color: #17E6A8
 $secondary-color: rgba(255, 248, 229, 0.6)
 $background-color: black
 
+$breakpoint-mobile-width: 600px
+$breakpoint-mobile-height: 400px
+$nav-height: 90px
+$svg-height-mobile: 30px // SVG WIDTH / 2
+
 $padding: 20px
-$bigPadding: calc(#{$padding} * 2)
-$borderWidth: 4px
-$fullWithPadding: calc(100% - #{$padding} * 2)
-$hoverTransition: 0.2s
+$big-padding: calc(#{$padding} * 2)
+$border-width: 4px
+$border-width-mobile: 2px
+$full-with-padding: calc(100% - #{$padding} * 2)
+$hover-transition-duration: 0.2s
+
+$page-height-mobile: calc(100vh - #{$padding} * 2 - #{$nav-height})
 
 @mixin title-style
   font-family: "DM Serif Display", sans-serif
@@ -21,7 +29,7 @@ $hoverTransition: 0.2s
   font-style: normal
 
 @mixin font-style
-  font-family: "DM Serif Display",sans-serif
+  font-family: "DM Serif Display", sans-serif
   font-weight: lighter
   font-style: normal
   color: $primary-color
@@ -34,11 +42,26 @@ $hoverTransition: 0.2s
   margin: 0
 
 @mixin disable-scrollbars
-  scrollbar-width: none /* Firefox */
-  -ms-overflow-style: none  /* IE 10+ */
+  scrollbar-width: none
+  /* Firefox */
+  -ms-overflow-style: none
+  /* IE 10+ */
   &::-webkit-scrollbar
-    background: transparent /* Chrome/Safari/Webkit */
+    background: transparent
+    /* Chrome/Safari/Webkit */
     width: 0px
+
+@mixin desktop
+  @media (min-width: calc(#{$breakpoint-mobile-width} + 1px)) and (max-height: calc(#{$breakpoint-mobile-height} + 1px))
+    @content
+
+@mixin mobile
+  @media screen and (max-width: $breakpoint-mobile-width), screen and (max-height: $breakpoint-mobile-height)
+    @content
+
+@mixin landscape
+  @media screen and (orientation: landscape)
+    @content
 
 html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   padding: 0
@@ -48,6 +71,11 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   display: flex
   flex-direction: column
   flex: 1 1 auto
+  @include mobile
+    // Prevent scroll bounce effect
+    height  : 100%
+    overflow: hidden
+    position: relative
 
 #gatsby-announcer
   height: 0px
@@ -59,38 +87,76 @@ body
 h1
   @include font-style
   font-size: 96px
+  @include mobile
+    font-size: 40px
 
 h2
   @include secondary-font-style
   font-weight: lighter
   font-size: 24px
+  @include mobile
+      font-size: 16px
 
 h3, a
   @include secondary-font-style
   font-weight: lighter
   font-size: 18px
 
+  @include mobile
+    font-size: 14px
+
 .headerContainer
-  position: absolute
+  position: fixed
   z-index: 2
   display: flex
   padding: $padding
 
+  @include mobile
+    position: relative
+    padding: 0
+    height: $nav-height
+    display: flex
+    flex-direction: column
+
   .logo
-    width: fit-content
     position: fixed
     left: 50%
     top: 50%
     transform: translate(-60px, -60px)
     margin-top: auto
     margin-bottom: auto
-    z-index: 2
+    @include mobile
+      transform: translate(calc(-60px + (#{$nav-height} / 6)),calc(-60px - (#{$svg-height-mobile} + #{$border-width-mobile})))
 
-.logoSVG
-  fill: $primary-color
-  transition: $hoverTransition
-  &.hovered
-    fill: $selection-color
+.navbarLine
+  position: absolute
+  display: inline-block
+  color: white
+  width: 100%
+  height: $border-width-mobile
+  background-color: $primary-color
+  transform-origin: left
+  transform: scale(0)
+  &.expanded
+    animation: lineAnimate 0.18s cubic-bezier(.79, .18, .85, .77) forwards
+
+.logoContainer
+  @include mobile
+    height: $nav-height
+    width: $nav-height
+    display: flex
+    align-items: center
+    justify-content: center
+  .logoSVG
+    fill: $primary-color
+    transition: $hover-transition-duration
+
+    &.hovered
+      fill: $selection-color
+
+    @include mobile
+      position: fixed
+      top: $svg-height-mobile
 
 .menu
   padding-left: 140px
@@ -98,24 +164,45 @@ h3, a
   flex-direction: row
   > :not(:first-child)
     margin-left: $padding
+    @include mobile
+      //border-left: $primary-color $border-width-mobile solid
+      margin-left: 0
+
+  @include mobile
+    padding-left: 0
+    align-self: flex-end
+    height: $nav-height
+    width: calc(100vw - ((#{$padding} * 2) + #{$nav-height} + #{$border-width-mobile}))
+
+  .menuLine
+    height: 100%
+    background-color: $primary-color
+    width: $border-width-mobile
+    transform-origin: top
+    transform: scale(1,0)
+    &.expanded
+      animation: lineYAnimate 0.18s cubic-bezier(.79, .18, .85, .77) forwards
 
 .homeLink
   @include secondary-font-style
   font-weight: lighter
   font-size: 20px
   text-decoration: none
-
-  transition: $hoverTransition
-  &.title
-    @include title-style
-    font-weight: bold
-    font-size: 40px
-    font-style: normal
-    margin-top: 0px
-    line-height: 40px
+  transition: $hover-transition-duration
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
 
   &.hovered
     color: $selection-color
+
+.link
+  @include mobile
+    width: 50%
+    display: flex
+
+
 
 .frameBorder
   position: absolute
@@ -124,36 +211,47 @@ h3, a
   margin: #{$padding}
   height: calc(100% - #{$padding} * 2)
   width: calc(100% - (#{$padding} * 2))
-  outline: $primary-color $borderWidth solid
+  outline: $primary-color $border-width solid
   z-index: -1
+
+  @include mobile
+    outline: $primary-color $border-width-mobile solid
 
 .siteContainer
   display: flex
   flex-direction: column
-  height: $fullWithPadding
-  width: $fullWithPadding
+  height: $full-with-padding
+  width: $full-with-padding
   padding: $padding
   flex: 0 0 auto
   align-items: stretch
+
+  @include mobile
+    flex-direction: column-reverse
+
   .routerContainer
     display: flex
     flex-direction: column
-    height: 0
     flex: 1 1 auto
+    height: 0
     overflow-y: auto
     overflow-x: hidden
+
     .router
       flex: 1 1 auto
       height: 100%
+      @include mobile
+        flex: 0 0 auto
 
 .introContainer
   position: absolute
   display: flex
   justify-content: center
-  height: $fullWithPadding
-  width: $fullWithPadding
+  height: $full-with-padding
+  width: $full-with-padding
   margin: $padding
   z-index: -20
+
   .introTextContainer
     display: flex
     margin-top: auto
@@ -161,7 +259,11 @@ h3, a
     justify-content: center
     align-items: center
     flex-direction: column
-    outline: $primary-color $borderWidth solid
+    outline: $primary-color $border-width solid
+
+    @include mobile
+      outline: $primary-color $border-width-mobile solid
+
     .intro
       @include secondary-font-style
       font-size: 20px
@@ -169,3 +271,5 @@ h3, a
       margin: 20px
 
 
+.logoSVG
+  fill: #17E6A8

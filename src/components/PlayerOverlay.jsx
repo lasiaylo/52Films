@@ -32,12 +32,13 @@ export default function PlayerOverlay({src, setShowFilm}) {
         }, [showCloseButton]
     )
 
+    // TODO: Refactor into util
+    const className = showCloseButton ? "closeButtonContainer" : "closeButtonContainer hidden"
 
     return (
         <div className={"playerOverlay"} onMouseMove={() => setShowCloseButton(true)}>
-                <motion.div
-                    animate={{opacity: showCloseButton ? 1 : 0}}
-                    transition={0.25}
+                <div
+                    className={className}
                 >
                     <svg
                         className={"closeButton"}
@@ -49,7 +50,7 @@ export default function PlayerOverlay({src, setShowFilm}) {
                         <line className={"line"} x1={"1"} y1={"1"} x2={"35"} y2={"35"}/>
                         <line className={"line"} x1={"35"} y1={"1"} x2={"1"} y2={"35"}/>
                     </svg>
-                </motion.div>
+                </div>
             <VideoPlayer src={src}/>
         </div>
     )

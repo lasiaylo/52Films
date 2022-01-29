@@ -11,6 +11,10 @@
   width: 100vw
   height: 100vh
   z-index: 3
+  @include mobile
+    left: 0
+    top: 0
+
 
 .playerOverlay
   display: flex
@@ -23,6 +27,15 @@
     top: 10px
 
     margin: 20px
+
+.closeButtonContainer
+  opacity: 1
+  transition: 0.25s cubic-bezier(.79, .18, .85, .77)
+  &.hidden
+    opacity: 0
+    @include mobile
+      opacity: 1
+
 .closeButton
   position: absolute
   right: $padding
@@ -31,6 +44,10 @@
     stroke: $primary-color
     stroke-width: 2
     z-index: 200
+
+  @include landscape
+    top: $padding
+    z-index: 10
 
 .player
   --video--width: 1296
@@ -44,7 +61,10 @@
   background: black
   margin-top: 150px
   margin-bottom: 200px
-
+  @include landscape
+    margin-top: calc(#{$padding} * 1.75)
+    margin-bottom: calc(#{$padding} * 1.75)
+    padding-bottom: 0
 iframe, object, embed
   position: absolute
   top: 0

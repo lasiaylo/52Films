@@ -9,7 +9,7 @@ import {useCallback, useMemo, useState} from "react";
 import PlayerOverlay from "../components/PlayerOverlay";
 import {AnimatePresence, motion} from "framer-motion";
 import Intro from "../components/pages/intro";
-import {isBrowser} from "../services/auth";
+import {isBrowser, isMobile} from "../services/auth";
 import Logo from '../components/Logo'
 
 const About = React.lazy(() => import ('../components/pages/about'))
@@ -59,7 +59,7 @@ export const query = graphql`
                         }
                     }
                     stillPreview {
-                        gatsbyImageData
+                        gatsbyImageData(aspectRatio: 1)
                     }
                     credits {
                         credits
@@ -70,6 +70,10 @@ export const query = graphql`
     }
 `
 
+function getMenuText(text) {
+    return isMobile() ? text : `> ${text}`
+}
+
 export default function IndexPage({data}) {
     const films = useMemo(() => data.allContentfulFilm.edges.map(
         film => {
@@ -79,6 +83,8 @@ export default function IndexPage({data}) {
 
     let shouldShowIntro = true
     if (isBrowser()) {
+
+
         shouldShowIntro = window.location.pathname.length < 2
     }
 
@@ -126,15 +132,20 @@ export default function IndexPage({data}) {
     if (!showIntro) {
         logoState = 'center'
         if (!isLogoCentered) {
-            logoState = 'topLeft'
+            logoState = 'navBar'
         }
     }
 
     const logoVariant = {
         hidden: {opacity: 0},
         center: {opacity: 1},
-        topLeft: {opacity: 1, left: "100px", top: "100px"}
+        navBar: isMobile() ? {opacity: 1, left: "65px", top: "calc(100% - 21px)"} :
+            {opacity: 1, left: "100px", top: "100px"}
     }
+
+
+    // BAD. TODO: Make util to change class names based off of state
+    const expanded = showSite ? "expanded" : ""
 
     return (
         <AnimatePresence>
@@ -145,49 +156,80 @@ export default function IndexPage({data}) {
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
             >
-                <Intro isShowing={showIntro} isFrameExpanded={isFrameExpanded} setLogoCentered={setLogoCentered} setShowIntro={setShowIntroCallback}>A NEW FILM EVERY SATURDAY.</Intro>
+                <Intro
+                    isFrameExpanded={isFrameExpanded}
+                    isShowing={showIntro}
+                    isLogoCentered={isLogoCentered}
+                    setLogoCentered={setLogoCentered}
+                    setShowIntro={setShowIntroCallback}
+                >
+                    A NEW FILM EVERY SATURDAY.
+                </Intro>
             </motion.div>
             <div className={"siteContainer"} key={"siteContainer"}>
                 <div className={"headerContainer"}>
-                    {!showIntro && <motion.div
-                        className={"logo"}
-                        key="menu"
-                        initial={isLogoCentered ? "hidden" : "topLeft"}
-                        animate={logoState}
-                        variants={logoVariant}
-                        transition={{type: "tween", duration: 0.35}}
-                        onAnimationComplete={() => {
-                            if (logoState === 'topLeft') {
-                                setShowSite(true)
-                            } else {
-                                setTimeout(() => {
-                                    setFrameExpanded(true)
-                                }, 200)
-                            }
-                        }}
-                    >
-                        <Link to={"/"}><Logo/></Link>
-                    </motion.div>}
+                    {
+                        !showIntro && <motion.div
+                            className={"logo"}
+                            key="menu"
+                            initial={isLogoCentered ? "hidden" : "navBar"}
+                            animate={logoState}
+                            variants={logoVariant}
+                            transition={{type: "tween", duration: 0.35}}
+                            onAnimationComplete={() => {
+                                if (logoState === 'navBar') {
+                                    setShowSite(true)
+                                } else {
+                                    setTimeout(() => {
+                                        setFrameExpanded(true)
+                                    }, 200)
+                                }
+                            }}
+                        >
+                            <Link to={"/"}><Logo showText={isLogoCentered || !isMobile()} centered={isLogoCentered}/></Link>
+                        </motion.div>
+                    }
+                    {
+                        isMobile() && <div
+                            className={`navbarLine ${expanded}`}
+                            key={"navbarLine"}
+                        > </div>
+                    }
                     <div className="menu">
+                        {
+                            isMobile() &&
+                            <span
+                                className={`menuLine ${expanded}`}
+                                key="menuLine1"
+                            />
+                        }
                         <motion.div
-                            className={"homeLink"}
+                            className={"link"}
                             key={"archive"}
                             initial="hidden"
                             animate={showSite ? "visible" : "hidden"}
                             variants={showVariant}
                             transition={{delay: 0.125}}
                         >
-                            <HomeLink slug={"/archive"}>> archive</HomeLink>
+                            <HomeLink slug={"/archive"}>{getMenuText('archive')}</HomeLink>
                         </motion.div>
+                        {
+                            isMobile() &&
+                            <motion.span
+                                className={`menuLine ${expanded}`}
+                                key="menuLine2"
+                                style={{animationDelay: "0.15s"}}
+                            />
+                        }
                         <motion.div
-                            className={"homeLink"}
+                            className={"link"}
                             key={"about"}
                             initial="hidden"
                             animate={showSite ? "visible" : "hidden"}
                             variants={showVariant}
                             transition={{delay: 0.25}}
                         >
-                            <HomeLink slug={"/about"}>> about</HomeLink>
+                            <HomeLink slug={"/about"}>{getMenuText('about')}</HomeLink>
                         </motion.div>
                     </div>
                 </div>

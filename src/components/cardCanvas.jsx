@@ -3,24 +3,24 @@ import {Canvas, useFrame, useThree} from '@react-three/fiber'
 import "../styles/playerOverlay.sass"
 import {useSpring, animated} from "@react-spring/three";
 import {useDrag} from "@use-gesture/react";
+import {isMobile} from "../services/auth";
 
 
 function Card({film, setShowFilm}) {
     const ref = useRef()
     const {viewport} = useThree()
-    let cardWidth = viewport.width * .6
-    let cardX = viewport.width / 10
-    let cardY = viewport.height / 10
+    let cardWidth = isMobile() ? viewport.width * 0.9 : viewport.width * .6
+    let cardX = isMobile() ? 0 : viewport.width / 10
+    let cardY = isMobile() ? 0 : viewport.height / 10
 
-    // TODO: BAD FIX FOR WIDE SCREENS
+    // TODO: BAD FIX FOR WIDE SCREENS LMAO
     if (cardWidth >= 10.4) {
-        cardWidth =  10.4
+        cardWidth = 10.4
         cardX = 1
         console.log("adlkajdlaskds")
 
     }
     const cardHeight = cardWidth / (16 / 9)
-
     const [spring, setSpring] = useSpring(() => ({
         position: [
             cardX,
@@ -45,6 +45,7 @@ function Card({film, setShowFilm}) {
             vid.crossOrigin = 'anonymous'
             vid.loop = true
             vid.muted = true
+            vid.playsInline = true
             return vid
         }
     })

@@ -1,18 +1,11 @@
 import React from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Typist from 'react-typist'
-import {isBrowser} from "../../services/auth";
+import {isMobile} from "../../services/auth";
 
-export default function Intro({children, isShowing, isFrameExpanded, setLogoCentered, setShowIntro}) {
+export default function Intro({children, isFrameExpanded, isLogoCentered, isShowing, setLogoCentered, setShowIntro}) {
     let text = children
     let shouldAllowIntoSite = true
-    if (isBrowser()
-        && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-        // && window.matchMedia("only screen and (max-width: 760px)").matches
-    ) {
-        text = 'This site is formatted for desktop. Mobile coming soon.'
-        shouldAllowIntoSite = false
-    }
     return (
         <div className={"introContainer"}>
             <motion.div className={"introTextContainer"}
@@ -31,7 +24,7 @@ export default function Intro({children, isShowing, isFrameExpanded, setLogoCent
                         }
                         transition={{type: "tween", duration: 0.2}}
                         onAnimationStart={() => {
-                            setLogoCentered(true)
+                            setLogoCentered(isLogoCentered)
                         }}
                         onAnimationComplete={() => {
                             setLogoCentered(false)
