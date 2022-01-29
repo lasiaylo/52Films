@@ -161,7 +161,7 @@ export default function CardCanvas({film, showCard, setShowFilm}) {
                 linear
         >
             <ambientLight intensity={0.1}/>
-            <pointLight intensity={1} position={[5, 10, 20]}/>
+            <pointLight intensity={0.75} position={[5, 10, 20]}/>
             {showCard && <Card film={film} setShowFilm={setShowFilm}/>}
         </Canvas>
     )
