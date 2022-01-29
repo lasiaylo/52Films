@@ -9,7 +9,7 @@ $secondary-color: rgba(255, 248, 229, 0.6)
 $background-color: black
 
 $breakpoint-mobile-width: 600px
-$breakpoint-mobile-height: 375px
+$breakpoint-mobile-height: 400px
 $nav-height: 90px
 $svg-height-mobile: 30px // SVG WIDTH / 2
 
@@ -57,6 +57,10 @@ $page-height-mobile: calc(100vh - #{$padding} * 2 - #{$nav-height})
 
 @mixin mobile
   @media screen and (max-width: $breakpoint-mobile-width), screen and (max-height: $breakpoint-mobile-height)
+    @content
+
+@mixin landscape
+  @media screen and (orientation: landscape)
     @content
 
 html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
