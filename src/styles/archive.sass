@@ -39,7 +39,7 @@
   grid-row: 1/7
   position: relative
   min-width: 340px
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     padding-left: calc(#{$padding} / 2)
     min-width: calc(100vw - (#{$padding} * 3))
 
@@ -52,7 +52,7 @@
     height: 100%
     transform-origin: top
     animation: lineYAnimate 0.75s cubic-bezier(.79, .18, .85, .77) forwards
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       visibility: hidden
 
 .filmStillPreview
@@ -97,7 +97,7 @@ ul
   flex-direction: column
   list-style: none
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     margin-top: $padding
     scroll-snap-type: none
     > :not(:first-child)
@@ -106,7 +106,7 @@ ul
     display: flex
     flex-direction: column
     height: calc(16.6667%)
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       height: 150px
 
     .listRowInfo
@@ -122,7 +122,7 @@ ul
       opacity: 0
       animation: opacityAnimate 0.3s cubic-bezier(.79, .18, .85, .77) forwards
 
-      @media(max-width: $breakpoint-mobile)
+      @include mobile
         padding-left: calc(#{$padding})
         padding-right: calc(#{$padding} / 2)
         &.left
@@ -155,7 +155,7 @@ ul
   animation-duration: 0.35s
   transform-origin: left
   animation: lineAnimate cubic-bezier(.79, .18, .85, .77) forwards
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     height: 1px
     margin-top: $padding
 
@@ -167,7 +167,7 @@ ul
   margin: 0
   transition: $hover-transition-duration
 
-  @media(min-width: calc(#{$breakpoint-mobile} + 1px))
+  @include desktop
     &.hovered
       -webkit-text-fill-color: $selection-color
       -webkit-text-stroke-width: 0px
@@ -175,7 +175,7 @@ ul
       margin-left: 5px
       margin-top: 2px
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     font-size: 24px
     color: $primary-color
 
@@ -186,12 +186,12 @@ ul
   color: $secondary-color
   margin: 0
   transition: $hover-transition-duration * 2
-  @media(min-width: calc(#{$breakpoint-mobile} + 1px))
+  @include desktop
     &.hovered
       color: $selection-color
       margin-left: 5px
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     color: $primary-color
 
 .listNumber
@@ -202,7 +202,7 @@ ul
   font-size: 96px
   font-weight: lighter
   transition: $hover-transition-duration * 3
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     @include secondary-font-style
     position: absolute
     font-size: 14px

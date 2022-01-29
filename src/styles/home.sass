@@ -16,7 +16,7 @@ $card-width-mobile: calc(100vw - (#{$padding} * 4))
   flex: 1 1 auto
   width: 100%
   max-height: 95vh
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     max-height: 100%
 
 canvas
@@ -40,7 +40,7 @@ canvas
   z-index: -5
   margin: 0 auto
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     font-weight: lighter
     left: $padding
     top: 50%
@@ -60,16 +60,16 @@ canvas
     top: 100%
     justify-self: center
     margin-top: 10px
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       visibility: hidden
 
   .cardNumber
     position: absolute
     writing-mode: vertical-lr
     margin-left: 10px
-    @media(min-width: calc(#{$breakpoint-mobile} + 1px))
+    @include desktop
       left: 100%
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       right: 0
       top: 100%
       justify-self: center
@@ -83,7 +83,7 @@ canvas
   width: 70%
   z-index: -2
   padding: $padding
-  @media(min-width: calc(#{$breakpoint-mobile} + 1px))
+  @include desktop
     bottom: 0
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     top: calc(70%)

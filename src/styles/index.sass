@@ -8,8 +8,8 @@ $secondary-selection-color: #17E6A8
 $secondary-color: rgba(255, 248, 229, 0.6)
 $background-color: black
 
-$breakpoint-mobile: 600px
-$breakpoint-tablet: 768px
+$breakpoint-mobile-width: 600px
+$breakpoint-mobile-height: 375px
 $nav-height: 90px
 $svg-height-mobile: 30px // SVG WIDTH / 2
 
@@ -51,6 +51,14 @@ $page-height-mobile: calc(100vh - #{$padding} * 2 - #{$nav-height})
     /* Chrome/Safari/Webkit */
     width: 0px
 
+@mixin desktop
+  @media (min-width: calc(#{$breakpoint-mobile-width} + 1px)) and (max-height: calc(#{$breakpoint-mobile-height} + 1px))
+    @content
+    
+@mixin mobile
+  @media screen and (max-width: $breakpoint-mobile-width), screen and (max-height: $breakpoint-mobile-height)
+    @content
+
 html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   padding: 0
   margin: 0
@@ -59,8 +67,7 @@ html, body, #___gatsby, #gatsby-focus-wrapper, #gatsby-announcer
   display: flex
   flex-direction: column
   flex: 1 1 auto
-  overscroll-behavior-y: none
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     // Prevent scroll bounce effect
     height  : 100%
     overflow: hidden
@@ -76,14 +83,14 @@ body
 h1
   @include font-style
   font-size: 96px
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     font-size: 40px
 
 h2
   @include secondary-font-style
   font-weight: lighter
   font-size: 24px
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
       font-size: 16px
 
 h3, a
@@ -91,7 +98,7 @@ h3, a
   font-weight: lighter
   font-size: 18px
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     font-size: 14px
 
 .headerContainer
@@ -100,7 +107,7 @@ h3, a
   display: flex
   padding: $padding
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     position: relative
     padding: 0
     height: $nav-height
@@ -114,7 +121,7 @@ h3, a
     transform: translate(-60px, -60px)
     margin-top: auto
     margin-bottom: auto
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       transform: translate(calc(-60px + (#{$nav-height} / 6)),calc(-60px - (#{$svg-height-mobile} + #{$border-width-mobile})))
 
 .navbarLine
@@ -130,7 +137,7 @@ h3, a
     animation: lineAnimate 0.18s cubic-bezier(.79, .18, .85, .77) forwards
 
 .logoContainer
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     height: $nav-height
     width: $nav-height
     display: flex
@@ -143,7 +150,7 @@ h3, a
     &.hovered
       fill: $selection-color
 
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       position: fixed
       top: $svg-height-mobile
 
@@ -153,11 +160,11 @@ h3, a
   flex-direction: row
   > :not(:first-child)
     margin-left: $padding
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       //border-left: $primary-color $border-width-mobile solid
       margin-left: 0
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     padding-left: 0
     align-self: flex-end
     height: $nav-height
@@ -187,7 +194,7 @@ h3, a
     color: $selection-color
 
 .link
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     width: 50%
     display: flex
 
@@ -203,7 +210,7 @@ h3, a
   outline: $primary-color $border-width solid
   z-index: -1
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     outline: $primary-color $border-width-mobile solid
 
 .siteContainer
@@ -215,7 +222,7 @@ h3, a
   flex: 0 0 auto
   align-items: stretch
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     flex-direction: column-reverse
 
   .routerContainer
@@ -229,7 +236,7 @@ h3, a
     .router
       flex: 1 1 auto
       height: 100%
-      @media(max-width: $breakpoint-mobile)
+      @include mobile
         flex: 0 0 auto
 
 .introContainer
@@ -250,7 +257,7 @@ h3, a
     flex-direction: column
     outline: $primary-color $border-width solid
 
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       outline: $primary-color $border-width-mobile solid
 
     .intro

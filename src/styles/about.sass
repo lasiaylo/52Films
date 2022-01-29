@@ -12,7 +12,7 @@ $paddingTop: 116px
   padding-top: $paddingTop
   align-items: center
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     height: 100%
     padding-top: 0
     overflow: hidden
@@ -22,7 +22,7 @@ $paddingTop: 116px
     @include secondary-font-style
     font-weight: lighter
     font-size: 20px
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       margin-top: calc(#{$padding} / 2)
       padding-left: $padding
       padding-right: $padding
@@ -34,7 +34,7 @@ $paddingTop: 116px
     width: $full-with-padding
     padding: $padding
 
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       padding-top: calc(#{$padding} / 2)
       flex-direction: column
       width: 100%
@@ -57,7 +57,7 @@ $paddingTop: 116px
       align-items: center
       justify-content: center
 
-      @media(max-width: $breakpoint-mobile)
+      @include mobile
         height: $profileDimensionMobile
         width: $profileDimensionMobile
 
@@ -77,9 +77,9 @@ $paddingTop: 116px
   color: $secondary-color
   border: $secondary-color dashed 1px
 
-  @media(min-width: calc(#{$breakpoint-mobile} + 1px))
+  @include desktop
     height: 100%
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     width: 100%
     aspect-ratio: 1 / 1
 
@@ -102,7 +102,7 @@ $paddingTop: 116px
   flex-direction: column
   justify-content: center
 
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     padding-top: calc(#{$padding} / 2)
     padding-left: $padding
     padding-right: $padding
@@ -110,27 +110,27 @@ $paddingTop: 116px
 
   > :not(:last-child)
     margin-bottom: $padding
-    @media(max-width: $breakpoint-mobile)
+    @include mobile
       margin-bottom: calc(#{$padding} / 2)
 
   .filmmakerDescriptionContainer
     overflow: auto
     > :not(:last-child)
       margin-bottom: $padding
-      @media(max-width: $breakpoint-mobile)
+      @include mobile
         margin-bottom: calc(#{$padding} / 2)
 
     .filmmakerLink
       color: $secondary-selection-color
 
 .profileHeader
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     font-size: 24px
 
 .filmmakerLinksText
   @include secondary-font-style
   font-weight: lighter
-  @media(max-width: $breakpoint-mobile)
+  @include mobile
     font-size: 14px
 
 .carousel
