@@ -11,12 +11,17 @@ $card-width-mobile: calc(100vw - (#{$padding} * 4))
   position: relative
   height: 100%
 
+  @include mobile
+    flex-direction: column-reverse
+
 .cardContainer
   display: flex
   flex: 1 1 auto
   width: 100%
   max-height: 95vh
   @include mobile
+    position: absolute
+    height: 100%
     max-height: 100%
 
 canvas
@@ -37,10 +42,11 @@ canvas
   width: $card-width
   height: calc(#{$card-width} / (16 / 9))
   border: dashed $primary-color 1px
-  z-index: -5
+  z-index: 45
   margin: 0 auto
 
   @include mobile
+    //position: relative
     font-weight: lighter
     left: $padding
     top: 50%
@@ -76,7 +82,6 @@ canvas
       writing-mode: horizontal-tb
       margin-top: 10px
 
-
 .footer
   position: absolute
   left: 0
@@ -86,4 +91,4 @@ canvas
   @include desktop
     bottom: 0
   @include mobile
-    top: calc(70%)
+    position: relative

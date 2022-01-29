@@ -54,7 +54,7 @@ $page-height-mobile: calc(100vh - #{$padding} * 2 - #{$nav-height})
 @mixin desktop
   @media (min-width: calc(#{$breakpoint-mobile-width} + 1px)) and (max-height: calc(#{$breakpoint-mobile-height} + 1px))
     @content
-    
+
 @mixin mobile
   @media screen and (max-width: $breakpoint-mobile-width), screen and (max-height: $breakpoint-mobile-height)
     @content
