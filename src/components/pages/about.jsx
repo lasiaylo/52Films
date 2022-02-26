@@ -2,11 +2,16 @@ import React, {useMemo, useState} from 'react'
 import {isMobile} from "../../services/auth";
 import {MemoizedProfilePicture} from "../about/ProfilePicture"
 import FilmmakerCarousel from "../about/FilmmakerCarousel"
-import {FilmmakerBio} from "../about/FilmmakerBio"
+import {FilmmakerBio, getFilmmakerName} from "../about/FilmmakerBio"
 import "../../styles/about.sass"
 
 const getFilmmakers = (films) => {
-    return Array.from(new Set(films.map(film => film.filmmaker[0])))
+    const map = new Map();
+    films.map(film => map.set(
+        getFilmmakerName(film.filmmaker[0]),
+        film.filmmaker[0],
+    ));
+    return Array.from(map.values())
 }
 
 const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
