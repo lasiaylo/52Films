@@ -93,13 +93,29 @@ canvas
       writing-mode: vertical-lr
       top: 0
       left: 100%
+
 .footer
+  display: flex
+  flex-direction: column-reverse
   position: absolute
   left: 0
+  height: 100%
   width: 70%
   z-index: -2
   padding: $padding
+  max-height: 45%
   @include desktop
     bottom: 0
+    font-size: 96px
   @include mobile
     position: relative
+    padding-bottom: calc(#{$padding} / 2)
+    max-height: 29%
+    overflow: hidden
+    width: 90%
+    font-size: 40px
+
+  .title
+    @include font-style
+    max-height: 65%
+    width: 83%

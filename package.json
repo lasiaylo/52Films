@@ -41,7 +41,8 @@
     "sass": "^1.43.3",
     "slugify": "^1.6.2",
     "three": "^0.135.0",
-    "three-plain-animator": "^1.0.0"
+    "three-plain-animator": "^1.0.0",
+    "use-fit-text": "^2.4.0"
   },
   "devDependencies": {
     "prettier": "^2.5.1",
