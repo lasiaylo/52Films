@@ -1,7 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {motion} from 'framer-motion'
 
-export const getFilmmakerName = (filmmaker) => `${filmmaker.firstName} ${filmmaker.lastName}`
+export const getFilmmakerName = (filmmaker) => {
+    console.log(filmmaker.lastName)
+    if (filmmaker.lastName === null) {
+        return `${filmmaker.firstName}`
+    }
+    return `${filmmaker.firstName} ${filmmaker.lastName}`
+}
 
 const getPronouns = (filmmaker) => `(${filmmaker.pronouns.join('/')})`
 

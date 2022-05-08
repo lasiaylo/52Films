@@ -11,7 +11,11 @@ const getFilmmakers = (films) => {
         getFilmmakerName(film.filmmaker[0]),
         film.filmmaker[0],
     ));
-    return Array.from(map.values())
+
+    Array.from(map.values()).map(
+        a => console.log(getFilmmakerName(a))
+    )
+    return Array.from(map.values()).filter(filmmaker => getFilmmakerName(filmmaker) !== 'ANONYMOUS')
 }
 
 const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
