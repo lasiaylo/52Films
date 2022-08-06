@@ -48,11 +48,13 @@ $paddingTop: 116px
     margin: -10px
     width: calc(100vh - 200px)
     height: calc(100vh - 200px)
+    align-content: center
 
     .filmmakerProfilePictureContainer
       display: flex
-      width: calc(25% - #{$padding} / 2)
-      height: calc(25% - #{$padding} / 2)
+      flex: 0 0 auto
+      width: calc(20% - #{$padding} / 2)
+      height: calc(20% - #{$padding} / 2)
       padding: calc(#{$padding} / 4)
       align-items: center
       justify-content: center
@@ -60,7 +62,6 @@ $paddingTop: 116px
       @include mobile
         height: $profileDimensionMobile
         width: $profileDimensionMobile
-
 
 .filmmakerProfilePicture
   width: 100%
@@ -96,7 +97,7 @@ $paddingTop: 116px
 .profileDescriptionContainer
   display: flex
   flex: 0 1 auto
-  max-width: 600px
+  max-width: 300px
   padding-left: 5%
   padding-right: 10%
   flex-direction: column

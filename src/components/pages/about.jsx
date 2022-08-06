@@ -5,6 +5,8 @@ import FilmmakerCarousel from "../about/FilmmakerCarousel"
 import {FilmmakerBio, getFilmmakerName} from "../about/FilmmakerBio"
 import "../../styles/about.sass"
 
+const filmmakerNumber = 20
+
 const getFilmmakers = (films) => {
     const map = new Map();
     films.map(film => map.set(
@@ -19,7 +21,7 @@ const getFilmmakers = (films) => {
 }
 
 const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
-    const pictures = new Array(16).fill(null)
+    const pictures = new Array(filmmakerNumber).fill(null)
     for (let i = 0; i < pictures.length; i++) {
         const filmmaker = filmmakers[i]
         pictures[i] =
