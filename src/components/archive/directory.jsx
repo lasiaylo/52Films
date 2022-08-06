@@ -2,9 +2,7 @@ import React, {memo, useEffect, useState} from "react"
 import {motion} from "framer-motion"
 import {isMobile} from "../../services/auth";
 import {GatsbyImage} from "gatsby-plugin-image";
-import { getFilmmakerName } from "../about/FilmmakerBio"
-
-const getFilmmaker = ({filmmaker}) => filmmaker[0].firstName + " " + filmmaker[0].lastName
+import { getFilmmakerNames } from "../about/FilmmakerBio"
 
 const getHoveredClassName = (className, isHovered) => isHovered ? className + " hovered" : className
 
@@ -24,7 +22,7 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
         <span className={"listFiller"}>?</span>
     ) : <div className={"listInfo"}>
         <span className={getHoveredClassName("listTitle", shouldHighlight)}>{title.toUpperCase()}</span>
-            <span className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmakerName(film.filmmaker[0]).toLowerCase()}</span>
+        <span className={getHoveredClassName("listFilmmaker", shouldHighlight)}>{getFilmmakerNames(film).toLowerCase()}</span>
     </div>
 
     const delay = index < 10 ? index * 0.125 : 0

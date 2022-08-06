@@ -1,7 +1,4 @@
 class Film {
-    static muxURL = "https://stream.mux.com/"
-    static muxSuffix = ".m3u8"
-
     constructor(film) {
         try {
             ({
