@@ -9,14 +9,14 @@ const filmmakerNumber = 20
 
 const getFilmmakers = (films) => {
     const map = new Map();
-    films.map(film => map.set(
-        getFilmmakerName(film.filmmaker[0]),
-        film.filmmaker[0],
-    ));
 
-    Array.from(map.values()).map(
-        a => console.log(getFilmmakerName(a))
-    )
+    // Need to use a map because sets allow for 'duplicate' objects
+    // TODO: Find a better solution
+    films.map(film => film.filmmaker.map( filmmaker=>
+        map.set(
+        getFilmmakerName(filmmaker),
+        filmmaker,)
+    ));
     return Array.from(map.values()).filter(filmmaker => getFilmmakerName(filmmaker) !== 'ANONYMOUS')
 }
 
