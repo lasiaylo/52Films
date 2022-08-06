@@ -5,7 +5,7 @@ import FilmmakerCarousel from "../about/FilmmakerCarousel"
 import {FilmmakerBio, getFilmmakerName} from "../about/FilmmakerBio"
 import "../../styles/about.sass"
 
-const filmmakerNumber = 20
+export const filmmakerNumber = 20
 
 const getFilmmakers = (films) => {
     const map = new Map();

@@ -4,9 +4,10 @@ import 'pure-react-carousel/dist/react-carousel.es.css'
 import {GatsbyImage} from "gatsby-plugin-image"
 import {FillerProfilePicture} from "./ProfilePicture"
 import {FilmmakerBio} from "./FilmmakerBio";
+import {filmmakerNumber} from "../pages/about";
 
 const getProfilePictures = (filmmakers) => {
-    const pictures = new Array(16).fill(null)
+    const pictures = new Array(filmmakerNumber).fill(null)
     for (let i = 0; i < pictures.length; i++) {
         const filmmaker = filmmakers[i]
         //REFACTOR OUT OF ProfilePicture.jsx
@@ -54,7 +55,7 @@ export default function FilmmakerCarousel({filmmakers, startingSlide}) {
             className={"carousel"}
             naturalSlideHeight={100}
             naturalSlideWidth={125}
-            totalSlides={16}
+            totalSlides={filmmakerNumber}
             currentSlide={startingSlide ?? 0}
         >
             <Slider
