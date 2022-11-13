@@ -8,6 +8,7 @@ module.exports = {
         title: "film52",
     },
     plugins: [
+        "gatsby-plugin-webpack-bundle-analyser-v2",
         "gatsby-plugin-sass",
         "gatsby-plugin-image",
         "gatsby-plugin-graphql-config",

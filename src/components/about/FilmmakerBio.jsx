@@ -9,7 +9,12 @@ export const getFilmmakerName = (filmmaker) => {
 }
 
 export const getFilmmakerNames = (film) => {
-    return film.filmmaker.reduce(((prevValue, currValue) => prevValue + ' / ' + `${currValue.firstName} ${currValue.lastName}`), '');
+    return film.filmmaker.reduce(((prevValue, currValue) => {
+        if (currValue === null) {
+            return prevValue;
+        }
+        return prevValue + ' / ' + `${currValue.firstName} ${currValue.lastName}`;
+    }), '');
 }
 
 const getPronouns = (filmmaker) => `(${filmmaker.pronouns.join('/')})`

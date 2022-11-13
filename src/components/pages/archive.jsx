@@ -27,6 +27,7 @@ export default function Archive(props) {
         ],
         filler: true
     })
+    console.log(props.films);
     films.splice(0, props.films.length, ...props.films)
     const [filmList, ] = useState(
         films.map(
