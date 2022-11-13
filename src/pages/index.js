@@ -75,11 +75,27 @@ function getMenuText(text) {
 }
 
 export default function IndexPage({data}) {
-    const films = useMemo(() => data.allContentfulFilm.edges.map(
-        film => {
-            return new Film(film.node)
-        }
-    ), [data.allContentfulFilm.edges])
+    const films = useMemo(() => {
+        const filmTitles = new Set();
+        const filmDict = {};
+        const undupedFilms = data.allContentfulFilm.edges.map(
+            film => {
+                const f = new Film(film.node)
+                if (filmDict[f.title] === undefined) {
+                    filmDict[f.title] = f;
+                    return f;
+                }
+            }
+        )
+        // Contentful can send stale data w/ duplicate entries.
+        // This shouldn't happen, thus a hacky fix.
+
+        // const filmNames = [...new Set(undupedFilms.map(film => film.title))]
+        console.log(undupedFilms);
+        console.log(filmDict);
+        return undupedFilms;
+    }
+    , [data.allContentfulFilm.edges])
 
     let shouldShowIntro = true
     if (isBrowser()) {
