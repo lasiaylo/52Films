@@ -46,22 +46,34 @@ $paddingTop: 116px
     flex: 0 0 auto
     flex-wrap: wrap
     margin: -10px
-    width: calc(100vh - 200px)
+    width: calc(100vh)
     height: calc(100vh - 200px)
     align-content: center
+    justify-content: center
 
-    .filmmakerProfilePictureContainer
+    .pictureRow
       display: flex
-      width: calc(20% - #{$padding} / 2)
-      height: calc(20% - #{$padding} / 2)
-      padding: calc(#{$padding} / 4)
+      flex: 0 0 auto
+      height: calc(25% - #{$padding} * 2)
+      &:nth-of-type(odd)
+        width: calc(100% - calc(20% - #{$padding} * 2))
+      &:nth-of-type(even)
+       width: calc(100%)
       align-items: center
-      justify-content: center
 
-      @include mobile
-        height: $profileDimensionMobile
-        width: $profileDimensionMobile
-        align-self: start
+      .filmmakerProfilePictureContainer
+        display: flex
+        width: calc(20% - #{$padding} / 2)
+        height: calc(20% - #{$padding} / 2)
+        padding-left: calc(#{$padding} / 4)
+        padding-right: calc(#{$padding} / 4)
+        align-items: center
+        justify-content: center
+
+        @include mobile
+          height: $profileDimensionMobile
+          width: $profileDimensionMobile
+          align-self: start
 
 .filmmakerProfilePicture
   width: 100%
@@ -79,7 +91,7 @@ $paddingTop: 116px
   border: $secondary-color dashed 1px
 
   @include desktop
-    height: 100%
+    //height: 100%
   @include mobile
     width: 100%
     aspect-ratio: 1 / 1

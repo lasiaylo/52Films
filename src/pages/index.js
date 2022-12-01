@@ -91,8 +91,6 @@ export default function IndexPage({data}) {
         // This shouldn't happen, thus a hacky fix.
 
         // const filmNames = [...new Set(undupedFilms.map(film => film.title))]
-        console.log(undupedFilms);
-        console.log(filmDict);
         return undupedFilms;
     }
     , [data.allContentfulFilm.edges])

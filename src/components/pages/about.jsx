@@ -4,8 +4,34 @@ import {MemoizedProfilePicture} from "../about/ProfilePicture"
 import FilmmakerCarousel from "../about/FilmmakerCarousel"
 import {FilmmakerBio, getFilmmakerName} from "../about/FilmmakerBio"
 import "../../styles/about.sass"
+import {graphql, useStaticQuery} from "gatsby"
+import ProfilesContainer from "../about/ProfilesContainer";
 
-export const filmmakerNumber = 20
+export const filmmakerNumber = 22
+
+export const LasiaQuery = graphql`
+    query HeaderQuery{
+        allContentfulPerson(filter: {firstName: {eq: "Lasia"}}) {
+           edges {
+               node{
+                   firstName
+                   lastName
+                   pronouns
+                   bio {
+                       raw
+                   }
+                   links {
+                       displayText
+                       url
+                   }
+                   profilePicture {
+                       gatsbyImageData(width: 300, aspectRatio: 1)
+                   }
+               }
+           } 
+        }
+    }
+`
 
 const getFilmmakers = (films) => {
     const map = new Map();
@@ -36,7 +62,17 @@ const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
 }
 
 export default function About({films}) {
-    const filmmakers = useMemo(()=> getFilmmakers(films), [films])
+    const lasiaQuery = useStaticQuery(LasiaQuery);
+    const filmmakers = useMemo(()=> {
+        const tempFilmmakers = getFilmmakers(films);
+        // Append Lasia to the end. TODO: make less hacky
+        const lasiaProfile = lasiaQuery.allContentfulPerson.edges[0].node;
+        tempFilmmakers.push(lasiaProfile);
+        return tempFilmmakers;
+    }, [films])
+    console.log(filmmakers);
+
+
     const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers[filmmakers.length - 1])
     const setSelectedFilmmakerCallback = (filmmaker) => setSelectedFilmmaker(filmmaker)
     const profilePictures = getProfilePictures(filmmakers, selectedFilmmaker, setSelectedFilmmakerCallback)
@@ -46,9 +82,7 @@ export default function About({films}) {
             <div className={"profilesContainer"}>
                 {
                     !isMobile() &&
-                    <div className={"picturesContainer"}>
-                        {profilePictures}
-                    </div>
+                        <ProfilesContainer profilePictures={profilePictures}/>
                 }
                 {
                     !isMobile() &&
