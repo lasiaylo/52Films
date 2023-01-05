@@ -75,6 +75,7 @@ function getMenuText(text) {
 }
 
 export default function IndexPage({data}) {
+    console.log(data);
     const films = useMemo(() => {
         const filmTitles = new Set();
         const filmDict = {};
