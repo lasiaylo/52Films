@@ -29,75 +29,28 @@ const LazyComponent = ({Component, ...props}) => (
 
 export const query = graphql`
     query($year: Date) {
-        allContentfulFilm(
+        films: allContentfulFilm(
             filter: {createdAt:{gte:$year}},
             sort: { fields: [createdAt],
             order: ASC}
         ) {
             edges {
-                node {
-                    title
-                    description{
-                        description
-                    }
-                    createdAt
-                    videoSrc
-                    filmmaker {
-                        firstName
-                        lastName
-                        pronouns
-                        bio {
-                            raw
-                        }
-                        links {
-                            displayText
-                            url
-                        }
-                        profilePicture {
-                            gatsbyImageData(width: 300, aspectRatio: 1)
-                        }
-                    }
-                    animPreview {
-                        file {
-                            url
-                        }
-                    }
-                    stillPreview {
-                        gatsbyImageData(aspectRatio: 1)
-                    }
-                    credits {
-                        credits
-                    }
-                }
+                ...FilmQuery
             }
-        }
+        },
     }
 `
-
 function getMenuText(text) {
     return isMobile() ? text : `> ${text}`
 }
 
 export default function IndexPage({data}) {
-    const films = useMemo(() => {
-        const filmTitles = new Set();
-        const filmDict = {};
-        const undupedFilms = data.allContentfulFilm.edges.map(
-            film => {
-                const f = new Film(film.node)
-                if (filmDict[f.title] === undefined) {
-                    filmDict[f.title] = f;
-                    return f;
-                }
-            }
-        )
-        // Contentful can send stale data w/ duplicate entries.
-        // This shouldn't happen, thus a hacky fix.
-
-        // const filmNames = [...new Set(undupedFilms.map(film => film.title))]
-        return undupedFilms;
-    }
-    , [data.allContentfulFilm.edges])
+    console.log(data)
+    const films = useMemo(() => data.films.edges.map(
+        film => {
+            return new Film(film.node)
+        }
+    ), [data.films.edges])
 
     let shouldShowIntro = true
     if (isBrowser()) {
@@ -162,7 +115,6 @@ export default function IndexPage({data}) {
 
     // BAD. TODO: Make util to change class names based off of state
     const expanded = showSite ? "expanded" : ""
-
     return (
         <AnimatePresence>
             <title>52 films</title>

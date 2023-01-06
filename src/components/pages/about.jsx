@@ -9,33 +9,34 @@ import ProfilesContainer from "../about/ProfilesContainer";
 
 export const filmmakerNumber = 22
 
-export const LasiaQuery = graphql`
-    query HeaderQuery{
-        allContentfulPerson(filter: {firstName: {eq: "Lasia"}}) {
-           edges {
-               node{
-                   firstName
-                   lastName
-                   pronouns
-                   bio {
-                       raw
-                   }
-                   links {
-                       displayText
-                       url
-                   }
-                   profilePicture {
-                       gatsbyImageData(width: 300, aspectRatio: 1)
-                   }
-               }
-           } 
+export const memberQuery = graphql`
+    query {
+        al: allContentfulPerson(filter: {firstName: {eq: "Allamaprabhu"}}) {
+            edges {
+                node {
+                    ...personQuery
+                }
+            }
+        },
+        robert: allContentfulPerson(filter: {firstName: {eq: "Robert"}}) {
+            edges {
+                node {
+                    ...personQuery
+                }
+            }
+        },
+        lasia: allContentfulPerson(filter: {firstName: {eq: "Lasia"}}) {
+            edges {
+                node {
+                    ...personQuery
+                }
+            }
         }
     }
 `
 
 const getFilmmakers = (films) => {
     const map = new Map();
-
     // Need to use a map because sets allow for 'duplicate' objects
     // TODO: Find a better solution
     films.map(film => film.filmmaker.map( filmmaker=>
@@ -62,16 +63,20 @@ const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
 }
 
 export default function About({films}) {
-    const lasiaQuery = useStaticQuery(LasiaQuery);
+    const data = useStaticQuery(memberQuery);
     const filmmakers = useMemo(()=> {
         const tempFilmmakers = getFilmmakers(films);
-        // Append Lasia to the end. TODO: make less hacky
-        const lasiaProfile = lasiaQuery.allContentfulPerson.edges[0].node;
-        tempFilmmakers.push(lasiaProfile);
-        return tempFilmmakers;
+        const members = [data.al.edges[0].node, data.robert.edges[0].node, data.lasia.edges[0].node];
+        const finalList =  members.concat(tempFilmmakers)
+        const map = new Map();
+        //TODO: Redundant reduping. Consolidate.
+        finalList.map( filmmaker=>
+            map.set(
+                getFilmmakerName(filmmaker),
+                filmmaker,)
+        );
+        return Array.from(map.values());
     }, [films])
-    console.log(filmmakers);
-
 
     const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers[filmmakers.length - 1])
     const setSelectedFilmmakerCallback = (filmmaker) => setSelectedFilmmaker(filmmaker)
