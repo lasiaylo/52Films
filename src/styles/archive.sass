@@ -243,13 +243,14 @@ ul
   @include  secondary-font-style
   padding: 10px
   padding-left: 20px
-  //height: 20px
-  border-top: $primary-color solid
   border-bottom: $primary-color solid
   display: flex
   flex: 0 1 auto
   width: 100%
   flex-direction: row
+  @include desktop
+    border-top: $primary-color solid
+
   .yearButton
     margin-right: 20px
     &.hovered
