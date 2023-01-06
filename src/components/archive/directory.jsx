@@ -57,16 +57,40 @@ function ListElement({film, isSelected, setSelected, setShowFilm}) {
     )
 }
 
+//TODO: Generalize
+function YearButton({year, setYear, currentYear}) {
+    const [isHovered, setHover] = useState(false)
+    const className = 'yearButton';
+    const finalClassName = isHovered || currentYear === year?  className + " hovered" : className
+    return <div
+        className={finalClassName}
+        onClick={() => setYear(year)}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+    >{`/ ${year}`}</div>
+}
+
+function YearSelect({currentYear, setYear}) {
+    return <div className={"yearSelect"}>
+        <YearButton year={2023} setYear={setYear} currentYear={currentYear}/>
+        <YearButton year={2022} setYear={setYear} currentYear={currentYear}/>
+    </div>
+
+}
+
 const MemoizedListElement = memo(ListElement,
-    (prevProps, nextProps) => prevProps.isSelected === nextProps.isSelected
+    (prevProps, nextProps) => prevProps.isSelected === nextProps.isSelected && prevProps.film === nextProps.film,
+
 )
 
-export default function Directory({films, selectedIndex, setSelected, setShowFilm}) {
+
+
+export default function Directory({films, selectedIndex, setSelected, setShowFilm, year, setYear}) {
     return (
         <div className={"directoryContainer"}>
             <motion.div className={"directory"}>
                 {!isMobile() && <div className={"filler"}/>}
-                {!isMobile() && <span className={"filter"}/>}
+                <YearSelect currentYear={year} setYear={setYear}/>
                 <ul className={"list"}>
                     {films.map((film, i) =>
                         <MemoizedListElement

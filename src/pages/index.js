@@ -45,7 +45,6 @@ function getMenuText(text) {
 }
 
 export default function IndexPage({data}) {
-    console.log(data)
     const films = useMemo(() => data.films.edges.map(
         film => {
             return new Film(film.node)
