@@ -28,8 +28,12 @@ const LazyComponent = ({Component, ...props}) => (
 )
 
 export const query = graphql`
-    query PageQuery{
-        allContentfulFilm(sort: { fields: [createdAt], order: ASC}) {
+    query($year: Date) {
+        allContentfulFilm(
+            filter: {createdAt:{gte:$year}},
+            sort: { fields: [createdAt],
+            order: ASC}
+        ) {
             edges {
                 node {
                     title
@@ -75,7 +79,6 @@ function getMenuText(text) {
 }
 
 export default function IndexPage({data}) {
-    console.log(data);
     const films = useMemo(() => {
         const filmTitles = new Set();
         const filmDict = {};
@@ -98,8 +101,6 @@ export default function IndexPage({data}) {
 
     let shouldShowIntro = true
     if (isBrowser()) {
-
-
         shouldShowIntro = window.location.pathname.length < 2
     }
 

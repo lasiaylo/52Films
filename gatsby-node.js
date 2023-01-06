@@ -1,7 +1,15 @@
+function getDate() {
+    const year = new Date().getFullYear();
+    return `${2022}-01-01`
+}
+
 exports.onCreatePage = ({ page, actions }) => {
     const { createPage } = actions;
     if (page.path === `/`) {
         page.matchPath = `/*`;
-        createPage(page);
+        createPage({
+            ...page,
+            context: {year: getDate()}
+        });
     }
 };
