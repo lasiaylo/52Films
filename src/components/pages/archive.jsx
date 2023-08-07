@@ -125,7 +125,6 @@ export default function Archive(props) {
     //     [films.length]
     // )
 
-    console.log("CURRENT YEAR", year)
     return (
         <div className={"archive"}>
             <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm} year={year} setYear={setYear}/>
