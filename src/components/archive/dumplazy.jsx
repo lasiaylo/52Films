@@ -12,7 +12,7 @@ const DumpLazy = (props) => {
   return (
     <>
       { !isMounted ? null : (
-        <Suspense>
+        <Suspense fallback={null}>
           <Dump {...props}/>
         </Suspense>
       )}
