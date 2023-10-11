@@ -3,6 +3,7 @@ import {graphql} from "gatsby"
 export const filmQuery = graphql`
     fragment FilmQuery on ContentfulFilmEdge {
         node {
+            id
             title
             description{
                 description

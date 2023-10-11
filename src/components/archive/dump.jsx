@@ -1,7 +1,7 @@
-import Tile, {MemoizedTile} from "./tile";
-import {Canvas, extend, useFrame, useThree} from "@react-three/fiber";
-import React, {memo, useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
-import {Vector2} from "three"
+import Tile from "./tile";
+import {Canvas, extend, useFrame, useThree, useLoader} from "@react-three/fiber";
+import React, {Suspense, useCallback, useContext, useEffect, useMemo, useRef, useState} from "react"
+import {TextureLoader, Vector2} from "three"
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer"
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass"
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass"
@@ -70,20 +70,40 @@ function closestFilter(intersections) {
     }
 }
 
+function getSources(gatsbyImage) {
+    if (gatsbyImage == null) {
+        return Array(3).fill("fallback.jpg");
+    }
+    let [smallSrc, midSrc, largeSrc] = gatsbyImage.images.sources[0].srcSet.split(',')
+    return [
+        smallSrc.split(" ")[0],
+        midSrc.split(" ")[0],
+        largeSrc.split(" ")[0],
+    ]
+}
+
 export default function Dump(props) {
     const {films, selectedIndex, setSelected, setShowFilm} = props
     const filmIsSelected = selectedIndex !== -1
     const filmCount = useMemo(() => films.filter((film => !film.filler)).length, [])
+    const sources = films.map((film) => {
+        const [, , largeSrc] = getSources(film.stillPreview)
+        return largeSrc
+    })
+    const textures = useLoader(TextureLoader, sources)
+    console.log(textures)
     const tiles = films.map((film, i) => {
+        
         if (!film.filler) {
             return <Tile
-                key={`tile${i}`}
+                key={film.id}
                 film={film}
                 delay={i * 18}
                 finalDelay={(filmCount + 1) * 18}
                 isSelected={selectedIndex === i}
                 setSelected={setSelected}
                 setShowFilm={setShowFilm}
+                texture={textures[i]}
             />
         }
     })

@@ -94,7 +94,7 @@ export default function Directory({films, selectedIndex, setSelected, setShowFil
                 <ul className={"list"}>
                     {films.map((film, i) =>
                         <MemoizedListElement
-                            key={`film${i}`}
+                            key={film.id}
                             film={film}
                             isSelected={selectedIndex === i}
                             setSelected={setSelected}

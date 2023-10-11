@@ -7,6 +7,7 @@ class Film {
                 videoSrc: this.videoSrc,
             } = film)
             // Replace hyphen with non-breaking hyphen
+            this.id = film.id
             this.title = film.title.replace('-', '‑')
             this.logline = film.description.description.replace('-', '‑')
             this.animPreview = film.animPreview.file.url

@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react'
+import React, {Suspense, useCallback, useEffect, useMemo, useState} from 'react'
+import DumpLazy from "../archive/dumplazy"
 import Dump from "../archive/dump"
 import Directory from "../archive/directory"
 import "../../styles/archive.sass"
@@ -128,8 +129,8 @@ export default function Archive(props) {
     return (
         <div className={"archive"}>
             <Directory films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm} year={year} setYear={setYear}/>
-            {!isMobile() && <Dump films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>}
-            {!isMobile() && selectedIndex !== -1  &&  <Credits film={filmList[selectedIndex]} setSelected={setSelected}/>}
+                {!isMobile() && <DumpLazy films={filmList} selectedIndex={selectedIndex} setSelected={setSelected} setShowFilm={setShowFilm}/>}
+                {!isMobile() && selectedIndex !== -1  &&  <Credits film={filmList[selectedIndex]} setSelected={setSelected}/>}
         </div>
     )
 }

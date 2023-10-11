@@ -12,13 +12,13 @@ import {useSpring, animated} from "@react-spring/three";
 const TileSize = 1.5
 const fallbackImage = "fallback.jpg"
 
-export default function Tile({film, setSelected, isSelected, isOnSelection, setShowFilm, delay, finalDelay}) {
+export default function Tile({film, setSelected, isSelected, isOnSelection, setShowFilm, delay, finalDelay, texture}) {
     const {stillPreview} = film
     const {size, viewport} = useThree()
     const aspect = size.width / viewport.width
     
-    const [, , largeSrc] = getSources(stillPreview)
-    const texture = useLoader(TextureLoader, largeSrc)
+    // const [, , largeSrc] = getSources(stillPreview)
+    // const texture = useLoader(TextureLoader, largeSrc)
 
     const posX = RandomInNegativeRange(getBounds(viewport.width))
     const posY = RandomInNegativeRange(getBounds(viewport.height))
