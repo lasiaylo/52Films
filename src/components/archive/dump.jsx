@@ -91,7 +91,6 @@ export default function Dump(props) {
         return largeSrc
     })
     const textures = useLoader(TextureLoader, sources)
-    console.log(textures)
     const tiles = films.map((film, i) => {
         
         if (!film.filler) {

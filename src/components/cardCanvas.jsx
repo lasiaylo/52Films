@@ -17,8 +17,6 @@ function Card({film, setShowFilm}) {
     if (cardWidth >= 10.4) {
         cardWidth = 10.4
         cardX = 1
-        console.log("adlkajdlaskds")
-
     }
     const cardHeight = cardWidth / (16 / 9)
     const [spring, setSpring] = useSpring(() => ({
