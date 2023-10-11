@@ -72,7 +72,7 @@ function closestFilter(intersections) {
 
 function getSources(gatsbyImage) {
     if (gatsbyImage == null) {
-        return Array(3).fill("fallback.jpg");
+        return Array(3).fill("../../fallback.jpg");
     }
     let [smallSrc, midSrc, largeSrc] = gatsbyImage.images.sources[0].srcSet.split(',')
     return [
@@ -92,7 +92,6 @@ export default function Dump(props) {
     })
     const textures = useLoader(TextureLoader, sources)
     const tiles = films.map((film, i) => {
-        
         if (!film.filler) {
             return <Tile
                 key={film.id}

@@ -1,13 +1,10 @@
-import React, {Suspense, useCallback, useEffect, useMemo, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import DumpLazy from "../archive/dumplazy"
-import Dump from "../archive/dump"
 import Directory from "../archive/directory"
 import "../../styles/archive.sass"
-import {navigate} from '@reach/router'
 import Credits from "../archive/credits";
 import {isMobile} from "../../services/auth";
 import {graphql, useStaticQuery} from "gatsby";
-import {memberQuery} from "./about";
 import Film from "../data/Film";
 
 export const lastyearQuery = graphql`
@@ -111,20 +108,6 @@ export default function Archive(props) {
             // navigate(`/archive`)
         }
     }, [])
-
-    // TODO: Scroll to URL
-    // useEffect(() => {
-    //         const hash = window.location.hash
-    //         if (hash) {
-    //             const index = parseInt(hash.split("#")[1])
-    //             if (index && index < films.length) {
-    //                 setSelectedIndex(index - 1)
-    //                 scrollTo(index - 1)
-    //             }
-    //         }
-    //     },
-    //     [films.length]
-    // )
 
     return (
         <div className={"archive"}>
