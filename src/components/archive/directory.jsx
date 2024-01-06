@@ -72,6 +72,7 @@ function YearButton({year, setYear, currentYear}) {
 
 function YearSelect({currentYear, setYear}) {
     return <div className={"yearSelect"}>
+        <YearButton year={2024} setYear={setYear} currentYear={currentYear}/>
         <YearButton year={2023} setYear={setYear} currentYear={currentYear}/>
         <YearButton year={2022} setYear={setYear} currentYear={currentYear}/>
     </div>

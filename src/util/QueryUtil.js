@@ -9,6 +9,7 @@ export const filmQuery = graphql`
                 description
             }
             createdAt
+            publishDate
             videoSrc
             filmmaker {
                 ...personQuery

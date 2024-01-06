@@ -10,7 +10,7 @@ import Film from "../data/Film";
 export const lastyearQuery = graphql`
     query {
         films: allContentfulFilm(
-            filter: {createdAt:{lt: "2023-01-01"}},
+            filter: {createdAt:{lt: "2024-01-01"}},
             sort: { fields: [createdAt],
                 order: ASC}
         ) {
@@ -56,26 +56,38 @@ export function getListWithFiller(filmsToAdd) {
 
 export default function Archive(props) {
     const data = useStaticQuery(lastyearQuery, props);
-    const lastyearFilms = useMemo(() => getListWithFiller(data.films.edges.map(
-        film => {
-            return new Film(film.node)
-        }
-    )), [data.films.edges]);
-    const thisYearFilms = useMemo(() => getListWithFiller(props.films), [props.films]);
+    const filmMap = useMemo(() => {
+        const map = new Map();
 
+        data.films.edges.forEach(
+            film => {
+                const year = (new Date(film.node.publishDate ?? film.node.createdAt)).getFullYear();
+                if (!map.has(year)) {
+                    map.set(year, [])
+                }
+                map.get(year).push(new Film(film.node))
+            }
+        );
+        map.set(2024, props.films);
 
-    const [year, setYear] = useState(2023)
+        Array.from(map.keys()).forEach(key => {
+            map.set(key, getListWithFiller(map.get(key)))
+        })
+        return map
+    }, [data.films.edges])
+    
+
+    const [year, setYear] = useState(2024)
     const {setShowFilm} = props
 
     // TODO: Hacky solution. Fix
     // let filmsToAdd = year === 2022 ? lastyearFilms : props.films;
     // const films = filmsToAdd;
-    const [filmList, setFilmListImpl] = useState(thisYearFilms)
+    const [filmList, setFilmListImpl] = useState(filmMap.get(2024));
     const [selectedIndex, setSelectedIndex] = useState(-1)
 
     useEffect(() => {
-        let filmsToAdd = year === 2022 ? lastyearFilms : thisYearFilms;
-        setFilm(filmsToAdd)
+        setFilm(filmMap.get(year))
     }, [year])
 
     const setFilm = useCallback(films => {

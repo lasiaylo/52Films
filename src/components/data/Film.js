@@ -3,6 +3,7 @@ class Film {
         try {
             ({
                 createdAt: this.createdAt,
+                publishDate: this.publishDate,
                 filmmaker: this.filmmaker,
                 videoSrc: this.videoSrc,
             } = film)
