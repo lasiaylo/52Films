@@ -81,6 +81,7 @@ export default function About({films}) {
     const [selectedFilmmaker, setSelectedFilmmaker] = useState(filmmakers[filmmakers.length - 1])
     const setSelectedFilmmakerCallback = (filmmaker) => setSelectedFilmmaker(filmmaker)
     const profilePictures = getProfilePictures(filmmakers, selectedFilmmaker, setSelectedFilmmakerCallback)
+    console.log(profilePictures)
     return (
         <div className={"aboutContainer"}>
             <div className={"aboutDescription"}>We are making 52 movies in one year.</div>

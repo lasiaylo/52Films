@@ -1,7 +1,7 @@
 import React, {memo, useMemo, useState} from "react";
 import {GatsbyImage} from "gatsby-plugin-image";
 
-export const FillerProfilePicture = () => <div className={"filmmakerFillerProfilePicture"}><span>?</span></div>
+export const FillerProfilePicture = () => <div className={"filmmakerFillerProfilePicture"}>?</div>
 const ProfilePicture = ({filmmaker, isSelected, setFilmmaker}) => {
     const [hover, setHover] = useState(false)
     const className = "actualFilmmakerProfilerPictureContainer"
