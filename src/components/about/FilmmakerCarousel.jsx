@@ -4,10 +4,9 @@ import 'pure-react-carousel/dist/react-carousel.es.css'
 import {GatsbyImage} from "gatsby-plugin-image"
 import {FillerProfilePicture} from "./ProfilePicture"
 import {FilmmakerBio} from "./FilmmakerBio";
-import {filmmakerNumber} from "../pages/about";
 
 const getProfilePictures = (filmmakers) => {
-    const pictures = new Array(filmmakerNumber).fill(null)
+    const pictures = new Array(filmmakers.length).fill(null)
     for (let i = 0; i < pictures.length; i++) {
         const filmmaker = filmmakers[i]
         //REFACTOR OUT OF ProfilePicture.jsx
@@ -49,13 +48,16 @@ const FilmmakerBioContainer = ({filmmakers}) => {
 
 
 export default function FilmmakerCarousel({filmmakers, startingSlide}) {
+    console.log(startingSlide, filmmakers[startingSlide])
+    console.log(filmmakers.length)
     const pictures = useMemo(() => getProfilePictures(filmmakers), filmmakers)
+    console.log(pictures.length)
     return (
         <CarouselProvider
             className={"carousel"}
             naturalSlideHeight={100}
             naturalSlideWidth={125}
-            totalSlides={filmmakerNumber}
+            totalSlides={filmmakers.length}
             currentSlide={startingSlide ?? 0}
         >
             <Slider
