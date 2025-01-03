@@ -1,3 +1,3 @@
 // <my project>/graphql.config.js
 
-module.exports = require("./.cache/graphql.config.json")
+module.exports = require("./.cache/graphql.config.json");

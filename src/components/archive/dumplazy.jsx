@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from "react";
 
-const Dump = lazy(() => import('./dump'));
+const Dump = lazy(() => import("./dump"));
 
 const DumpLazy = (props) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -11,9 +11,9 @@ const DumpLazy = (props) => {
 
   return (
     <>
-      { !isMounted ? null : (
+      {!isMounted ? null : (
         <Suspense fallback={null}>
-          <Dump {...props}/>
+          <Dump {...props} />
         </Suspense>
       )}
     </>
