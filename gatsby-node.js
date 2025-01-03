@@ -1,6 +1,5 @@
 function getDate() {
-  const year = new Date().getFullYear();
-  return `${year}-01-01`;
+    return `2025-01-01`
 }
 
 exports.onCreatePage = ({ page, actions }) => {

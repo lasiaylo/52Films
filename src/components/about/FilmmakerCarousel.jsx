@@ -58,10 +58,7 @@ const FilmmakerBioContainer = ({ filmmakers }) => {
 };
 
 export default function FilmmakerCarousel({ filmmakers, startingSlide }) {
-  console.log(startingSlide, filmmakers[startingSlide]);
-  console.log(filmmakers.length);
   const pictures = useMemo(() => getProfilePictures(filmmakers), filmmakers);
-  console.log(pictures.length);
   return (
     <CarouselProvider
       className={"carousel"}

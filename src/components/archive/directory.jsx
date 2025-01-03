@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { isMobile } from "../../services/auth";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { getFilmmakerNames } from "../about/FilmmakerBio";
+import {YEAR} from "../pages/intro";
 
 const getHoveredClassName = (className, isHovered) =>
   isHovered ? className + " hovered" : className;
@@ -101,13 +102,13 @@ function YearButton({ year, setYear, currentYear }) {
 }
 
 function YearSelect({ currentYear, setYear }) {
-  return (
-    <div className={"yearSelect"}>
-      <YearButton year={2024} setYear={setYear} currentYear={currentYear} />
-      <YearButton year={2023} setYear={setYear} currentYear={currentYear} />
-      <YearButton year={2022} setYear={setYear} currentYear={currentYear} />
+    const years = YEAR - 2022
+    return <div className={"yearSelect"}>
+        {Array(years + 1).fill(0).map((_, i, arr) =>
+            <YearButton key={i} year={2022 + (arr.length - i)} setYear={setYear} currentYear={currentYear}/>
+        )}
     </div>
-  );
+
 }
 
 const MemoizedListElement = memo(

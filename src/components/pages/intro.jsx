@@ -1,7 +1,8 @@
-import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import Typist from "react-typist";
-import { isMobile } from "../../services/auth";
+import React from "react"
+import {AnimatePresence, motion} from "framer-motion"
+import Typist from 'react-typist'
+
+export const YEAR = 2025;
 
 export default function Intro({
   children,

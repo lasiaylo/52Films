@@ -6,11 +6,12 @@ import Credits from "../archive/credits";
 import { isMobile } from "../../services/auth";
 import { graphql, useStaticQuery } from "gatsby";
 import Film from "../data/Film";
+import {YEAR} from "./intro";
 
 export const lastyearQuery = graphql`
   query {
     films: allContentfulFilm(
-      filter: { createdAt: { lt: "2024-01-01" } }
+      filter: { createdAt: { lt: "2025-01-01" } }
       sort: { fields: [createdAt], order: ASC }
     ) {
       edges {
@@ -65,7 +66,7 @@ export default function Archive(props) {
       }
       map.get(year).push(new Film(film.node));
     });
-    map.set(2024, props.films);
+    map.set(YEAR, props.films);
 
     Array.from(map.keys()).forEach((key) => {
       map.set(key, getListWithFiller(map.get(key)));
@@ -73,13 +74,13 @@ export default function Archive(props) {
     return map;
   }, [data.films.edges]);
 
-  const [year, setYear] = useState(2024);
+  const [year, setYear] = useState(YEAR);
   const { setShowFilm } = props;
 
   // TODO: Hacky solution. Fix
   // let filmsToAdd = year === 2022 ? lastyearFilms : props.films;
   // const films = filmsToAdd;
-  const [filmList, setFilmListImpl] = useState(filmMap.get(2024));
+  const [filmList, setFilmListImpl] = useState(filmMap.get(YEAR));
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   useEffect(() => {
