@@ -105,7 +105,7 @@ function YearSelect({ currentYear, setYear }) {
     const years = YEAR - 2022
     return <div className={"yearSelect"}>
         {Array(years + 1).fill(0).map((_, i, arr) =>
-            <YearButton key={i} year={2022 + (arr.length - i)} setYear={setYear} currentYear={currentYear}/>
+            <YearButton key={i} year={2022 + (arr.length - 1 - i)} setYear={setYear} currentYear={currentYear}/>
         )}
     </div>
 

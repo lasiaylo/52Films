@@ -33,36 +33,6 @@ export const memberQuery = graphql`
   }
 `;
 
-const getFilmmakers = (films) => {
-  const map = new Map();
-  // Need to use a map because sets allow for 'duplicate' objects
-  // TODO: Find a better solution
-  films.map((film) =>
-    film.filmmaker.map((filmmaker) =>
-      map.set(getFilmmakerName(filmmaker), filmmaker)
-    )
-  );
-  return Array.from(map.values()).filter(
-    (filmmaker) => getFilmmakerName(filmmaker) !== "ANONYMOUS"
-  );
-};
-
-const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
-  const pictures = new Array(filmmakers.length).fill(null);
-  for (let i = 0; i < pictures.length; i++) {
-    const filmmaker = filmmakers[i];
-    pictures[i] = (
-      <MemoizedProfilePicture
-        key={i}
-        filmmaker={filmmaker}
-        isSelected={selectedFilmmaker === filmmaker}
-        setFilmmaker={setFilmmaker}
-      />
-    );
-  }
-  return pictures;
-};
-
 export default function About({ films }) {
   const data = useStaticQuery(memberQuery);
   const filmmakers = useMemo(() => {
@@ -116,3 +86,34 @@ export default function About({ films }) {
     </div>
   );
 }
+
+const getFilmmakers = (films) => {
+  const map = new Map();
+  // Need to use a map because sets allow for 'duplicate' objects
+  // TODO: Find a better solution
+  films.map((film) =>
+      film.filmmaker.map((filmmaker) =>
+          map.set(getFilmmakerName(filmmaker), filmmaker)
+      )
+  );
+  return Array.from(map.values()).filter(
+      (filmmaker) => getFilmmakerName(filmmaker) !== "ANONYMOUS"
+  );
+};
+
+const FILLER_NUM = 16;
+const getProfilePictures = (filmmakers, selectedFilmmaker, setFilmmaker) => {
+  const pictures = new Array(Math.max(filmmakers.length, FILLER_NUM)).fill(null);
+  for (let i = 0; i < pictures.length; i++) {
+    const filmmaker = filmmakers[i];
+    pictures[i] = (
+        <MemoizedProfilePicture
+            key={i}
+            filmmaker={filmmaker}
+            isSelected={selectedFilmmaker === filmmaker}
+            setFilmmaker={setFilmmaker}
+        />
+    );
+  }
+  return pictures;
+};
