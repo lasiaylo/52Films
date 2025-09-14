@@ -1,6 +1,6 @@
 import { useThree } from "@react-three/fiber";
 import { animated, useSpring } from "@react-spring/three";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 export default function Blur({ isSelected, setSelected }) {
   const { viewport } = useThree();

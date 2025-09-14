@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Vimeo from "@vimeo/player";
-import { motion } from "framer-motion";
 
 const VideoPlayer = ({ src }) => {
   const ref = useRef();
@@ -14,6 +13,17 @@ const VideoPlayer = ({ src }) => {
   }, []);
 
   return <div className={"player"} ref={ref} />;
+};
+
+const YoutubePlayer = ({ src }) => {
+  let path = (new URL(src)).pathname;
+  return <div className={"player"}>
+    <iframe
+      src={`https://www.youtube.com/embed/${path}`}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+      />
+  </div>
 };
 
 export default function PlayerOverlay({ src, setShowFilm }) {
@@ -31,7 +41,7 @@ export default function PlayerOverlay({ src, setShowFilm }) {
   const className = showCloseButton
     ? "closeButtonContainer"
     : "closeButtonContainer hidden";
-
+  let domain = new URL(src);
   return (
     <div
       className={"playerOverlay"}
@@ -48,7 +58,11 @@ export default function PlayerOverlay({ src, setShowFilm }) {
           <line className={"line"} x1={"35"} y1={"1"} x2={"1"} y2={"35"} />
         </svg>
       </div>
-      <VideoPlayer src={src} />
+      { 
+        domain.hostname === "vimeo.com" 
+          ? <VideoPlayer src={src} /> 
+          : <YoutubePlayer src={src}/>
+      }
     </div>
   );
 }
