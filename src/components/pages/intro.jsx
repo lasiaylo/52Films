@@ -2,7 +2,7 @@ import React from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Typist from 'react-typist'
 
-export const YEAR = 2025;
+export const YEAR = 2026;
 
 export default function Intro({
   children,
