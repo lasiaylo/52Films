@@ -11,7 +11,7 @@ import {YEAR} from "./intro";
 export const lastyearQuery = graphql`
   query {
     films: allContentfulFilm(
-      filter: { createdAt: { lt: "2025-01-01" } }
+      filter: { createdAt: { lt: "2026-01-01" } }
       sort: { fields: [createdAt], order: ASC }
     ) {
       edges {
@@ -77,9 +77,6 @@ export default function Archive(props) {
   const [year, setYear] = useState(YEAR);
   const { setShowFilm } = props;
 
-  // TODO: Hacky solution. Fix
-  // let filmsToAdd = year === 2022 ? lastyearFilms : props.films;
-  // const films = filmsToAdd;
   const [filmList, setFilmListImpl] = useState(filmMap.get(YEAR));
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
