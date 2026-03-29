@@ -16,10 +16,10 @@ const VideoPlayer = ({ src }) => {
 };
 
 const YoutubePlayer = ({ src }) => {
-  let path = (new URL(src)).pathname;
+  let param = (new URL(src)).searchParams.get("v");
   return <div className={"player"}>
     <iframe
-      src={`https://www.youtube.com/embed/${path}`}
+      src={`https://www.youtube.com/embed/${param}`}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       />
