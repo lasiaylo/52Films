@@ -16,7 +16,10 @@ const VideoPlayer = ({ src }) => {
 };
 
 const YoutubePlayer = ({ src }) => {
-  let param = (new URL(src)).searchParams.get("v");
+  const url = new URL(src);
+  // Link can be youtube.com or share link youtu.be
+  let param = url.hostname === "youtube.com" ?
+      url.searchParams.get("v") : url.pathname.slice(1);
   return <div className={"player"}>
     <iframe
       src={`https://www.youtube.com/embed/${param}`}
